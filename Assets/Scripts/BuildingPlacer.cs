@@ -57,7 +57,7 @@ public class BuildingPlacer : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.X))
         {
             selectedBuilding = null;
-            UpdateGhostObject();
+            Destroy(ghostBuilding);
 
         }
 
@@ -67,13 +67,28 @@ public class BuildingPlacer : MonoBehaviour
             {
                 PlaceBuilding(selectedBuilding);
             }
+            else
+            {
+                GameObject buildingOBJ = buildingGrid.GetObjectAtPosition(mouseGridPosition);
+                if (buildingOBJ != null)
+                {
+                    Building building = buildingOBJ.GetComponent<Building>();
+                    if (building != null)
+                    {
+                        building.Remove();
+                    }
+                    else
+                    {
+                        Debug.Log("No building script found");
+                    }
+                }
+            }
         }
 
         if (Input.GetMouseButtonDown(1))
         {
             Vector2Int currentChunkPosition = buildingGrid.WorldToChunkPosition(mouseGridPosition);
             currentChunk = buildingGrid.GetChunk(currentChunkPosition);
-            Debug.Log(currentChunk);
         }
 
         

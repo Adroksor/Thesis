@@ -7,24 +7,24 @@ public class BuildingGrid : MonoBehaviour
     public Tilemap groundTilemap; // Reference to the ground Tilemap
     public int chunkSize = 16; // Size of each chunk (e.g., 16x16 tiles)
 
-    private Dictionary<Vector2Int, Chunk> chunks; // Dictionary to store all chunks
+    public WorldGenerator worldGenerator;
     
 
     void Start()
     {
-        // Initialize the dictionary
-        chunks = new Dictionary<Vector2Int, Chunk>();
+        
     }
 
     // Get the chunk at a specific position
     public Chunk GetChunk(Vector2Int chunkPosition)
     {
-        if (!chunks.ContainsKey(chunkPosition))
+        if (!worldGenerator.chunks.ContainsKey(chunkPosition))
         {
             // Create a new chunk if it doesn't exist
-            chunks[chunkPosition] = new Chunk(chunkPosition, chunkSize);
+            worldGenerator.chunks[chunkPosition] = new Chunk(chunkPosition, chunkSize);
         }
-        return chunks[chunkPosition];
+
+        return worldGenerator.chunks[chunkPosition];
     }
 
     // Convert world position to chunk position
@@ -84,7 +84,7 @@ public class BuildingGrid : MonoBehaviour
         Chunk chunk = GetChunk(chunkPosition);
 
 
-        return chunk.occupiedTiles.Contains(worldPosition);
+        return chunk.occupiedTiles.ContainsKey(worldPosition);
     }
 
     // Check if an area is available for building
@@ -104,21 +104,17 @@ public class BuildingGrid : MonoBehaviour
     }
 
     // Occupy an area in the grid
-    public void OccupyArea(Vector2Int worldPosition, Vector2Int size)
+    public void OccupyArea(Vector2Int worldPosition, Building buildingOBJ)
     {
-        for (int x = worldPosition.x; x < worldPosition.x + size.x; x++)
+        for (int x = worldPosition.x; x < worldPosition.x + buildingOBJ.size.x; x++)
         {
-            for (int y = worldPosition.y; y < worldPosition.y + size.y; y++)
+            for (int y = worldPosition.y; y < worldPosition.y + buildingOBJ.size.y; y++)
             {
                 Vector2Int chunkPosition = WorldToChunkPosition(new Vector2Int(x, y));
                 Chunk chunk = GetChunk(chunkPosition);
 
 
-                chunk.occupiedTiles.Add(new Vector2Int(x, y)); // Mark tile as occupied
-                foreach (Vector2 position in chunk.occupiedTiles)
-                {
-                    Debug.Log($"position: {position}");
-                }
+                chunk.occupiedTiles.Add(new Vector2Int(x, y), buildingOBJ.gameObject); // Mark tile as occupied
             }
         }
     }
@@ -132,13 +128,8 @@ public class BuildingGrid : MonoBehaviour
             {
                 Vector2Int chunkPosition = WorldToChunkPosition(new Vector2Int(x, y));
                 Chunk chunk = GetChunk(chunkPosition);
-
-                Vector2Int localPosition = new Vector2Int(
-                    x - chunkPosition.x * chunkSize,
-                    y - chunkPosition.y * chunkSize
-                );
-
-                chunk.occupiedTiles.Remove(localPosition); // Free the tile
+                
+                chunk.occupiedTiles.Remove(new Vector2Int(x, y)); // Free the tile
             }
         }
     }
@@ -149,6 +140,20 @@ public class BuildingGrid : MonoBehaviour
         if (groundTilemap != null)
         {
             return groundTilemap.GetTile(new Vector3Int(worldPosition.x, worldPosition.y, 0));
+        }
+        return null;
+    }
+
+    public GameObject GetObjectAtPosition(Vector2Int worldPosition)
+    {
+        Vector2Int chunkPosition = WorldToChunkPosition(worldPosition);
+        Chunk chunk = GetChunk(chunkPosition);
+        foreach (var position in chunk.occupiedTiles)
+        {
+            if (position.Key == worldPosition)
+            {
+                return chunk.occupiedTiles[worldPosition];
+            }
         }
         return null;
     }

@@ -26,7 +26,7 @@ public class Building : MonoBehaviour
     public void Place(Vector2Int position)
     {
         gridPosition = position;
-        buildingGrid.OccupyArea(position, size);
+        buildingGrid.OccupyArea(position, this);
         transform.position = new Vector3(position.x, position.y, 0);
         Debug.Log("Building placed successfully!");
     }

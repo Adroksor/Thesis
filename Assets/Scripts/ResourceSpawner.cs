@@ -20,7 +20,7 @@ public class ResourceSpawner : MonoBehaviour
             if (resourcePrefab != null)
             {
                 // Spawn the resource at the specified position
-                GameObject resource =  Instantiate(resourcePrefab, new Vector3(position.x, position.y, 0), Quaternion.identity);
+                GameObject resource = Instantiate(resourcePrefab, new Vector3(position.x, position.y, 0), Quaternion.identity);
                 return resource;
             }
         }

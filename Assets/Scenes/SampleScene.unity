@@ -225,7 +225,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 20
+  orthographic size: 10
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -702,7 +702,6 @@ MonoBehaviour:
   ghostBuilding: {fileID: 0}
   currentChunk:
     position: {x: 0, y: 0}
-    occupiedTiles: []
     isLoaded: 0
     chunkOBJ: {fileID: 0}
   mouseGridPosition: {x: 0, y: 0}
@@ -737,6 +736,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   groundTilemap: {fileID: 760717630}
   chunkSize: 16
+  worldGenerator: {fileID: 1979668318}
 --- !u!4 &1582148453
 Transform:
   m_ObjectHideFlags: 0
@@ -783,7 +783,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   chunkSize: 16
-  renderDistance: 3
+  renderDistance: 2
   tilemap: {fileID: 760717630}
   waterTile: {fileID: 11400000, guid: 7ff3938c989083d40b4c4c24b9f4d96b, type: 2}
   altitudeScale: 10
@@ -797,6 +797,7 @@ MonoBehaviour:
   persistence: 0.5
   lacunarity: 2
   noiseOffset: {x: 0, y: 0}
+  playerChunkPosition: {x: 0, y: 0}
 --- !u!4 &1979668319
 Transform:
   m_ObjectHideFlags: 0

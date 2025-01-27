@@ -20,7 +20,8 @@ public class WorldGenerator : MonoBehaviour
     public float lacunarity = 2f; // Frequency multiplier for each octave
     public Vector2 noiseOffset; // Random offset for the noise
 
-    private Dictionary<Vector2Int, Chunk> chunks = new Dictionary<Vector2Int, Chunk>(); // Dictionary to store all chunks
+    public Dictionary<Vector2Int, Chunk> chunks = new Dictionary<Vector2Int, Chunk>(); // Dictionary to store all chunks
+    [SerializeField]
     private Vector2Int playerChunkPosition; // Current chunk position of the player
 
     private Transform player; // Reference to the player's transform
@@ -30,7 +31,7 @@ public class WorldGenerator : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player").transform; // Find the player object
 
         // Generate a random offset for the noise
-        noiseOffset = new Vector2(Random.Range(100f, 1000f), Random.Range(100f, 1000f));
+        noiseOffset = new Vector2(Random.Range(10000f, 100000f), Random.Range(10000f, 100000f));
 
         UpdateChunks();
     }
@@ -43,6 +44,11 @@ public class WorldGenerator : MonoBehaviour
         {
             playerChunkPosition = currentPlayerChunkPosition;
             UpdateChunks();
+
+            //foreach (var chunk in chunks)
+            //{
+            //    Debug.Log(chunk.Key);
+            //}
         }
 
     }
@@ -75,7 +81,8 @@ public class WorldGenerator : MonoBehaviour
     Chunk GenerateChunk(Vector2Int chunkPosition)
     {
         Chunk chunk = new Chunk(chunkPosition, chunkSize);
-
+        chunks.Add(chunkPosition, chunk);
+        
         for (int x = 0; x < chunkSize; x++)
         {
             for (int y = 0; y < chunkSize; y++)
@@ -104,9 +111,14 @@ public class WorldGenerator : MonoBehaviour
                 if(tile != null && tile != waterTile)
                 {
                     GameObject resource = resourceSpawner.SpawnResources(new Vector2Int(worldX, worldY), biome);
-                
-                    resource.transform.parent = chunk.chunkOBJ.transform;
+
+                    if (resource != null)
+                    {
+                        resource.transform.parent = chunk.chunkOBJ.transform;
+                        chunk.occupiedTiles.Add(new Vector2Int(worldX, worldY), resource);
+                    }
                 }
+
 
                 // Store the tile in the chunk
                 chunk.tiles[x, y] = tile;
