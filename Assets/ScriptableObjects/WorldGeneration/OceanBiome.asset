@@ -12,13 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e1e913e37ee86645b14dac84554eaf4, type: 3}
   m_Name: OceanBiome
   m_EditorClassIdentifier: 
-  biomeName: 
-  baseScale: 10
-  octaves: 4
+  biomeName: Ocean
+  baseScale: 40
+  octaves: 2
   persistence: 0.5
   lacunarity: 2
-  noiseThreshold: 0.5
-  waterLevel: 0.8
+  waterLevel: 0.7
   resourceSpawnRate: 0
   resources: []
   biomeTiles:

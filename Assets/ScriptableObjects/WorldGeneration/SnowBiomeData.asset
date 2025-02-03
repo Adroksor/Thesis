@@ -12,10 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e1e913e37ee86645b14dac84554eaf4, type: 3}
   m_Name: SnowBiomeData
   m_EditorClassIdentifier: 
-  biomeName: SnowBiome
-  waterLevel: -7
+  biomeName: Snow
+  baseScale: 40
+  octaves: 2
+  persistence: 0.2
+  lacunarity: 2
+  waterLevel: 0.2
+  resourceSpawnRate: 0.2
   resources:
   - prefab: {fileID: 9145587520886894121, guid: 7fa2a92a36c721f479572188e9a43843, type: 3}
+    rarity: 0
     weight: 10
   biomeTiles:
   - {fileID: 11400000, guid: 896ed7b983861ef47b6ae81888f020a8, type: 2}

@@ -12,10 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e1e913e37ee86645b14dac84554eaf4, type: 3}
   m_Name: ForestBiomeData
   m_EditorClassIdentifier: 
-  biomeName: ForestBiome
-  waterLevel: -5
+  biomeName: Forest
+  baseScale: 30
+  octaves: 3
+  persistence: 0.6
+  lacunarity: 5
+  waterLevel: 0.3
+  resourceSpawnRate: 0.2
   resources:
   - prefab: {fileID: 6838876024778313406, guid: ed5687c9eef2f56449de9a2d100c53a7, type: 3}
+    rarity: 0
     weight: 10
   biomeTiles:
   - {fileID: 11400000, guid: 10e557c9548e4bb4fa7023c35b882f49, type: 2}

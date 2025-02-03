@@ -561,6 +561,37 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!1 &1158147549
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1158147550}
+  m_Layer: 0
+  m_Name: Misc----------------
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1158147550
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1158147549}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 15.46875, y: -15.625, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1229445795
 GameObject:
   m_ObjectHideFlags: 0
@@ -680,7 +711,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74a2e131a9898394ea041f10b2e2dfce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 50
+  moveSpeed: 20
   rb: {fileID: 1274033425}
   worldGenerator: {fileID: 1979668318}
 --- !u!114 &1274033427
@@ -695,6 +726,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f628ac0e9d581b448cad8c854f60fa8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  buildingsList: {fileID: 1387002613}
   buildingPrefabs:
   - {fileID: 4888030565546613888, guid: 091e8176724549742a2f1f0ab1b18814, type: 3}
   - {fileID: 195022980738136414, guid: d9e753c5ac42b7943a78a0ef35111068, type: 3}
@@ -705,6 +737,68 @@ MonoBehaviour:
     isLoaded: 0
     chunkOBJ: {fileID: 0}
   mouseGridPosition: {x: 0, y: 0}
+--- !u!1 &1329061649
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1329061650}
+  m_Layer: 0
+  m_Name: Managers-----------
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1329061650
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1329061649}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 15.46875, y: -15.625, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1387002613
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1387002614}
+  m_Layer: 0
+  m_Name: Buildings
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1387002614
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1387002613}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1582148451
 GameObject:
   m_ObjectHideFlags: 0
@@ -736,7 +830,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   groundTilemap: {fileID: 760717630}
   chunkSize: 16
-  worldGenerator: {fileID: 1979668318}
 --- !u!4 &1582148453
 Transform:
   m_ObjectHideFlags: 0
@@ -747,6 +840,37 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1936806070
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1936806071}
+  m_Layer: 0
+  m_Name: Objects-------------
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1936806071
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1936806070}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 15.46875, y: -15.625, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -784,21 +908,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   chunkSize: 16
   chunkList: {fileID: 689055812}
-  renderDistance: 2
+  renderDistance: 4
   tilemap: {fileID: 760717630}
   waterTile: {fileID: 11400000, guid: 7ff3938c989083d40b4c4c24b9f4d96b, type: 2}
-  altitudeScale: 10
+  sandTile: {fileID: 11400000, guid: 32da9a7b21c7b884ca804a21c3095001, type: 2}
   biomeList:
   - {fileID: 11400000, guid: 313bc74ea228ac34086cfd4bb227d5d3, type: 2}
   - {fileID: 11400000, guid: 52d4b0ae341ced04b97b58d72b56e0ad, type: 2}
   - {fileID: 11400000, guid: 2e6cf1352e7455b41a26dbe60711a08a, type: 2}
+  - {fileID: 11400000, guid: 3b67d31ebb50656409e84a200005b8d5, type: 2}
+  - {fileID: 11400000, guid: 285bc6810fbdc034dac110c8b3441983, type: 2}
   resourceSpawner: {fileID: 1979668320}
   scale: 20
-  octaves: 4
+  octaves: 2
   persistence: 0.5
   lacunarity: 2
   noiseOffset: {x: 0, y: 0}
   playerChunkPosition: {x: 0, y: 0}
+  spawnResources: 0
 --- !u!4 &1979668319
 Transform:
   m_ObjectHideFlags: 0
@@ -830,9 +957,13 @@ MonoBehaviour:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 619394802}
+  - {fileID: 1329061650}
   - {fileID: 1979668319}
-  - {fileID: 1229445797}
-  - {fileID: 1274033424}
   - {fileID: 1582148453}
+  - {fileID: 1936806071}
   - {fileID: 689055813}
+  - {fileID: 1387002614}
+  - {fileID: 1158147550}
+  - {fileID: 1229445797}
+  - {fileID: 619394802}
+  - {fileID: 1274033424}

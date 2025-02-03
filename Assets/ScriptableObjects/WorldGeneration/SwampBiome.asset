@@ -12,8 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e1e913e37ee86645b14dac84554eaf4, type: 3}
   m_Name: SwampBiome
   m_EditorClassIdentifier: 
-  biomeName: 
-  waterLevel: 0
-  resourceSpawnRate: 0
-  resources: []
-  biomeTiles: []
+  biomeName: Swamp
+  baseScale: 20
+  octaves: 2
+  persistence: 0.5
+  lacunarity: 2
+  waterLevel: 0.4
+  resourceSpawnRate: 0.1
+  resources:
+  - prefab: {fileID: 6838876024778313406, guid: ed5687c9eef2f56449de9a2d100c53a7, type: 3}
+    rarity: 1
+    weight: 10
+  biomeTiles:
+  - {fileID: 11400000, guid: 49f92855f5c29f14a9fede0f159727bd, type: 2}
