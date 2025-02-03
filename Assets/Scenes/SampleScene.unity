@@ -735,6 +735,7 @@ MonoBehaviour:
   currentChunk:
     position: {x: 0, y: 0}
     isLoaded: 0
+    tilesSpawned: 0
     chunkOBJ: {fileID: 0}
   mouseGridPosition: {x: 0, y: 0}
 --- !u!1 &1329061649
@@ -911,7 +912,6 @@ MonoBehaviour:
   renderDistance: 4
   tilemap: {fileID: 760717630}
   waterTile: {fileID: 11400000, guid: 7ff3938c989083d40b4c4c24b9f4d96b, type: 2}
-  sandTile: {fileID: 11400000, guid: 32da9a7b21c7b884ca804a21c3095001, type: 2}
   biomeList:
   - {fileID: 11400000, guid: 313bc74ea228ac34086cfd4bb227d5d3, type: 2}
   - {fileID: 11400000, guid: 52d4b0ae341ced04b97b58d72b56e0ad, type: 2}
@@ -919,13 +919,13 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3b67d31ebb50656409e84a200005b8d5, type: 2}
   - {fileID: 11400000, guid: 285bc6810fbdc034dac110c8b3441983, type: 2}
   resourceSpawner: {fileID: 1979668320}
-  scale: 20
+  scale: 200
   octaves: 2
   persistence: 0.5
   lacunarity: 2
   noiseOffset: {x: 0, y: 0}
   playerChunkPosition: {x: 0, y: 0}
-  spawnResources: 0
+  spawnResources: 1
 --- !u!4 &1979668319
 Transform:
   m_ObjectHideFlags: 0

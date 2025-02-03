@@ -9,7 +9,6 @@ public class WorldGenerator : MonoBehaviour
     public int renderDistance = 3; // Number of chunks to load around the player
     public Tilemap tilemap; // Reference to the Tilemap component
     public TileBase waterTile; // Tile for water
-    public TileBase sandTile;
 
     public List<BiomeData> biomeList;
     public ResourceSpawner resourceSpawner;
@@ -92,6 +91,34 @@ public class WorldGenerator : MonoBehaviour
                 }
             }
         }
+        UnloadDistantChunks();
+    }
+    
+    void UnloadDistantChunks()
+    {
+        List<Vector2Int> chunksToUnload = new List<Vector2Int>();
+
+        // Find chunks that are outside the render distance and add them to the unload list
+        foreach (var chunk in chunks)
+        {
+            if(!chunk.Value.isLoaded)
+                continue;
+            Vector2Int chunkPosition = chunk.Key;
+            int distance = Mathf.Abs(chunkPosition.x - playerChunkPosition.x) + Mathf.Abs(chunkPosition.y - playerChunkPosition.y);
+        
+            // If chunk is too far, mark it for unloading
+            if (distance > renderDistance)
+            {
+                chunksToUnload.Add(chunkPosition);
+            }
+        }
+
+        // Unload the distant chunks
+        foreach (var chunkPosition in chunksToUnload)
+        {
+            Chunk chunk = chunks[chunkPosition];
+            UnloadChunk(chunk);
+        }
     }
 
     Chunk GenerateChunk(Vector2Int chunkPosition)
@@ -145,7 +172,7 @@ public class WorldGenerator : MonoBehaviour
         }
 
         // Post-process the chunk to fill in single isolated cells
-        //PostProcessChunk(chunk);
+        PostProcessChunk(chunk);
         chunk.isLoaded = true;
         return chunk;
     }
@@ -161,33 +188,6 @@ public class WorldGenerator : MonoBehaviour
                 {
                     // Replace the isolated tile with the most common surrounding tile
                     chunk.tiles[x, y] = GetMostCommonSurroundingTile(chunk, x, y);
-                }
-
-                if (chunk.tiles[x, y] != waterTile)
-                {
-                    // Check all adjacent tiles (up, down, left, right, diagonal)
-                    for (int dx = -1; dx <= 1; dx++)
-                    {
-                        for (int dy = -1; dy <= 1; dy++)
-                        {
-                            // Skip the current tile itself
-                            if (dx == 0 && dy == 0) continue;
-
-                            int nx = x + dx;
-                            int ny = y + dy;
-
-                            // Ensure the adjacent tile is within the chunk bounds
-                            if (nx >= 0 && nx < chunkSize && ny >= 0 && ny < chunkSize)
-                            {
-                                // If any adjacent tile is water, change this tile to sand
-                                if (chunk.tiles[nx, ny] == waterTile)
-                                {
-                                    chunk.tiles[x, y] = sandTile;
-                                    break; // No need to check other neighbors once we've turned the tile to sand
-                                }
-                            }
-                        }
-                    }
                 }
             }
         }
@@ -372,38 +372,31 @@ public class WorldGenerator : MonoBehaviour
 
     void LoadChunk(Chunk chunk)
     {
+        chunk.chunkOBJ.SetActive(true);
         chunk.isLoaded = true;
-        for (int x = 0; x < chunkSize; x++)
+        if (!chunk.tilesSpawned)
         {
-            for (int y = 0; y < chunkSize; y++)
+            for (int x = 0; x < chunkSize; x++)
             {
-                // Calculate the world position of the tile
-                int worldX = chunk.position.x * chunkSize + x;
-                int worldY = chunk.position.y * chunkSize + y;
+                for (int y = 0; y < chunkSize; y++)
+                {
+                    // Calculate the world position of the tile
+                    int worldX = chunk.position.x * chunkSize + x;
+                    int worldY = chunk.position.y * chunkSize + y;
 
-                // Set the tile in the tilemap
-                Vector3Int tilePosition = new Vector3Int(worldX, worldY, 0);
-                tilemap.SetTile(tilePosition, chunk.tiles[x, y]);
-            }
-        }        
+                    // Set the tile in the tilemap
+                    Vector3Int tilePosition = new Vector3Int(worldX, worldY, 0);
+                    tilemap.SetTile(tilePosition, chunk.tiles[x, y]);
+                }
+            }        
+            chunk.tilesSpawned = true;
+        }
     }
 
     void UnloadChunk(Chunk chunk)
     {
+        chunk.chunkOBJ.SetActive(false);
         chunk.isLoaded = false;
-        for (int x = 0; x < chunkSize; x++)
-        {
-            for (int y = 0; y < chunkSize; y++)
-            {
-                // Calculate the world position of the tile
-                int worldX = chunk.position.x * chunkSize + x;
-                int worldY = chunk.position.y * chunkSize + y;
-
-                // Remove the tile from the tilemap
-                Vector3Int tilePosition = new Vector3Int(worldX, worldY, 0);
-                tilemap.SetTile(tilePosition, null);
-            }
-        }
     }
 
     Vector2Int GetChunkPosition(Vector3 worldPosition)

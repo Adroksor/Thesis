@@ -10,6 +10,7 @@ public class Chunk
     public TileBase[,] tiles; // 2D array of tiles in the chunk
     public Dictionary<Vector2Int, GameObject> occupiedTiles; // Dictionary to track occupied tiles in this chunk
     public bool isLoaded; // Whether the chunk is currently loaded
+    public bool tilesSpawned;
     public GameObject chunkOBJ;
 
     public Chunk(Vector2Int position, int size, GameObject chunkList)
@@ -18,6 +19,7 @@ public class Chunk
         occupiedTiles = new Dictionary<Vector2Int, GameObject>();            
         tiles = new TileBase[size, size];
         isLoaded = true;
+        tilesSpawned = false;
         chunkOBJ = new GameObject($"Chunk {position}");
         chunkOBJ.transform.position = new Vector3(position.x * size, position.y * size, 0);
         if (chunkList != null)
