@@ -6,7 +6,7 @@ public class Building : MonoBehaviour
     public Vector2Int size = new Vector2Int(1, 1); // Size of the building (in tiles)
     public TileBase[] allowedTiles; // Tiles the building can be placed on (e.g., water for pumps)
     
-    [SerializeField]
+    
     private BuildingGrid buildingGrid; // Reference to the BuildingGrid
     private Vector2Int gridPosition; // Position of the building on the grid
 
@@ -14,7 +14,7 @@ public class Building : MonoBehaviour
     void Awake()
     {
         // Find the BuildingGrid in the scene
-        buildingGrid = FindFirstObjectByType<BuildingGrid>();
+        buildingGrid = BuildingGrid.Instance;
         
         if (buildingGrid == null)
         {

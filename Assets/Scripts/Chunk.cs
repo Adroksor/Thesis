@@ -12,7 +12,7 @@ public class Chunk
     public bool isLoaded; // Whether the chunk is currently loaded
     public GameObject chunkOBJ;
 
-    public Chunk(Vector2Int position, int size)
+    public Chunk(Vector2Int position, int size, GameObject chunkList)
     {
         this.position = position;
         occupiedTiles = new Dictionary<Vector2Int, GameObject>();            
@@ -20,6 +20,13 @@ public class Chunk
         isLoaded = true;
         chunkOBJ = new GameObject($"Chunk {position}");
         chunkOBJ.transform.position = new Vector3(position.x * size, position.y * size, 0);
-        chunkOBJ.transform.parent = GameObject.FindGameObjectWithTag("ChunkList").transform;
+        if (chunkList != null)
+        {
+            chunkOBJ.transform.parent = chunkList.transform;
+        }
+        else
+        {
+            Debug.LogWarning("ChunkList not found");
+        }
     }
 }

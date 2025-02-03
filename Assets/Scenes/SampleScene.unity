@@ -783,6 +783,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   chunkSize: 16
+  chunkList: {fileID: 689055812}
   renderDistance: 2
   tilemap: {fileID: 760717630}
   waterTile: {fileID: 11400000, guid: 7ff3938c989083d40b4c4c24b9f4d96b, type: 2}

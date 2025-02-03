@@ -13,7 +13,7 @@ public class ResourceSpawner : MonoBehaviour
         }
 
         // Select a resource based on weight
-        if (Random.Range(0f, 1f) < 0.2f) // Adjust the probability as needed
+        if (Random.Range(0f, 1f) < biome.resourceSpawnRate) // Adjust the probability as needed
         {
             // Select a resource based on weight
             GameObject resourcePrefab = GetRandomResource(biome.resources);
@@ -30,26 +30,79 @@ public class ResourceSpawner : MonoBehaviour
     // Get a random resource based on weight
     private GameObject GetRandomResource(List<BiomeResource> resources)
     {
-        // Calculate the total weight
-        int totalWeight = 0;
-        foreach (var resource in resources)
+        if (resources == null || resources.Count == 0)
         {
-            totalWeight += resource.weight;
+            Debug.LogWarning("No resources available in this biome.");
+            return null;
         }
 
-        // Generate a random number between 0 and totalWeight
+        // Separate resources by rarity
+        var common = new List<BiomeResource>();
+        var rare = new List<BiomeResource>();
+        var epic = new List<BiomeResource>();
+
+        foreach (var res in resources)
+        {
+            switch (res.rarity)
+            {
+                case ResourceRarity.Common:
+                    common.Add(res);
+                    break;
+                case ResourceRarity.Rare:
+                    rare.Add(res);
+                    break;
+                case ResourceRarity.Epic:
+                    epic.Add(res);
+                    break;
+            }
+        }
+
+        // Set probabilities for each tier (adjust as needed)
+        float commonChance = 0.7f;
+        float rareChance = 0.25f;
+        float epicChance = 0.05f;
+
+        float roll = Random.value;
+
+        List<BiomeResource> chosenList;
+        if (roll < epicChance && epic.Count > 0) chosenList = epic;
+        else if (roll < epicChance + rareChance && rare.Count > 0) chosenList = rare;
+        else chosenList = common;
+
+        return GetRandomResourceFromList(chosenList);
+    }
+
+    private GameObject GetRandomResourceFromList(List<BiomeResource> list)
+    {
+        if (list == null || list.Count == 0) return null;
+
+        int totalWeight = 0;
+        foreach (var res in list)
+        {
+            totalWeight += res.weight;
+        }
+
         int randomValue = Random.Range(0, totalWeight);
 
-        // Select the resource based on the random value
-        foreach (var resource in resources)
+        foreach (var res in list)
         {
-            if (randomValue < resource.weight)
+            if (randomValue < res.weight)
             {
-                return resource.prefab;
+                return res.prefab;
             }
-            randomValue -= resource.weight;
+            randomValue -= res.weight;
         }
 
-        return null; // No resource selected
+        return null;
     }
+}
+
+public enum ResourceRarity { Common, Rare, Epic }
+
+[System.Serializable]
+public class BiomeResource
+{
+    public GameObject prefab;
+    public ResourceRarity rarity;
+    public int weight;
 }
