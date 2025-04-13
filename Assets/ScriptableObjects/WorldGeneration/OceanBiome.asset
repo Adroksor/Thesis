@@ -21,4 +21,4 @@ MonoBehaviour:
   resourceSpawnRate: 0
   resources: []
   biomeTiles:
-  - {fileID: 11400000, guid: 10e557c9548e4bb4fa7023c35b882f49, type: 2}
+  - {fileID: 11400000, guid: 03dc631b4c839ca4aa97152c77da0759, type: 2}

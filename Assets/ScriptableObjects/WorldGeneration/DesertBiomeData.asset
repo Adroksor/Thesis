@@ -30,4 +30,4 @@ MonoBehaviour:
     rarity: 1
     weight: 10
   biomeTiles:
-  - {fileID: 11400000, guid: 32da9a7b21c7b884ca804a21c3095001, type: 2}
+  - {fileID: 11400000, guid: 1d04363c6ee1f474183dab2eeb712aec, type: 2}

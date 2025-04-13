@@ -46,6 +46,12 @@ public class BuildingGrid : MonoBehaviour
         {
             return false;
         }
+
+        if (!building.isBiomeBased)
+        {
+            return true;
+        }
+            
         // Check if the building can be placed on the tiles
         for (int x = position.x; x < position.x + size.x; x++)
         {
