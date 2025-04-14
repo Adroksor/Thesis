@@ -4,14 +4,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class InventorySlotUI : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDropHandler
+public class InventorySlotUI : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDropHandler, IPointerClickHandler
 {
     public ItemData itemData;
     public int itemCount;
     public ItemUI itemUI;
     public InventoryUI parentPage;
 
-    public Action<InventorySlotUI, InventoryUI> onBeginDragLeft, onBeginDragRight, onEndDrag, onDropRight, onDropLeft;
+    public Action<InventorySlotUI, InventoryUI> onBeginDragLeft, onBeginDragRight, onEndDrag, onDropRight, onDropLeft, onClick;
 
     private void Start()
     {
@@ -68,5 +68,10 @@ public class InventorySlotUI : MonoBehaviour, IBeginDragHandler, IEndDragHandler
         {
             onDropLeft?.Invoke(this, parentPage);
         }
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        onClick?.Invoke(this, parentPage);
     }
 }

@@ -9,6 +9,7 @@ public class Chest : MonoBehaviour
     public string chestID;
     public InventoryData inventoryData;
     public GameObject UI;
+    public int chestSize;
     public bool chestOpen;
     
     private void Awake()
@@ -19,10 +20,19 @@ public class Chest : MonoBehaviour
         }
         inventoryData = new InventoryData();
         Debug.Log(inventoryData.inventoryData.Count);
-        inventoryData.SetData(Random.Range(0, 8), "Iron ingot", Random.Range(0, 8));
-        inventoryData.SetData(Random.Range(0, 8), "Steel ingot", Random.Range(0, 8));
-        inventoryData.SetData(Random.Range(0, 8), "Steel ingot", Random.Range(0, 8));
+        PopulateChestWithRandomItems(chestSize / 2);
 
+    }
+
+    public void PopulateChestWithRandomItems(int amount)
+    {
+        string[] itemNames = {"Coal", "Iron ore", "Iron ingot", "Steel ingot" };
+        int randomIndex;
+        for (int i = 0; i < amount; i++)
+        {
+            randomIndex = Random.Range(0, itemNames.Length);
+            inventoryData.SetData(Random.Range(0, chestSize), itemNames[randomIndex], Random.Range(0, 8));
+        }
     }
 
     public void OpenInventory()

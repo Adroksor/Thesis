@@ -48,10 +48,12 @@ public class InventoryManager : MonoBehaviour
             slot.onEndDrag += OnEndDrag;
             slot.onDropLeft += OnDropLeft;
             slot.onDropRight += OnDropRight;
-            
+            slot.onClick += OnClick;
+
         }
     }
-    
+
+
     public void UnnsubscribeSlotsToEvents(List<InventorySlotUI> inventory)
     {
         foreach (InventorySlotUI slot in inventory)
@@ -61,6 +63,7 @@ public class InventoryManager : MonoBehaviour
             slot.onEndDrag -= OnEndDrag;
             slot.onDropLeft -= OnDropLeft;
             slot.onDropRight -= OnDropRight;
+            slot.onClick -= OnClick;
             
         }
     }
@@ -168,5 +171,73 @@ public class InventoryManager : MonoBehaviour
 
             }
         }
+    }
+    private void OnClick(InventorySlotUI slot, InventoryUI inventory)
+    {
+        ItemData clickedItem = slot.itemData;
+        int clickedItemCount = slot.itemCount;
+
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            if (clickedItem == null || clickedItemCount <= 0)
+                return;
+
+            InventoryUI destinationInventory;
+
+            if (currentlyOpenedInventory == null)
+                destinationInventory = hotbarInventory;
+            else
+                destinationInventory = currentlyOpenedInventory.GetComponentInChildren<InventoryUI>();
+
+            // Avoid moving to the same inventory
+            if (destinationInventory == inventory)
+                destinationInventory = playerInventory;
+
+            int index = IndexOfFirstEmptySlot(destinationInventory, 0, clickedItem.Name);
+
+            while (clickedItemCount > 0 && index != -1)
+            {
+                InventorySlotUI targetSlot = destinationInventory.slots[index];
+
+                int targetCount = targetSlot.itemCount;
+                int spaceAvailable = clickedItem.MaxStackSize - targetCount;
+
+                if (targetSlot.itemData == null || targetSlot.itemData == clickedItem)
+                {
+                    int moveAmount = Mathf.Min(spaceAvailable, clickedItemCount);
+
+                    targetSlot.SetData(clickedItem, targetCount + moveAmount);
+                    clickedItemCount -= moveAmount;
+
+                    if (clickedItemCount > 0)
+                    {
+                        index = IndexOfFirstEmptySlot(destinationInventory, index + 1, clickedItem.Name);
+                    }
+                }
+                else
+                {
+                    // Should never happen with a proper IndexOfFirstEmptySlot, but safe guard
+                    index = IndexOfFirstEmptySlot(destinationInventory, index + 1, clickedItem.Name);
+                }
+            }
+
+            // Update original slot
+            if (clickedItemCount == 0)
+                slot.SetData(null, 0);
+            else
+                slot.SetData(clickedItem, clickedItemCount);
+        }
+    }
+
+    public int IndexOfFirstEmptySlot(InventoryUI inventoryUI, int startIndex = 0, string itemToTransfer = null)
+    {
+        for (int i = startIndex; i < inventoryUI.slots.Count; i++)
+        {
+            if (inventoryUI.slots[i].itemData ==null || inventoryUI.slots[i].itemData.Name == itemToTransfer)
+            {
+                return i;
+            }
+        }
+        return -1;
     }
 }
