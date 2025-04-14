@@ -13,6 +13,9 @@ public class InventoryManager : MonoBehaviour
     public int draggedItemCount;
     public static InventoryManager instance;
     
+    [Header("OpenInventory")]
+    public GameObject currentlyOpenedInventory;
+    public GameObject currentlyInteractedObject;
     private void Awake()
     {
         if (instance != null && instance != this)

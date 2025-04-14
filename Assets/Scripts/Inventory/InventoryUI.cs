@@ -18,13 +18,6 @@ public class InventoryUI : MonoBehaviour
         }
         missingItem = ItemDatabaseInstance.Instance.missingItem;
         
-        ItemData ironOre = GetItemByName("Iron ore");
-        ItemData coal = GetItemByName("Coal");
-        ItemData gold = GetItemByName("Gold");
-        
-        ItemData item = coal ?? missingItem;
-        SetSlotData(4, item, 20);
-        SetSlotData(8, item, 20);
     }
 
     private void OnEnable()
@@ -52,29 +45,38 @@ public class InventoryUI : MonoBehaviour
         slots[slotIndex].SetData(itemData, itemCount);
     }
 
-    public ItemData GetItemByName(string itemName)
-    {
-        if (ItemDatabaseInstance.Instance.TryGetItemByName(itemName, out ItemData item))
-        {
-            return item;
-        }
-        return null;
-    }
-
     public void SaveData(InventoryData inventoryData)
     {
+        inventoryData.inventoryData.Clear();
+        
         foreach (InventorySlotUI slot in slots)
         {
-            ItemDataID item = new ItemDataID { name = slot.itemData.Name, amount = slot.itemCount };
+            string itemName;
+            if (slot.itemData != null)
+            {
+                itemName = slot.itemData.Name;
+            }
+            else
+            {
+                itemName = null;
+            }
+            ItemDataID item = new ItemDataID { name = itemName, amount = slot.itemCount };
             inventoryData.inventoryData.Add(slots.IndexOf(slot), item);
         }
+        Debug.Log("Data saved");
     }
 
     public void LoadData(InventoryData inventoryData)
     {
+        foreach (InventorySlotUI slot in slots)
+        {
+            slot.SetData(null, 0);
+        }
         foreach (var (key, value) in inventoryData.inventoryData)
         {
             slots[key].SetData(ItemDatabaseInstance.Instance.GetItemByName(value.name), value.amount);
         }
+        Debug.Log("Data loaded");
+
     }
 }
