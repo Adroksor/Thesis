@@ -10,7 +10,6 @@ public class InventoryUI : MonoBehaviour
     public GameObject slotPrefab;
     public List<InventorySlotUI> slots = new List<InventorySlotUI>();
     public ItemData missingItem;
-    InventoryData inventoryData;
     private void Awake()
     {
         if (selfInitialize)
@@ -23,11 +22,7 @@ public class InventoryUI : MonoBehaviour
         ItemData coal = GetItemByName("Coal");
         ItemData gold = GetItemByName("Gold");
         
-        ItemData item = ironOre ?? missingItem;
-        SetSlotData(0, item, 20);
-        SetSlotData(2, item, 20);
-        
-        item = coal ?? missingItem;
+        ItemData item = coal ?? missingItem;
         SetSlotData(4, item, 20);
         SetSlotData(8, item, 20);
     }
@@ -66,23 +61,20 @@ public class InventoryUI : MonoBehaviour
         return null;
     }
 
-    public void SaveData()
+    public void SaveData(InventoryData inventoryData)
     {
         foreach (InventorySlotUI slot in slots)
         {
-            inventoryData.inventoryData.Add(slot.itemData,slot.itemCount);
+            ItemDataID item = new ItemDataID { name = slot.itemData.Name, amount = slot.itemCount };
+            inventoryData.inventoryData.Add(slots.IndexOf(slot), item);
         }
     }
 
-    public void LoadData()
+    public void LoadData(InventoryData inventoryData)
     {
-        int index = 0;
         foreach (var (key, value) in inventoryData.inventoryData)
         {
-            slots[index].itemData = key;
-            slots[index].itemCount = value;
-            index++;
-
+            slots[key].SetData(ItemDatabaseInstance.Instance.GetItemByName(value.name), value.amount);
         }
     }
 }

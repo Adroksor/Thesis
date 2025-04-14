@@ -4,8 +4,12 @@ using UnityEngine;
 
 public class InventorySaveLoadSystem : MonoBehaviour
 {
-    public List<InventoryUI> inventoryUI;
-    public int inventorySize;
-    
-    
+    public List<InventoryData> inventoryData;
+
+
+
+    public void SaveInventories()
+    {
+        
+    }
 }
