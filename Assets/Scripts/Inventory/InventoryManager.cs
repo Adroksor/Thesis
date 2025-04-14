@@ -1,32 +1,44 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class InventoryManager : MonoBehaviour
 {
     public InventoryUI playerInventory;
     public InventoryUI hotbarInventory;
+    public InventoryUI equipmentInventory;
 
     public InventorySlotUI initialSlot;
     public ItemData draggedItem;
     public int draggedItemCount;
+    public static InventoryManager instance;
+    
+    private void Awake()
+    {
+        if (instance != null && instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        instance = this;
+        DontDestroyOnLoad(gameObject);
+    }
     
     private void Start()
     {
-        InitializeInventory();
+        //InitializePlayerInventory();
     }
     
-    public void InitializeInventory()
+    public void InitializePlayerInventory()
     {
-        foreach (InventorySlotUI slot in playerInventory.slots)
-        {
-            slot.onBeginDragLeft += OnBeginDragLeft;
-            slot.onBeginDragRight += OnBeginDragRight;
-            slot.onEndDrag += OnEndDrag;
-            slot.onDropLeft += OnDropLeft;
-            slot.onDropRight += OnDropRight;
-            
-        }
-        foreach (InventorySlotUI slot in hotbarInventory.slots)
+        SubscribeSlotsToEvents(playerInventory.slots);
+        SubscribeSlotsToEvents(hotbarInventory.slots);
+    }
+
+    public void SubscribeSlotsToEvents(List<InventorySlotUI> inventory)
+    {
+        foreach (InventorySlotUI slot in inventory)
         {
             slot.onBeginDragLeft += OnBeginDragLeft;
             slot.onBeginDragRight += OnBeginDragRight;
@@ -36,6 +48,20 @@ public class InventoryManager : MonoBehaviour
             
         }
     }
+    
+    public void UnnsubscribeSlotsToEvents(List<InventorySlotUI> inventory)
+    {
+        foreach (InventorySlotUI slot in inventory)
+        {
+            slot.onBeginDragLeft -= OnBeginDragLeft;
+            slot.onBeginDragRight -= OnBeginDragRight;
+            slot.onEndDrag -= OnEndDrag;
+            slot.onDropLeft -= OnDropLeft;
+            slot.onDropRight -= OnDropRight;
+            
+        }
+    }
+    
 
     private void OnBeginDragRight(InventorySlotUI slot, InventoryUI inventory)
     {

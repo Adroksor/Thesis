@@ -5,14 +5,18 @@ using UnityEngine;
 
 public class InventoryUI : MonoBehaviour
 {
-
+    public bool selfInitialize = true;
     public int inventorySize = 9;
     public GameObject slotPrefab;
     public List<InventorySlotUI> slots = new List<InventorySlotUI>();
     public ItemData missingItem;
+    InventoryData inventoryData;
     private void Awake()
     {
-        InitializeInventory();
+        if (selfInitialize)
+        {
+            InitializeInventory();
+        }
         missingItem = ItemDatabaseInstance.Instance.missingItem;
         
         ItemData ironOre = GetItemByName("Iron ore");
@@ -26,6 +30,17 @@ public class InventoryUI : MonoBehaviour
         item = coal ?? missingItem;
         SetSlotData(4, item, 20);
         SetSlotData(8, item, 20);
+    }
+
+    private void OnEnable()
+    {
+        InventoryManager.instance.SubscribeSlotsToEvents(slots);
+    }
+
+    private void OnDisable()
+    {
+        InventoryManager.instance.UnnsubscribeSlotsToEvents(slots);
+
     }
 
     public void InitializeInventory()
@@ -49,5 +64,25 @@ public class InventoryUI : MonoBehaviour
             return item;
         }
         return null;
+    }
+
+    public void SaveData()
+    {
+        foreach (InventorySlotUI slot in slots)
+        {
+            inventoryData.inventoryData.Add(slot.itemData,slot.itemCount);
+        }
+    }
+
+    public void LoadData()
+    {
+        int index = 0;
+        foreach (var (key, value) in inventoryData.inventoryData)
+        {
+            slots[index].itemData = key;
+            slots[index].itemCount = value;
+            index++;
+
+        }
     }
 }
