@@ -891,6 +891,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   chestID: 
   UI: {fileID: 827240112}
+  chestSize: 27
   chestOpen: 0
 --- !u!212 &711073946
 SpriteRenderer:
@@ -1040,6 +1041,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   chestID: 
   UI: {fileID: 827240112}
+  chestSize: 27
   chestOpen: 0
 --- !u!212 &734162286
 SpriteRenderer:
@@ -1534,6 +1536,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   chestID: 
   UI: {fileID: 827240112}
+  chestSize: 27
   chestOpen: 0
 --- !u!212 &1175431748
 SpriteRenderer:
@@ -1733,6 +1736,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   chestID: 
   UI: {fileID: 1341558104}
+  chestSize: 18
   chestOpen: 0
 --- !u!212 &1234648901
 SpriteRenderer:
@@ -1887,7 +1891,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1274033423}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7f628ac0e9d581b448cad8c854f60fa8, type: 3}
   m_Name: 
@@ -2052,6 +2056,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   chestID: 
   UI: {fileID: 865602435}
+  chestSize: 9
   chestOpen: 0
 --- !u!1 &1329061649
 GameObject:
