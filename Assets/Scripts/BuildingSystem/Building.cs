@@ -12,10 +12,10 @@ public class Building : MonoBehaviour
     private Vector2Int gridPosition; // Position of the building on the grid
 
 
-    void Awake()
+    void Start()
     {
         // Find the BuildingGrid in the scene
-        buildingGrid = BuildingGrid.Instance;
+        buildingGrid = BuildingGrid.instance;
         
         if (buildingGrid == null)
         {

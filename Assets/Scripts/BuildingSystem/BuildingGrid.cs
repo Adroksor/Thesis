@@ -4,22 +4,22 @@ using UnityEngine.Tilemaps;
 
 public class BuildingGrid : MonoBehaviour
 {
+    public static BuildingGrid instance;
     public Tilemap groundTilemap; // Reference to the ground Tilemap
     public int chunkSize = 16; // Size of each chunk (e.g., 16x16 tiles)
     
     public static BuildingGrid Instance { get; private set; }
 
-    void Awake()
+    private void Awake()
     {
-        if (Instance == null)
+        if (instance != null && instance != this)
         {
-            Instance = this;
-        }
-        else
-        {
-            Debug.LogError("Multiple BuildingGrid instances found!");
             Destroy(gameObject);
+            return;
         }
+
+        instance = this;
+        DontDestroyOnLoad(gameObject);
     }
     void Start()
     {
