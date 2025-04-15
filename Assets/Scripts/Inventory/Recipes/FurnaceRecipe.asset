@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3c46697d40164b4b88f43bf492afc26, type: 3}
+  m_Name: FurnaceRecipe
+  m_EditorClassIdentifier: 
+  <recipeName>k__BackingField: 
+  <Output>k__BackingField:
+    Item: {fileID: 11400000, guid: 85b0c367d5446da44a1d26c9105c3702, type: 2}
+    Amount: 1
+  <Input>k__BackingField:
+  - Item: {fileID: 11400000, guid: 2850ed79c8edd564da0bd2f738074b9a, type: 2}
+    Amount: 4
