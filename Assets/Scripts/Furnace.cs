@@ -52,18 +52,6 @@ public class Furnace : MonoBehaviour
              return;
         }
 
-        // --- TODO: Resource Check & Consumption ---
-        // Before starting, check if the playerInventory has enough input materials
-        // specified in recipe.Inputs.
-        // If yes, consume them. If not, return and potentially notify the player.
-        // Example structure:
-        // if (!InventoryManager.instance.CheckAndConsumeInputs(recipe.Inputs, playerInventory))
-        // {
-        //    Debug.Log("Not enough input materials to start smelting!");
-        //    return;
-        // }
-        // -----------------------------------------
-
         currentRecipe = recipe;
         targetAmount = amount;
         smeltedAmount = 0; // Reset count for the new batch
@@ -141,13 +129,6 @@ public class Furnace : MonoBehaviour
 
         GivePlayerSmeltedItems();
 
-        // --- TODO: Refund Logic ---
-        // Calculate remaining items that were *requested* but not *started* or *finished*.
-        // Refund the corresponding input materials based on currentRecipe.Inputs.
-        // int remainingToSmelt = targetAmount - smeltedAmount; // Note: smeltedAmount is now 0 if GivePlayerSmeltedItems succeeded
-        // Need to potentially track consumed resources separately if refunding is complex.
-        // For simplicity now, we just stop and give what was finished.
-        // --------------------------
 
         currentRecipe = null; // Clear the recipe
         targetAmount = 0;
