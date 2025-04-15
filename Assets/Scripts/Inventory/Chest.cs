@@ -19,7 +19,7 @@ public class Chest : MonoBehaviour
         {
             chestID = System.Guid.NewGuid().ToString(); // Unique chest ID
         }
-        inventoryData = new InventoryData();
+        inventoryData = new InventoryData(chestSize);
         PopulateChestWithRandomItems(chestSize / 2);
 
     }
@@ -51,7 +51,7 @@ public class Chest : MonoBehaviour
 
             if (inventoryUI != null)
             {
-                inventoryUI.LoadData(inventoryData);
+                InventoryManager.instance.LoadData(inventoryData, inventoryUI);
             }
             else
             {
@@ -72,7 +72,7 @@ public class Chest : MonoBehaviour
             
             if (inventoryUI != null)
             {
-                inventoryUI.SaveData(inventoryData);
+                InventoryManager.instance.SaveData(inventoryData, inventoryUI);
             }
             inventoryOpen = false;
 

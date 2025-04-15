@@ -8,9 +8,20 @@ using Random = UnityEngine.Random;
 public class InventoryData
 {
     public Dictionary<int, ItemDataID> inventoryData = new Dictionary<int, ItemDataID>();
+    public int inventorySize;
+
+    public InventoryData(int size)
+    {
+        inventorySize = size;
+    }
     
     public void SetData(int slot, string name, int amount)
     {
+        if (name == null || amount == 0)
+        {
+            Debug.LogWarning("InventoryData.SetData: name or amount is null");
+            return;
+        }
         inventoryData[slot] = new ItemDataID { name = name, amount = amount };
     }
 

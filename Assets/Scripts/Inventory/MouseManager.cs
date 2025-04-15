@@ -16,7 +16,19 @@ public class MouseManager : MonoBehaviour
                 var chest = hit.collider.GetComponent<Chest>();
                 if (chest != null)
                 {
-                    chest.OpenInventory();
+                    if (InventoryManager.instance.currentlyOpenedInventory == null)
+                    {
+                        chest.OpenInventory();
+                    }
+                }
+                
+                var furnace = hit.collider.GetComponent<Furnace>();
+                if (furnace != null)
+                {
+                    if (InventoryManager.instance.currentlyOpenedInventory == null)
+                    {
+                        furnace.GivePlayerSmeltedItems();
+                    }
                 }
             }
         }

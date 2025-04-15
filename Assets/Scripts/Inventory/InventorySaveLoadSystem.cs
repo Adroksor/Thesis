@@ -4,12 +4,5 @@ using UnityEngine;
 
 public class InventorySaveLoadSystem : MonoBehaviour
 {
-    public List<InventoryData> inventoryData;
-
-
-
-    public void SaveInventories()
-    {
-        
-    }
+    
 }

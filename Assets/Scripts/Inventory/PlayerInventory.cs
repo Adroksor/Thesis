@@ -12,7 +12,7 @@ public class PlayerInventory : MonoBehaviour
 
     private void Start()
     {
-        inventoryData = new InventoryData();
+        inventoryData = new InventoryData(27);
         PopulateChestWithRandomItems(inventorySize / 2);
 
     }
@@ -60,7 +60,7 @@ public class PlayerInventory : MonoBehaviour
             
             if (inventoryUI != null)
             {
-                inventoryUI.LoadData(inventoryData);
+                InventoryManager.instance.LoadData(inventoryData, inventoryUI);
             }
             else
             {
@@ -76,7 +76,7 @@ public class PlayerInventory : MonoBehaviour
         InventoryUI inventoryUI = UI.GetComponentInChildren<InventoryUI>();
         if (inventoryUI != null)
         {
-            inventoryUI.SaveData(inventoryData);
+            InventoryManager.instance.SaveData(inventoryData, inventoryUI);
         }
         inventoryOpen = false;
         

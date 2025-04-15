@@ -8,6 +8,8 @@ public class InventoryManager : MonoBehaviour
     public InventoryUI hotbarInventory;
     public InventoryUI equipmentInventory;
 
+    public PlayerInventory playerInventoryScript;
+    
     public InventorySlotUI initialSlot;
     public ItemData draggedItem;
     public int draggedItemCount;
@@ -123,6 +125,7 @@ public class InventoryManager : MonoBehaviour
                 slot.SetData(draggedItem, draggedItemCount);
             }
         }
+        SaveData(playerInventoryScript.inventoryData, playerInventory);
     }
     
     private void OnDropRight(InventorySlotUI slot, InventoryUI inventory)
@@ -171,6 +174,7 @@ public class InventoryManager : MonoBehaviour
 
             }
         }
+        SaveData(playerInventoryScript.inventoryData, playerInventory);
     }
     private void OnClick(InventorySlotUI slot, InventoryUI inventory)
     {
@@ -201,6 +205,39 @@ public class InventoryManager : MonoBehaviour
                 slot.SetData(clickedItem, leftover);
         }
     }
+    
+    public void SaveData(InventoryData inventoryData, InventoryUI inventoryUI)
+    {
+        inventoryData.inventoryData.Clear();
+        
+        foreach (InventorySlotUI slot in inventoryUI.slots)
+        {
+            string itemName;
+            if (slot.itemData != null)
+            {
+                itemName = slot.itemData.Name;
+            }
+            else
+            {
+                itemName = null;
+            }
+            ItemDataID item = new ItemDataID { name = itemName, amount = slot.itemCount };
+            inventoryData.inventoryData.Add(inventoryUI.slots.IndexOf(slot), item);
+        }
+    }
+    
+    public void LoadData(InventoryData inventoryData, InventoryUI inventoryUI)
+    {
+        foreach (InventorySlotUI slot in inventoryUI.slots)
+        {
+            slot.SetData(null, 0);
+        }
+        foreach (var (key, value) in inventoryData.inventoryData)
+        {
+            inventoryUI.slots[key].SetData(ItemDatabaseInstance.Instance.GetItemByName(value.name), value.amount);
+        }
+
+    }
 
     
     public int TryAddItemToInventory(ItemData itemData, int amount, InventoryUI targetInventory)
@@ -208,7 +245,7 @@ public class InventoryManager : MonoBehaviour
         if (itemData == null || amount <= 0 || targetInventory == null)
             return amount;
 
-        int index = IndexOfFirstEmptySlot(targetInventory, 0, itemData.Name);
+        int index = IndexOfFirstOrEmptySlot(targetInventory, 0, itemData.Name);
 
         while (amount > 0 && index != -1)
         {
@@ -224,23 +261,71 @@ public class InventoryManager : MonoBehaviour
                 amount -= addAmount;
 
                 if (amount > 0)
-                    index = IndexOfFirstEmptySlot(targetInventory, index + 1, itemData.Name);
+                    index = IndexOfFirstOrEmptySlot(targetInventory, index + 1, itemData.Name);
             }
             else
             {
-                index = IndexOfFirstEmptySlot(targetInventory, index + 1, itemData.Name);
+                index = IndexOfFirstOrEmptySlot(targetInventory, index + 1, itemData.Name);
             }
         }
-
         return amount; // Return leftover amount
     }
 
 
-    public int IndexOfFirstEmptySlot(InventoryUI inventoryUI, int startIndex = 0, string itemToTransfer = null)
+    public int IndexOfFirstOrEmptySlot(InventoryUI inventoryUI, int startIndex = 0, string itemToTransfer = null)
     {
         for (int i = startIndex; i < inventoryUI.slots.Count; i++)
         {
             if (inventoryUI.slots[i].itemData ==null || inventoryUI.slots[i].itemData.Name == itemToTransfer)
+            {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public int TryAddItemToInventoryData(ItemData itemData, int amount, InventoryData targetInventoryData)
+    {
+        int index = -1;
+        while (amount > 0)
+        {
+            index = IndexOfFirstOrEmptySlotData(targetInventoryData, index + 1, itemData.Name);
+            if (index == -1) return amount;
+            int maxStackSize = itemData.MaxStackSize; 
+            targetInventoryData.inventoryData.TryGetValue(index, out ItemDataID itemAtIndex);
+
+            if (itemAtIndex.name == null)
+            {
+                // New stack
+                int added = Mathf.Min(amount, maxStackSize);
+                targetInventoryData.inventoryData[index] = new ItemDataID { name = itemData.Name, amount = added };
+                amount -= added;
+            }
+            else if (itemAtIndex.name == itemData.Name && itemAtIndex.amount < maxStackSize)
+            {
+                // Add to existing stack
+                int spaceLeft = maxStackSize - itemAtIndex.amount;
+                int added = Mathf.Min(amount, spaceLeft);
+                targetInventoryData.inventoryData[index] = new ItemDataID { name = itemData.Name, amount = itemAtIndex.amount + added };
+                amount -= added;
+            }
+
+            Debug.Log($"Index: {index}, Added: {itemAtIndex.amount}, Remaining: {amount}");
+        }
+
+        LoadData(targetInventoryData, playerInventory);
+        return amount;
+    }
+
+    public int IndexOfFirstOrEmptySlotData(InventoryData inventoryData, int startIndex = 0, string itemToTransfer = null)
+    {
+        for (int i = startIndex; i < inventoryData.inventorySize; i++)
+        {
+            if (inventoryData.inventoryData[i].name == itemToTransfer)
+            {
+                return i;
+            }
+            if (inventoryData.inventoryData[i].name == null)
             {
                 return i;
             }

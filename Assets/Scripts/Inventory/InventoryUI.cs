@@ -45,36 +45,5 @@ public class InventoryUI : MonoBehaviour
         slots[slotIndex].SetData(itemData, itemCount);
     }
 
-    public void SaveData(InventoryData inventoryData)
-    {
-        inventoryData.inventoryData.Clear();
-        
-        foreach (InventorySlotUI slot in slots)
-        {
-            string itemName;
-            if (slot.itemData != null)
-            {
-                itemName = slot.itemData.Name;
-            }
-            else
-            {
-                itemName = null;
-            }
-            ItemDataID item = new ItemDataID { name = itemName, amount = slot.itemCount };
-            inventoryData.inventoryData.Add(slots.IndexOf(slot), item);
-        }
-    }
-    
-    public void LoadData(InventoryData inventoryData)
-    {
-        foreach (InventorySlotUI slot in slots)
-        {
-            slot.SetData(null, 0);
-        }
-        foreach (var (key, value) in inventoryData.inventoryData)
-        {
-            slots[key].SetData(ItemDatabaseInstance.Instance.GetItemByName(value.name), value.amount);
-        }
 
-    }
 }
