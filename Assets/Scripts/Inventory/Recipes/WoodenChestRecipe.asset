@@ -10,14 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b3c46697d40164b4b88f43bf492afc26, type: 3}
-  m_Name: IronIngotRecipe
+  m_Name: WoodenChestRecipe
   m_EditorClassIdentifier: 
-  <recipeName>k__BackingField: Basic iron smelting
+  <recipeName>k__BackingField: Wooden chest
   <Output>k__BackingField:
-    Item: {fileID: 11400000, guid: 7245055f1cb6b9b408b3a226a6eb1cb7, type: 2}
+    Item: {fileID: 11400000, guid: 0e6ceaebdf8af524ba9814aa266281a8, type: 2}
     Amount: 1
   <Input>k__BackingField:
-  - Item: {fileID: 11400000, guid: 71dba4e3e48de4c4b99d0ff74f259f0d, type: 2}
-    Amount: 1
-  - Item: {fileID: 11400000, guid: 8dc51bbf6814799489ce1f531bc6e53c, type: 2}
-    Amount: 1
+  - Item: {fileID: 11400000, guid: d0ba7440c7fbbfb47ada2503a4fe0b99, type: 2}
+    Amount: 5

@@ -3,6 +3,9 @@ using UnityEngine;
 
 public class ResourceSpawner : MonoBehaviour
 {
+
+    [Range(0, 1)]
+    public List<float> spawnRate;
     public GameObject SpawnResources(Vector2Int position, BiomeData biome)
     {
         // Find the biome data
@@ -58,9 +61,9 @@ public class ResourceSpawner : MonoBehaviour
         }
 
         // Set probabilities for each tier (adjust as needed)
-        //float commonChance = 0.7f;
-        float rareChance = 0.25f;
-        float epicChance = 0.05f;
+        //float commonChance = spawnRate[0];
+        float rareChance = spawnRate[1];
+        float epicChance = spawnRate[2];
 
         float roll = Random.value;
 

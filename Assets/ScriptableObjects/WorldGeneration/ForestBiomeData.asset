@@ -26,9 +26,9 @@ MonoBehaviour:
   - prefab: {fileID: 3581855588984687179, guid: 26a1d6c3ba857b04fbe99a83a58f1253, type: 3}
     rarity: 1
     weight: 5
-  - prefab: {fileID: 2115053947144719865, guid: b8dff9d9360aeb345a7c853943704465, type: 3}
+  - prefab: {fileID: 2115053947144719865, guid: fe1ffb225525dca49a937f23646491bf, type: 3}
     rarity: 1
-    weight: 5
+    weight: 10
   - prefab: {fileID: 6512435319642745909, guid: 6b1a17c11b820e04bb5f55240820c94e, type: 3}
     rarity: 1
     weight: 5

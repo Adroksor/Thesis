@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3c46697d40164b4b88f43bf492afc26, type: 3}
   m_Name: SteelIngotRecipe
   m_EditorClassIdentifier: 
-  <recipeName>k__BackingField: basic steel smelting
+  <recipeName>k__BackingField: Basic steel smelting
   <Output>k__BackingField:
     Item: {fileID: 11400000, guid: b9896154053c1644b87ef524a3351ac1, type: 2}
     Amount: 1
