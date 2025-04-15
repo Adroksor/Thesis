@@ -10,7 +10,8 @@ public class Chest : MonoBehaviour
     public InventoryData inventoryData;
     public GameObject UI;
     public int chestSize;
-    public bool chestOpen;
+    public bool inventoryOpen;
+    public PlayerInventory playerInventory;
     
     private void Awake()
     {
@@ -19,7 +20,6 @@ public class Chest : MonoBehaviour
             chestID = System.Guid.NewGuid().ToString(); // Unique chest ID
         }
         inventoryData = new InventoryData();
-        Debug.Log(inventoryData.inventoryData.Count);
         PopulateChestWithRandomItems(chestSize / 2);
 
     }
@@ -41,47 +41,41 @@ public class Chest : MonoBehaviour
         {
             InventoryManager.instance.currentlyInteractedObject.GetComponent<Chest>().CloseInventory();
         }
-        if (!chestOpen)
+        if (!inventoryOpen)
         {
             UI.SetActive(true);
+            playerInventory.OpenInventory();
             InventoryUI inventoryUI = UI.GetComponentInChildren<InventoryUI>();
             InventoryManager.instance.currentlyOpenedInventory = UI;
             InventoryManager.instance.currentlyInteractedObject = gameObject;
 
             if (inventoryUI != null)
             {
-            
                 inventoryUI.LoadData(inventoryData);
             }
             else
             {
                 Debug.LogWarning("No Inventory UI found");
             }
-            chestOpen = true;
+            inventoryOpen = true;
         }
     }
 
     public void CloseInventory()
     {
-        if (chestOpen)
+        if (inventoryOpen)
         {
             UI.SetActive(false);
             InventoryUI inventoryUI = UI.GetComponentInChildren<InventoryUI>();
             InventoryManager.instance.currentlyOpenedInventory = null;
+            InventoryManager.instance.currentlyInteractedObject = null;
+            
             if (inventoryUI != null)
             {
                 inventoryUI.SaveData(inventoryData);
             }
-            chestOpen = false;
+            inventoryOpen = false;
 
-        }
-    }
-
-    public void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            CloseInventory();
         }
     }
 }

@@ -189,45 +189,52 @@ public class InventoryManager : MonoBehaviour
             else
                 destinationInventory = currentlyOpenedInventory.GetComponentInChildren<InventoryUI>();
 
-            // Avoid moving to the same inventory
             if (destinationInventory == inventory)
                 destinationInventory = playerInventory;
 
-            int index = IndexOfFirstEmptySlot(destinationInventory, 0, clickedItem.Name);
-
-            while (clickedItemCount > 0 && index != -1)
-            {
-                InventorySlotUI targetSlot = destinationInventory.slots[index];
-
-                int targetCount = targetSlot.itemCount;
-                int spaceAvailable = clickedItem.MaxStackSize - targetCount;
-
-                if (targetSlot.itemData == null || targetSlot.itemData == clickedItem)
-                {
-                    int moveAmount = Mathf.Min(spaceAvailable, clickedItemCount);
-
-                    targetSlot.SetData(clickedItem, targetCount + moveAmount);
-                    clickedItemCount -= moveAmount;
-
-                    if (clickedItemCount > 0)
-                    {
-                        index = IndexOfFirstEmptySlot(destinationInventory, index + 1, clickedItem.Name);
-                    }
-                }
-                else
-                {
-                    // Should never happen with a proper IndexOfFirstEmptySlot, but safe guard
-                    index = IndexOfFirstEmptySlot(destinationInventory, index + 1, clickedItem.Name);
-                }
-            }
+            int leftover = TryAddItemToInventory(clickedItem, clickedItemCount, destinationInventory);
 
             // Update original slot
-            if (clickedItemCount == 0)
+            if (leftover == 0)
                 slot.SetData(null, 0);
             else
-                slot.SetData(clickedItem, clickedItemCount);
+                slot.SetData(clickedItem, leftover);
         }
     }
+
+    
+    public int TryAddItemToInventory(ItemData itemData, int amount, InventoryUI targetInventory)
+    {
+        if (itemData == null || amount <= 0 || targetInventory == null)
+            return amount;
+
+        int index = IndexOfFirstEmptySlot(targetInventory, 0, itemData.Name);
+
+        while (amount > 0 && index != -1)
+        {
+            InventorySlotUI slot = targetInventory.slots[index];
+
+            int currentCount = slot.itemCount;
+            int space = itemData.MaxStackSize - currentCount;
+
+            if (slot.itemData == null || slot.itemData == itemData)
+            {
+                int addAmount = Mathf.Min(space, amount);
+                slot.SetData(itemData, currentCount + addAmount);
+                amount -= addAmount;
+
+                if (amount > 0)
+                    index = IndexOfFirstEmptySlot(targetInventory, index + 1, itemData.Name);
+            }
+            else
+            {
+                index = IndexOfFirstEmptySlot(targetInventory, index + 1, itemData.Name);
+            }
+        }
+
+        return amount; // Return leftover amount
+    }
+
 
     public int IndexOfFirstEmptySlot(InventoryUI inventoryUI, int startIndex = 0, string itemToTransfer = null)
     {

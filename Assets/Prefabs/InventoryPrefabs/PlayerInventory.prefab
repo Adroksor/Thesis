@@ -11,13 +11,13 @@ GameObject:
   - component: {fileID: 4263578330468023445}
   - component: {fileID: 3741897505414339591}
   - component: {fileID: 5602821054767864041}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: PlayerInventory
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &4263578330468023445
 RectTransform:
   m_ObjectHideFlags: 0
@@ -25,7 +25,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 889898151130560497}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.0000249, y: 1.0000249, z: 1.0000249}
   m_ConstrainProportionsScale: 0
@@ -87,6 +87,18 @@ PrefabInstance:
     - target: {fileID: 2196345315201980395, guid: e0257eea56b46b6448ada5109c7da1ee, type: 3}
       propertyPath: m_Name
       value: InventorySlots
+      objectReference: {fileID: 0}
+    - target: {fileID: 2196345315201980395, guid: e0257eea56b46b6448ada5109c7da1ee, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4642905377825711576, guid: e0257eea56b46b6448ada5109c7da1ee, type: 3}
+      propertyPath: inventorySize
+      value: 27
+      objectReference: {fileID: 0}
+    - target: {fileID: 4642905377825711576, guid: e0257eea56b46b6448ada5109c7da1ee, type: 3}
+      propertyPath: slots.Array.size
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6086039231084508658, guid: e0257eea56b46b6448ada5109c7da1ee, type: 3}
       propertyPath: m_Pivot.x

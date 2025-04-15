@@ -58,7 +58,7 @@ public class ResourceSpawner : MonoBehaviour
         }
 
         // Set probabilities for each tier (adjust as needed)
-        float commonChance = 0.7f;
+        //float commonChance = 0.7f;
         float rareChance = 0.25f;
         float epicChance = 0.05f;
 

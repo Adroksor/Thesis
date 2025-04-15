@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 370010489481736311}
   - component: {fileID: 2615281115437592986}
   - component: {fileID: 6923900744191057655}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Hotbar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -115,6 +115,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: InventorySlots
       objectReference: {fileID: 0}
+    - target: {fileID: 2196345315201980395, guid: e0257eea56b46b6448ada5109c7da1ee, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4642905377825711576, guid: e0257eea56b46b6448ada5109c7da1ee, type: 3}
       propertyPath: inventorySize
       value: 9
@@ -153,19 +157,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6086039231084508658, guid: e0257eea56b46b6448ada5109c7da1ee, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 108
+      value: 36
       objectReference: {fileID: 0}
     - target: {fileID: 6086039231084508658, guid: e0257eea56b46b6448ada5109c7da1ee, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.02352941
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6086039231084508658, guid: e0257eea56b46b6448ada5109c7da1ee, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.02352941
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6086039231084508658, guid: e0257eea56b46b6448ada5109c7da1ee, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.02352941
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6086039231084508658, guid: e0257eea56b46b6448ada5109c7da1ee, type: 3}
       propertyPath: m_LocalPosition.x

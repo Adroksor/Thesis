@@ -63,9 +63,8 @@ public class InventoryUI : MonoBehaviour
             ItemDataID item = new ItemDataID { name = itemName, amount = slot.itemCount };
             inventoryData.inventoryData.Add(slots.IndexOf(slot), item);
         }
-        Debug.Log("Data saved");
     }
-
+    
     public void LoadData(InventoryData inventoryData)
     {
         foreach (InventorySlotUI slot in slots)
@@ -76,7 +75,6 @@ public class InventoryUI : MonoBehaviour
         {
             slots[key].SetData(ItemDatabaseInstance.Instance.GetItemByName(value.name), value.amount);
         }
-        Debug.Log("Data loaded");
 
     }
 }
