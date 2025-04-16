@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3758175037555823680}
   - component: {fileID: 6831866074908879937}
   - component: {fileID: -1375425795681141961}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: IronChest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -104,7 +104,7 @@ MonoBehaviour:
   chestID: 
   inventoryData:
     inventorySize: 0
-  UI: {fileID: 7777399868889238072, guid: 77e631aae6a13ca46923f402b087d66d, type: 3}
+  UI: {fileID: 0}
   chestSize: 18
   inventoryOpen: 0
   playerInventory: {fileID: 0}

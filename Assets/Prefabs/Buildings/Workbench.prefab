@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8315212383705253226}
   - component: {fileID: 520525488455767831}
   - component: {fileID: 2248738307588850206}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Workbench
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -102,3 +102,7 @@ MonoBehaviour:
   size: {x: 1, y: 1}
   isBiomeBased: 0
   allowedTiles: []
+  drop: []
+  itemPrefab: {fileID: 0}
+  internalInventory:
+    inventorySize: 0

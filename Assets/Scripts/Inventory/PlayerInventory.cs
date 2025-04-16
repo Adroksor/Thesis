@@ -88,6 +88,11 @@ public class PlayerInventory : MonoBehaviour
             {
                 chest.CloseInventory();
             }
+            inventory2Object.TryGetComponent<Furnace>(out Furnace furnace);
+            if (furnace != null)
+            {
+                furnace.CloseFurnace();
+            }
         }
     }
 }

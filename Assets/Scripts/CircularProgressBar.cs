@@ -4,15 +4,11 @@ using System;
 
 public class CircularProgressBar : MonoBehaviour
 {
-    public Image progressImage; // Assign in Inspector
-    public float timeToFinish = 5f; // Total time to fill the circle
+    public Image progressImage;
+    public float timeToFinish = 5f;
     private float timer = 0f;
     private bool isRunning = false;
-    private Action currentCompletionCallback; // Use a different variable to avoid confusion with persistent listeners if needed
-
-    // You might not need this public 'onTimeout' if callbacks are always
-    // provided via StartProgress. Decide based on your design.
-    // If you keep it, be mindful of += vs = assignment.
+    private Action currentCompletionCallback;
     public Action onTimeout;
 
     // Removed Start() as it was empty
@@ -21,8 +17,8 @@ public class CircularProgressBar : MonoBehaviour
     {
         timeToFinish = duration;
         timer = 0f;
-        progressImage.fillAmount = 0f; // Explicitly reset fill amount
-        currentCompletionCallback = callback; // Store the callback for this specific progress run
+        progressImage.fillAmount = 0f;
+        currentCompletionCallback = callback;
         isRunning = true;
     }
 

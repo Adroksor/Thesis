@@ -77,18 +77,26 @@ public class FurnaceInventory
 
     public void SubtractFromInput(string name, int amount)
     {
-        for (int i = 0; i < outputSlots.Count; i++)
+        for (int i = 0; i < inputSlots.Count; i++)
         {
-            var slot = outputSlots[i];
-            if (string.IsNullOrEmpty(slot.name))
+            var slot = inputSlots[i];
+
+            if (slot.name == name)
             {
-                slot.name = name;
-                slot.amount = amount;
-                outputSlots[i] = slot;
-                return;
+                if (slot.amount >= amount)
+                {
+                    slot.amount -= amount;
+                    inputSlots[i] = slot;
+                    return;
+                }
+                    Debug.LogWarning($"Not enough {name} in the input. Current amount: {slot.amount}, requested: {amount}");
+                    return;
             }
         }
+
+        Debug.LogWarning($"Item {name} not found in input slots.");
     }
+
 
     public void Clear()
     {

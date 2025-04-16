@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class AmountUIUpdate : MonoBehaviour
@@ -10,6 +11,7 @@ public class AmountUIUpdate : MonoBehaviour
 
     public TextMeshProUGUI amountText;
 
+    
     public void UpdateText(int amount)
     {
         amountText.text = amount.ToString();

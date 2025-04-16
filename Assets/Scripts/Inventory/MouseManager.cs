@@ -1,16 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class MouseManager : MonoBehaviour
 {
     
+    
     void Update()
     {
         if (Input.GetMouseButtonDown(0)) // Left click
         {
+            int interactableLayer = LayerMask.GetMask("Interactable");
+            
             Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero);
+            RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero, math.INFINITY, interactableLayer);
             if (hit.collider != null)
             {
                 var chest = hit.collider.GetComponent<Chest>();
@@ -35,8 +39,11 @@ public class MouseManager : MonoBehaviour
 
         if (Input.GetMouseButtonDown(1))
         {
+            int interactableLayer = LayerMask.GetMask("Interactable");
+
+            
             Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero);
+            RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero, math.INFINITY, interactableLayer);
             if (hit.collider != null)
             {
                 var building = hit.collider.GetComponent<Building>();

@@ -85,6 +85,7 @@ public class Building : MonoBehaviour
 
     public void DropInternalItems()
     {
+        if (internalInventory == null) return;
         if (internalInventory.inventoryData != null)
         {
             foreach (var (key, value) in internalInventory.inventoryData)

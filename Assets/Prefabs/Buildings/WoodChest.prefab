@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3861639711404712990}
   - component: {fileID: 4673896120694306179}
   - component: {fileID: -4264518147133637583}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: WoodChest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -104,7 +104,7 @@ MonoBehaviour:
   chestID: 
   inventoryData:
     inventorySize: 0
-  UI: {fileID: 1084080046780883607, guid: e6f6f112baa38764b8c7fb5c6644ba71, type: 3}
+  UI: {fileID: 0}
   chestSize: 9
   inventoryOpen: 0
   playerInventory: {fileID: 0}

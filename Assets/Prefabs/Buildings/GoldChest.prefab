@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2830783314445590714}
   - component: {fileID: 2880281002964059800}
   - component: {fileID: 4558376779385096002}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: GoldChest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -104,7 +104,7 @@ MonoBehaviour:
   chestID: 
   inventoryData:
     inventorySize: 0
-  UI: {fileID: 3165811084025448689, guid: 4a10c0a43fb2b2546bb5c4a26036061b, type: 3}
+  UI: {fileID: 0}
   chestSize: 27
   inventoryOpen: 0
   playerInventory: {fileID: 0}

@@ -19,7 +19,9 @@ public class SelectRecipe : MonoBehaviour
     public void StartSmelting()
     {
         furnace.StartSmelting(selectedRecipe, amountSelection.amount);
+        amountSelection.SetAmount(1);
         InventoryManager.instance.FurnaceUI.SetActive(false);
+        InventoryManager.instance.playerInventory.CloseInventory();
 
     }
     
