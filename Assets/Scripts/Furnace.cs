@@ -75,12 +75,9 @@ public class Furnace : MonoBehaviour
 
             yield return new WaitUntil(() => currentItemFinished);
 
-            Debug.Log($"Finished smelting one item ({smeltedAmount + 1}/{targetAmount}).");
-
             smeltedAmount++;
         }
 
-        Debug.Log($"Smelting batch finished. Total smelted: {smeltedAmount}");
         isSmelting = false;
         smeltingCoroutine = null;
     }
@@ -97,7 +94,6 @@ public class Furnace : MonoBehaviour
         if (smeltedAmount > 0)
         {
             int totalToGive = smeltedAmount * currentRecipe.Output.Amount;
-            Debug.Log($"Attempting to give {totalToGive} of {currentRecipe.Output.Item.name} (Smelted: {smeltedAmount}, Recipe Output: {currentRecipe.Output.Amount})");
             
             InventoryManager.instance.TryAddItemToInventoryData(currentRecipe.Output.Item, totalToGive, playerInventory.inventoryData);
             targetAmount -= smeltedAmount;
@@ -112,8 +108,6 @@ public class Furnace : MonoBehaviour
     public void StopSmelting()
     {
         if (!isSmelting) return;
-
-        Debug.Log("Stopping smelting process...");
 
         if (smeltingCoroutine != null)
         {

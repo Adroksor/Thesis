@@ -13,7 +13,7 @@ public class PlayerInventory : MonoBehaviour
     private void Start()
     {
         inventoryData = new InventoryData(27);
-        PopulateChestWithRandomItems(inventorySize / 2);
+        PopulateInventoryWithRandomItems(inventorySize / 2);
 
     }
 
@@ -40,7 +40,7 @@ public class PlayerInventory : MonoBehaviour
         }
     }
 
-    public void PopulateChestWithRandomItems(int amount)
+    public void PopulateInventoryWithRandomItems(int amount)
     {
         string[] itemNames = {"Coal", "Iron ore", "Iron ingot", "Steel ingot" };
         int randomIndex;

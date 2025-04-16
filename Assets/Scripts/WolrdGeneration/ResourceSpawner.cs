@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class ResourceSpawner : MonoBehaviour
 {
+    BuildingGrid buildingGrid;
 
     [Range(0, 1)]
     public List<float> spawnRate;

@@ -17,11 +17,12 @@ public class Chest : MonoBehaviour
     {
         if (string.IsNullOrEmpty(chestID))
         {
-            chestID = System.Guid.NewGuid().ToString(); // Unique chest ID
+            chestID = Guid.NewGuid().ToString(); // Unique chest ID
         }
         inventoryData = new InventoryData(chestSize);
         PopulateChestWithRandomItems(chestSize / 2);
 
+        playerInventory = InventoryManager.instance.playerInventory;
     }
 
     public void PopulateChestWithRandomItems(int amount)

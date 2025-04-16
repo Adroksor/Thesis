@@ -32,5 +32,19 @@ public class MouseManager : MonoBehaviour
                 }
             }
         }
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero);
+            if (hit.collider != null)
+            {
+                var building = hit.collider.GetComponent<Building>();
+                if (building != null)
+                {
+                    building.Remove();
+                }
+            }
+        }
     }
 }

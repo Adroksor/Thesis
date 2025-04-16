@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class InventoryManager : MonoBehaviour
 {
-    public InventoryUI playerInventory;
-    public InventoryUI hotbarInventory;
+    public PlayerInventory playerInventory;
+    public InventoryUI playerInventoryUI;
+    public InventoryUI hotbarInventoryUI;
     public InventoryUI equipmentInventory;
 
     public PlayerInventory playerInventoryScript;
@@ -18,6 +19,8 @@ public class InventoryManager : MonoBehaviour
     [Header("OpenInventory")]
     public GameObject currentlyOpenedInventory;
     public GameObject currentlyInteractedObject;
+
+    public GameObject droppedItem;
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -37,8 +40,8 @@ public class InventoryManager : MonoBehaviour
     
     public void InitializePlayerInventory()
     {
-        SubscribeSlotsToEvents(playerInventory.slots);
-        SubscribeSlotsToEvents(hotbarInventory.slots);
+        SubscribeSlotsToEvents(playerInventoryUI.slots);
+        SubscribeSlotsToEvents(hotbarInventoryUI.slots);
     }
 
     public void SubscribeSlotsToEvents(List<InventorySlotUI> inventory)
@@ -125,7 +128,7 @@ public class InventoryManager : MonoBehaviour
                 slot.SetData(draggedItem, draggedItemCount);
             }
         }
-        SaveData(playerInventoryScript.inventoryData, playerInventory);
+        SaveData(playerInventoryScript.inventoryData, playerInventoryUI);
     }
     
     private void OnDropRight(InventorySlotUI slot, InventoryUI inventory)
@@ -174,7 +177,7 @@ public class InventoryManager : MonoBehaviour
 
             }
         }
-        SaveData(playerInventoryScript.inventoryData, playerInventory);
+        SaveData(playerInventoryScript.inventoryData, playerInventoryUI);
     }
     private void OnClick(InventorySlotUI slot, InventoryUI inventory)
     {
@@ -189,12 +192,12 @@ public class InventoryManager : MonoBehaviour
             InventoryUI destinationInventory;
 
             if (currentlyOpenedInventory == null)
-                destinationInventory = hotbarInventory;
+                destinationInventory = hotbarInventoryUI;
             else
                 destinationInventory = currentlyOpenedInventory.GetComponentInChildren<InventoryUI>();
 
             if (destinationInventory == inventory)
-                destinationInventory = playerInventory;
+                destinationInventory = playerInventoryUI;
 
             int leftover = TryAddItemToInventory(clickedItem, clickedItemCount, destinationInventory);
 
@@ -309,11 +312,12 @@ public class InventoryManager : MonoBehaviour
                 targetInventoryData.inventoryData[index] = new ItemDataID { name = itemData.Name, amount = itemAtIndex.amount + added };
                 amount -= added;
             }
-
-            Debug.Log($"Index: {index}, Added: {itemAtIndex.amount}, Remaining: {amount}");
         }
 
-        LoadData(targetInventoryData, playerInventory);
+        if (playerInventoryUI.isActiveAndEnabled)
+        {
+            LoadData(targetInventoryData, playerInventoryUI);
+        }
         return amount;
     }
 

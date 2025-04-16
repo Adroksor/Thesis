@@ -13,6 +13,10 @@ public class InventoryData
     public InventoryData(int size)
     {
         inventorySize = size;
+        for (int i = 0; i < size; i++)
+        {
+            inventoryData[i] = new ItemDataID { name = null, amount = 0 };
+        }
     }
     
     public void SetData(int slot, string name, int amount)
