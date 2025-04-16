@@ -8,7 +8,7 @@ public class Chest : MonoBehaviour
 {
     public string chestID;
     public InventoryData inventoryData;
-    public GameObject UI;
+    public InventoryUI UI;
     public int chestSize;
     public bool inventoryOpen;
     public PlayerInventory playerInventory;
@@ -22,7 +22,29 @@ public class Chest : MonoBehaviour
         inventoryData = new InventoryData(chestSize);
         PopulateChestWithRandomItems(chestSize / 2);
 
+        SetChestUI();
+        
         playerInventory = InventoryManager.instance.playerInventory;
+    }
+
+    private void SetChestUI()
+    {
+        if (chestSize == 27)
+        {
+            UI = InventoryManager.instance.inventoriyUIs[0];
+        }
+        else if (chestSize == 18)
+        {
+            UI = InventoryManager.instance.inventoriyUIs[1];
+        }
+        else if (chestSize == 9)
+        {
+            UI = InventoryManager.instance.inventoriyUIs[2];
+        }
+        else
+        {
+            Debug.Log("Invalid chest size");
+        }
     }
 
     public void PopulateChestWithRandomItems(int amount)
@@ -44,7 +66,7 @@ public class Chest : MonoBehaviour
         }
         if (!inventoryOpen)
         {
-            UI.SetActive(true);
+            UI.transform.parent.gameObject.SetActive(true);
             playerInventory.OpenInventory();
             InventoryUI inventoryUI = UI.GetComponentInChildren<InventoryUI>();
             InventoryManager.instance.currentlyOpenedInventory = UI;
@@ -65,8 +87,8 @@ public class Chest : MonoBehaviour
     public void CloseInventory()
     {
         if (inventoryOpen)
-        {
-            UI.SetActive(false);
+        {            
+            UI.transform.parent.gameObject.SetActive(false);
             InventoryUI inventoryUI = UI.GetComponentInChildren<InventoryUI>();
             InventoryManager.instance.currentlyOpenedInventory = null;
             InventoryManager.instance.currentlyInteractedObject = null;

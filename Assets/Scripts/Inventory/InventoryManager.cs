@@ -9,6 +9,8 @@ public class InventoryManager : MonoBehaviour
     public InventoryUI hotbarInventoryUI;
     public InventoryUI equipmentInventory;
 
+    public List<InventoryUI> inventoriyUIs;
+
     public PlayerInventory playerInventoryScript;
     
     public InventorySlotUI initialSlot;
@@ -17,7 +19,7 @@ public class InventoryManager : MonoBehaviour
     public static InventoryManager instance;
     
     [Header("OpenInventory")]
-    public GameObject currentlyOpenedInventory;
+    public InventoryUI currentlyOpenedInventory;
     public GameObject currentlyInteractedObject;
 
     public GameObject droppedItem;
@@ -231,6 +233,10 @@ public class InventoryManager : MonoBehaviour
     
     public void LoadData(InventoryData inventoryData, InventoryUI inventoryUI)
     {
+        if (inventoryUI.slots.Count == 0)
+        {
+            Debug.Log("No slots available");
+        }
         foreach (InventorySlotUI slot in inventoryUI.slots)
         {
             slot.SetData(null, 0);
@@ -239,7 +245,6 @@ public class InventoryManager : MonoBehaviour
         {
             inventoryUI.slots[key].SetData(ItemDatabaseInstance.Instance.GetItemByName(value.name), value.amount);
         }
-
     }
 
     

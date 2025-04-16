@@ -23,7 +23,6 @@ public class InventoryData
     {
         if (name == null || amount == 0)
         {
-            Debug.LogWarning("InventoryData.SetData: name or amount is null");
             return;
         }
         inventoryData[slot] = new ItemDataID { name = name, amount = amount };

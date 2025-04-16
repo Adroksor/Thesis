@@ -12,12 +12,12 @@ public class ItemDatabase : ScriptableObject
     
     public ItemData GetItemByID(int id)
     {
-        return items.FirstOrDefault(item => item.ID == id);
+        return items.FirstOrDefault(item => item.ID == id) ?? missingItem;
     }
 
     public ItemData GetItemByName(string name)
     {
-        return items.FirstOrDefault(item => item.Name == name);
+        return items.FirstOrDefault(item => item.Name == name) ?? missingItem;
     }
     
     public bool TryGetItemByID(int id, out ItemData result)

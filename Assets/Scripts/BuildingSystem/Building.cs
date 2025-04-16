@@ -54,18 +54,22 @@ public class Building : MonoBehaviour
     {
         foreach (var item in itemsToDrop)
         {
-            Vector3 positionOffset = Random.insideUnitCircle / 2;
-            positionOffset.z = 0;
-            positionOffset.y -= 0.15f;
-            GameObject dropped = Instantiate(itemPrefab, transform.position + positionOffset, Quaternion.identity);
+            for(int i = 0; i < item.amount; i++)
+            {
+                Vector3 positionOffset = Random.insideUnitCircle / 2;
+
+                positionOffset.z = 0;
+                positionOffset.y -= 0.15f;
+                GameObject dropped = Instantiate(itemPrefab, transform.position + positionOffset, Quaternion.identity);
             
 
-            // Optional: pass item data to the dropped object
-            DroppedItem droppedScript = dropped.GetComponent<DroppedItem>();
-            if (droppedScript != null)
-            {
-                Debug.Log("Dropped item: " + item.name);
-                droppedScript.SetItem(item); // Your method to assign item data
+                // Optional: pass item data to the dropped object
+                DroppedItem droppedScript = dropped.GetComponent<DroppedItem>();
+                if (droppedScript != null)
+                {
+                    Debug.Log("Dropped item: " + item.name);
+                    droppedScript.SetItem(item); // Your method to assign item data
+                }
             }
         }
     }
