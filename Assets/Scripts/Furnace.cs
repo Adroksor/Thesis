@@ -1,62 +1,116 @@
 using UnityEngine;
 using System;
 using System.Collections;
-using System.Collections.Generic; // Required for List
+using System.Collections.Generic;
+using UnityEngine.Rendering;
+using UnityEngine.UIElements; // Required for List
 
-// Assuming RecipeData, InventoryUI, InventoryManager, ItemData exist elsewhere
-// using YourNamespace; // If they are in a namespace
 
 public class Furnace : MonoBehaviour
 {
-    public List<RecipeData> recipes; // Assign Recipes in Inspector
-    public CircularProgressBar progressBar; // Assign CircularProgressBar in Inspector
-    public PlayerInventory playerInventory; // This will be assigned from InventoryManager
-    public Animator animator; // Assign Animator in Inspector
+    public List<RecipeData> recipes;
+    public CircularProgressBar progressBar;
+    public PlayerInventory playerInventory;
+    public Animator animator;
 
-    public float smeltTimePerItem = 5f; // Time to smelt one unit of the output item
+    public float smeltTimePerItem = 5f;
 
+    public FurnaceInventory furnaceInventory;
+    public Building building;
+    
+    public GameObject recipeUI;
+    public GameObject item;
+    public Button button;
+    
     private RecipeData currentRecipe;
-    private int targetAmount; // How many items the player *requested* to smelt in this batch
-    private int smeltedAmount = 0; // How many items have *actually* been smelted in the current batch
+    private int targetAmount;
+    private int smeltedAmount = 0;
     private bool isSmelting = false;
     private Coroutine smeltingCoroutine;
 
     public void Start()
     {
-        if (recipes != null && recipes.Count > 0 && recipes[0] != null)
+        playerInventory = InventoryManager.instance.playerInventoryScript;
+        furnaceInventory = new FurnaceInventory(5, 3); // Arbitrary slot count — adjust as needed
+        building.internalInventory = null; // No longer using InventoryData
+        building.gettingRemoved += RemovingFurnace;
+    }
+
+    public void InitializeRecipes()
+    {
+        GameObject furnaceUI = InventoryManager.instance.FurnaceUI;
+        GameObject recipeListUI = furnaceUI.transform.Find("Scroll View/Viewport/RecipeList").gameObject;
+
+
+        foreach (Transform child in recipeListUI.transform)
         {
-            StartSmelting(recipes[0], 10); // Example: Smelt 10 items of the first recipe
+            Destroy(child.gameObject);
+        }
+
+        foreach (RecipeData recipe in recipes)
+        {
+            GameObject recipeUI = Instantiate(this.recipeUI, recipeListUI.transform);
+            
+            RecipeButton recipeButton = recipeUI.GetComponent<RecipeButton>();
+            recipeButton.Setup(recipe.name, OnRecipeClicked);
+            GameObject inputs = recipeUI.transform.Find("Inputs").gameObject;
+            GameObject outputs = recipeUI.transform.Find("Outputs").gameObject;
+
+            foreach (RecipeSlotData input in recipe.Input)
+            {
+                GameObject inputUI = Instantiate(item, inputs.transform);
+                ItemUI inputItemUI = inputUI.GetComponent<ItemUI>();
+                inputUI.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
+                inputItemUI.itemCount = input.Amount;
+                inputItemUI.itemIcon = input.Item.ItemImage;
+                inputItemUI.UpdateItemUI();
+            }
+
+            GameObject outputUI = Instantiate(item, outputs.transform);
+            ItemUI outputItemUI = outputUI.GetComponent<ItemUI>();
+            outputItemUI.itemCount = recipe.Output.Amount;
+            outputItemUI.itemIcon = recipe.Output.Item.ItemImage;
+            outputItemUI.UpdateItemUI();
+
+        }
+    }
+    
+    public void OnRecipeClicked(string recipeName)
+    {
+        RecipeData recipe = recipes.Find(r => r.name == recipeName);
+        if (recipe != null)
+        {
+            Debug.Log("Clicked recipe: " + recipe.Output.Item.Name);
+            StartSmelting(recipe, 5);
         }
         else
         {
-             Debug.LogWarning("Furnace: No recipes assigned or the first recipe is invalid.");
+            Debug.LogWarning("Recipe not found: " + recipeName);
         }
-        
-        playerInventory = InventoryManager.instance.playerInventoryScript;
     }
+
+    
     public void StartSmelting(RecipeData recipe, int amount)
     {
-        if (isSmelting)
+        progressBar.gameObject.SetActive(true);
+        if (isSmelting || recipe == null || amount <= 0)
         {
-            Debug.LogWarning("Furnace is already smelting.");
+            Debug.LogWarning("Furnace: Cannot start smelting.");
             return;
-        }
-        if (recipe == null)
-        {
-             Debug.LogError("Furnace: Cannot start smelting with a null recipe.");
-             return;
-        }
-         if (amount <= 0)
-        {
-             Debug.LogWarning("Furnace: Smelting amount must be positive.");
-             return;
         }
 
         currentRecipe = recipe;
         targetAmount = amount;
-        smeltedAmount = 0; // Reset count for the new batch
+        smeltedAmount = 0;
 
-        Debug.Log($"Starting to smelt {targetAmount} of {currentRecipe.Output.Item.name}");
+        furnaceInventory.Clear();
+
+        for (int i = 0; i < currentRecipe.Input.Count; i++)
+        {
+            var input = currentRecipe.Input[i];
+            furnaceInventory.SetInput(i, input.Item.Name, input.Amount * targetAmount);
+        }
+
         smeltingCoroutine = StartCoroutine(SmeltingRoutine());
     }
 
@@ -68,43 +122,35 @@ public class Furnace : MonoBehaviour
         {
             bool currentItemFinished = false;
 
-            progressBar.StartProgress(smeltTimePerItem, () => {
+            progressBar.StartProgress(smeltTimePerItem, () =>
+            {
                 currentItemFinished = true;
-                Bounce();                   
+                Bounce();
+                building.DropItem(new ItemDataID{name = currentRecipe.Output.Item.Name, amount = currentRecipe.Output.Amount});
             });
 
             yield return new WaitUntil(() => currentItemFinished);
 
             smeltedAmount++;
+
+            // Consume inputs and produce output
+            foreach (var input in currentRecipe.Input)
+            {
+                furnaceInventory.SubtractFromInput(input.Item.Name, input.Amount);
+            }
         }
 
         isSmelting = false;
         smeltingCoroutine = null;
+        progressBar.gameObject.SetActive(false);
     }
 
-    public void GivePlayerSmeltedItems()
+    public void SelectRecipe()
     {
-        if (currentRecipe == null || currentRecipe.Output == null || currentRecipe.Output.Item == null)
-        {
-            Debug.LogWarning("Cannot give items: No valid recipe/output defined.");
-            smeltedAmount = 0;
-            return;
-        }
-
-        if (smeltedAmount > 0)
-        {
-            int totalToGive = smeltedAmount * currentRecipe.Output.Amount;
-            
-            InventoryManager.instance.TryAddItemToInventoryData(currentRecipe.Output.Item, totalToGive, playerInventory.inventoryData);
-            targetAmount -= smeltedAmount;
-            smeltedAmount = 0;
-
-        }
-        else
-        {
-            Debug.Log("No items currently smelted to give.");
-        }
+        InventoryManager.instance.FurnaceUI.SetActive(true);
+        InitializeRecipes();
     }
+
     public void StopSmelting()
     {
         if (!isSmelting) return;
@@ -114,28 +160,11 @@ public class Furnace : MonoBehaviour
             StopCoroutine(smeltingCoroutine);
             smeltingCoroutine = null;
         }
-         if (progressBar != null)
-        {
-             progressBar.StopProgress();
-        }
 
+        progressBar?.StopProgress();
         isSmelting = false;
-
-        GivePlayerSmeltedItems();
-
-
-        currentRecipe = null; // Clear the recipe
+        currentRecipe = null;
         targetAmount = 0;
-    }
-
-    public void OnPlayerInteract()
-    {
-        GivePlayerSmeltedItems();
-
-        // Optional: If not smelting, maybe open a UI to select a recipe?
-        // if (!isSmelting) {
-        //     OpenFurnaceUI();
-        // }
     }
 
     public void Bounce()
@@ -144,5 +173,25 @@ public class Furnace : MonoBehaviour
         {
              animator.SetTrigger("Bounce");
         }
+    }
+
+    public void RemovingFurnace(Building building)
+    {
+        // Return all inputs and outputs to internal inventory
+        foreach (var input in furnaceInventory.inputSlots)
+        {
+            if (!string.IsNullOrEmpty(input.name) && input.amount > 0)
+                InventoryManager.instance.TryAddItemToInventoryData(
+                    ItemDatabaseInstance.Instance.GetItemByName(input.name), input.amount, building.internalInventory);
+        }
+
+        foreach (var output in furnaceInventory.outputSlots)
+        {
+            if (!string.IsNullOrEmpty(output.name) && output.amount > 0)
+                InventoryManager.instance.TryAddItemToInventoryData(
+                    ItemDatabaseInstance.Instance.GetItemByName(output.name), output.amount, building.internalInventory);
+        }
+
+        furnaceInventory.Clear();
     }
 }

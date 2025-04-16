@@ -11,6 +11,8 @@ public class InventoryManager : MonoBehaviour
 
     public List<InventoryUI> inventoriyUIs;
 
+    public GameObject FurnaceUI;
+
     public PlayerInventory playerInventoryScript;
     
     public InventorySlotUI initialSlot;

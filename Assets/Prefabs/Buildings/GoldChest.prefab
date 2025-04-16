@@ -108,6 +108,7 @@ MonoBehaviour:
   chestSize: 27
   inventoryOpen: 0
   playerInventory: {fileID: 0}
+  building: {fileID: 4558376779385096002}
 --- !u!61 &2880281002964059800
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -173,3 +174,5 @@ MonoBehaviour:
   - name: Gold chest
     amount: 1
   itemPrefab: {fileID: 3974185785587960047, guid: a81c3a7a9bf2e3a4886ee2bae6bb66fe, type: 3}
+  internalInventory:
+    inventorySize: 0

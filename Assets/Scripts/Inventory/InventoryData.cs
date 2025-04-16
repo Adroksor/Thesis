@@ -27,7 +27,6 @@ public class InventoryData
         }
         inventoryData[slot] = new ItemDataID { name = name, amount = amount };
     }
-
 }
 
 [System.Serializable]

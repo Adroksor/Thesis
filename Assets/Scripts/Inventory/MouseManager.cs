@@ -27,7 +27,7 @@ public class MouseManager : MonoBehaviour
                 {
                     if (InventoryManager.instance.currentlyOpenedInventory == null)
                     {
-                        furnace.GivePlayerSmeltedItems();
+                        furnace.SelectRecipe();
                     }
                 }
             }

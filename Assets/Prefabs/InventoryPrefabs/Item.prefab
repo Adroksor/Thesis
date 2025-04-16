@@ -174,8 +174,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -16, y: 16}
+  m_SizeDelta: {x: -32, y: -32}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7862346364932371132
 CanvasRenderer:
@@ -231,7 +231,6 @@ MonoBehaviour:
   itemCount: 100
   itemIconOBJ: {fileID: 4008291316375857731}
   itemCountOBJ: {fileID: 2630466402100472460}
-  parentPage: {fileID: 0}
 --- !u!61 &-6105390416815113559
 BoxCollider2D:
   m_ObjectHideFlags: 0

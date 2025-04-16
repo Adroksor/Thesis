@@ -12,6 +12,8 @@ public class Chest : MonoBehaviour
     public int chestSize;
     public bool inventoryOpen;
     public PlayerInventory playerInventory;
+
+    public Building building;
     
     private void Awake()
     {
@@ -25,6 +27,8 @@ public class Chest : MonoBehaviour
         SetChestUI();
         
         playerInventory = InventoryManager.instance.playerInventory;
+
+        building.gettingRemoved += RemovingChest;
     }
 
     private void SetChestUI()
@@ -100,5 +104,12 @@ public class Chest : MonoBehaviour
             inventoryOpen = false;
 
         }
+    }
+
+    public void RemovingChest(Building building)
+    {
+        CloseInventory();
+        Debug.Log("data updated");
+        building.internalInventory = inventoryData;
     }
 }

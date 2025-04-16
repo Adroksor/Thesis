@@ -18,7 +18,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &452467738227758066
 RectTransform:
   m_ObjectHideFlags: 0
@@ -202,8 +202,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8315212383705253226}
   - component: {fileID: 520525488455767831}
-  - component: {fileID: 2248738307588850206}
   - component: {fileID: 787814681244267765}
+  - component: {fileID: 2248738307588850206}
   - component: {fileID: 6756575648240625282}
   - component: {fileID: 1154303405282213998}
   m_Layer: 0
@@ -283,21 +283,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &2248738307588850206
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4888030565546613888}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2be2d4d414968744196a759434702c25, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  size: {x: 1, y: 1}
-  isBiomeBased: 0
-  allowedTiles: []
 --- !u!114 &787814681244267765
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -315,6 +300,32 @@ MonoBehaviour:
   progressBar: {fileID: 6529379306615921206}
   playerInventory: {fileID: 0}
   animator: {fileID: 6756575648240625282}
+  smeltTimePerItem: 5
+  furnaceInventory:
+    inputSlots: []
+    outputSlots: []
+    inputSlotCount: 0
+    outputSlotCount: 0
+  building: {fileID: 2248738307588850206}
+--- !u!114 &2248738307588850206
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4888030565546613888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2be2d4d414968744196a759434702c25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  size: {x: 1, y: 1}
+  isBiomeBased: 0
+  allowedTiles: []
+  drop: []
+  itemPrefab: {fileID: 0}
+  internalInventory:
+    inventorySize: 0
 --- !u!95 &6756575648240625282
 Animator:
   serializedVersion: 7

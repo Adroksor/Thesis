@@ -9,7 +9,6 @@ public class PickUpItem : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log(other.gameObject.name);
         if (other.gameObject.layer == LayerMask.NameToLayer("PickUp"))
         {
             DroppedItem droppedItem = other.GetComponent<DroppedItem>();

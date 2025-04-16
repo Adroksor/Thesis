@@ -17,6 +17,9 @@ public class Building : MonoBehaviour
     private BuildingGrid buildingGrid; // Reference to the BuildingGrid
     private Vector2Int gridPosition; // Position of the building on the grid
 
+    public InventoryData internalInventory;
+
+    public Action<Building> gettingRemoved;
 
     void Start()
     {
@@ -44,8 +47,10 @@ public class Building : MonoBehaviour
     // Remove the building from the grid
     public void Remove()
     {
+        gettingRemoved?.Invoke(this);
         buildingGrid.FreeArea(gridPosition, size);
         DropItems(drop);
+        DropInternalItems();
         Destroy(gameObject);
         Debug.Log("Building removed!");
     }
@@ -56,23 +61,72 @@ public class Building : MonoBehaviour
         {
             for(int i = 0; i < item.amount; i++)
             {
-                Vector3 positionOffset = Random.insideUnitCircle / 2;
-
-                positionOffset.z = 0;
-                positionOffset.y -= 0.15f;
-                GameObject dropped = Instantiate(itemPrefab, transform.position + positionOffset, Quaternion.identity);
-            
-
-                // Optional: pass item data to the dropped object
-                DroppedItem droppedScript = dropped.GetComponent<DroppedItem>();
-                if (droppedScript != null)
+                if (item.name != null || item.amount != 0)
                 {
-                    Debug.Log("Dropped item: " + item.name);
-                    droppedScript.SetItem(item); // Your method to assign item data
+                    Vector3 positionOffset = Random.insideUnitCircle / 2;
+
+                    positionOffset.z = 0;
+                    positionOffset.y -= 0.15f;
+                    GameObject dropped = Instantiate(itemPrefab, transform.position + positionOffset,
+                        Quaternion.identity);
+
+                    DroppedItem droppedScript = dropped.GetComponent<DroppedItem>();
+                    if (droppedScript != null)
+                    {
+                        ItemDataID toSet = new ItemDataID();
+                        toSet.name = item.name;
+                        toSet.amount = 1;
+                        droppedScript.SetItem(toSet);
+                    }
                 }
             }
         }
     }
-    
+
+    public void DropInternalItems()
+    {
+        if (internalInventory.inventoryData != null)
+        {
+            foreach (var (key, value) in internalInventory.inventoryData)
+            {
+                if (value.name != null || value.amount != 0)
+                {
+                    Vector3 positionOffset = Random.insideUnitCircle / 2;
+
+                    positionOffset.z = 0;
+                    positionOffset.y -= 0.15f;
+                    GameObject dropped = Instantiate(itemPrefab, transform.position + positionOffset,
+                        Quaternion.identity);
+
+                    DroppedItem droppedScript = dropped.GetComponent<DroppedItem>();
+                    if (droppedScript != null)
+                    {
+
+                        droppedScript.SetItem(value);
+                    }
+                }
+            }
+        }
+    }
+
+    public void DropItem(ItemDataID item)
+    {
+        if (item.name != null || item.amount != 0)
+        {
+            Vector3 positionOffset = Random.insideUnitCircle / 2;
+
+            positionOffset.z = 0;
+            positionOffset.y -= 0.15f;
+            GameObject dropped = Instantiate(itemPrefab, transform.position + positionOffset,
+                Quaternion.identity);
+
+            DroppedItem droppedScript = dropped.GetComponent<DroppedItem>();
+            if (droppedScript != null)
+            {
+
+                droppedScript.SetItem(item);
+            }
+        }
+    }
     
 }
