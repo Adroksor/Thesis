@@ -21,6 +21,7 @@ public class Furnace : MonoBehaviour
     public GameObject recipeUI;
     public GameObject item;
     public Button button;
+    public SelectRecipe selectRecipe;
     
     private RecipeData currentRecipe;
     private int targetAmount;
@@ -34,6 +35,8 @@ public class Furnace : MonoBehaviour
         furnaceInventory = new FurnaceInventory(5, 3); // Arbitrary slot count — adjust as needed
         building.internalInventory = null; // No longer using InventoryData
         building.gettingRemoved += RemovingFurnace;
+
+        selectRecipe = InventoryManager.instance.FurnaceUI.GetComponent<SelectRecipe>();
     }
 
     public void InitializeRecipes()
@@ -81,12 +84,17 @@ public class Furnace : MonoBehaviour
         if (recipe != null)
         {
             Debug.Log("Clicked recipe: " + recipe.Output.Item.Name);
-            StartSmelting(recipe, 5);
+            SelectRecipe(recipe);
         }
         else
         {
             Debug.LogWarning("Recipe not found: " + recipeName);
         }
+    }
+
+    public void SelectRecipe(RecipeData recipe)
+    {
+        selectRecipe.selectedRecipe = recipe;
     }
 
     
@@ -145,10 +153,14 @@ public class Furnace : MonoBehaviour
         progressBar.gameObject.SetActive(false);
     }
 
-    public void SelectRecipe()
+    public void OpenFurnace()
     {
-        InventoryManager.instance.FurnaceUI.SetActive(true);
-        InitializeRecipes();
+        if (!isSmelting)
+        {
+            InventoryManager.instance.FurnaceUI.SetActive(true);
+            selectRecipe.furnace = this;
+            InitializeRecipes();
+        }
     }
 
     public void StopSmelting()
