@@ -19,7 +19,6 @@ public class BuildingGrid : MonoBehaviour
         }
 
         instance = this;
-        DontDestroyOnLoad(gameObject);
     }
     void Start()
     {

@@ -35,7 +35,6 @@ public class InventoryManager : MonoBehaviour
         }
 
         instance = this;
-        DontDestroyOnLoad(gameObject);
     }
     
     private void Start()

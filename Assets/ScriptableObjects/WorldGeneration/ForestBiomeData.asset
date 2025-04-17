@@ -30,7 +30,7 @@ MonoBehaviour:
     rarity: 2
     weight: 10
   - prefab: {fileID: 7940226109284693816, guid: ba3177e8e916f804681ec75701c3b980, type: 3}
-    rarity: 2
+    rarity: 1
     weight: 10
   - prefab: {fileID: 2115053947144719865, guid: f850a532f42a6b0478a212d1e5474d51, type: 3}
     rarity: 2

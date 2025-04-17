@@ -88,6 +88,8 @@ MonoBehaviour:
   amount: 0
   animator: {fileID: 4796647983070479568}
   spriteRenderer: {fileID: 6517496533775930958}
+  isBeingCollected: 0
+  pickUpCooldown: 0.25
 --- !u!95 &4796647983070479568
 Animator:
   serializedVersion: 7

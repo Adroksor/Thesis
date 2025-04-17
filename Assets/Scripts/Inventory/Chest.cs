@@ -66,7 +66,8 @@ public class Chest : MonoBehaviour
     {
         if (InventoryManager.instance.currentlyInteractedObject != gameObject && InventoryManager.instance.currentlyInteractedObject != null)
         {
-            InventoryManager.instance.currentlyInteractedObject.GetComponent<Chest>().CloseInventory();
+            InventoryManager.instance.currentlyInteractedObject.TryGetComponent(out Chest chest);
+            chest.CloseInventory();
         }
         if (!inventoryOpen)
         {
