@@ -27,13 +27,13 @@ public class WorldGenerator : MonoBehaviour
     private Transform player; // Reference to the player's transform
 
     public bool spawnResources = false;
-    public static WorldGenerator Instance { get; private set; }
+    public static WorldGenerator instance { get; private set; }
 
     void Awake()
     {
-        if (Instance == null)
+        if (instance == null)
         {
-            Instance = this;
+            instance = this;
         }
         else
         {
@@ -91,6 +91,22 @@ public class WorldGenerator : MonoBehaviour
                 }
             }
         }
+        // After loading/generating all visible chunks
+        for (int x = playerChunkPosition.x - (renderDistance - 1); x <= playerChunkPosition.x + (renderDistance - 1); x++)
+        {
+            for (int y = playerChunkPosition.y - (renderDistance - 1); y <= playerChunkPosition.y + (renderDistance - 1); y++)
+            {
+                Vector2Int chunkPosition = new Vector2Int(x, y);
+                if (chunks.TryGetValue(chunkPosition, out var chunk) && !chunk.resourcesSpawned)
+                {
+                    SpawnResourcesForChunk(chunk);
+                    chunk.resourcesSpawned = true;
+                }
+            }
+        }
+
+        
+        
         UnloadDistantChunks();
     }
     
@@ -120,6 +136,53 @@ public class WorldGenerator : MonoBehaviour
             UnloadChunk(chunk);
         }
     }
+    
+    void SpawnResourcesForChunk(Chunk chunk)
+    {
+        Vector2Int chunkPosition = chunk.position;
+
+        for (int x = 0; x < chunkSize; x++)
+        {
+            for (int y = 0; y < chunkSize; y++)
+            {
+                TileBase tile = chunk.tiles[x, y];
+
+                if (tile == null || tile == waterTile)
+                    continue;
+
+                int worldX = chunkPosition.x * chunkSize + x;
+                int worldY = chunkPosition.y * chunkSize + y;
+
+                string biomeName = DetermineBiome(worldX, worldY);
+                BiomeData biome = biomeList.Find(b => b.biomeName == biomeName);
+                if (biome == null)
+                    continue;
+
+                GameObject resourcePrefab = resourceSpawner.GetRandomResource(biome.resources);
+                if (resourcePrefab == null)
+                    continue;
+
+                try
+                {
+                    Building building = resourcePrefab.GetComponent<Building>();
+                    if (building != null)
+                    {
+                        if (BuildingGrid.instance.CanPlace(new Vector2Int(worldX, worldY), building))
+                        {
+                            GameObject resource = Instantiate(resourcePrefab, new Vector3(worldX, worldY, 0), Quaternion.identity);
+                            BuildingGrid.instance.OccupyArea(new Vector2Int(worldX, worldY), building);
+                            resource.transform.parent = chunk.chunkOBJ.transform;
+                        }
+                    }
+                }
+                catch (System.Exception)
+                {
+                    // Silently skip any errors during placement
+                }
+            }
+        }
+    }
+
 
     Chunk GenerateChunk(Vector2Int chunkPosition)
     {
@@ -149,22 +212,6 @@ public class WorldGenerator : MonoBehaviour
                 
                 // Determine biome based on altitude, temperature, and moisture
                 TileBase tile = GetTileForBiome(altitude, biome);
-
-                if (spawnResources)
-                {
-                    // Spawn resources for this biome
-                    if(tile != null && tile != waterTile)
-                    {
-                        GameObject resource = resourceSpawner.SpawnResources(new Vector2Int(worldX, worldY), biome);
-
-                        if (resource != null)
-                        {
-                            resource.transform.parent = chunk.chunkOBJ.transform;
-                            chunk.occupiedTiles.Add(new Vector2Int(worldX, worldY), resource);
-                        }
-                    }
-                }
-
 
                 // Store the tile in the chunk
                 chunk.tiles[x, y] = tile;
@@ -424,14 +471,21 @@ public class WorldGenerator : MonoBehaviour
         UpdateChunks();
     }
     
-    public static Chunk GetChunkAt(Vector2Int chunkPosition)
+    public Chunk GetChunkAt(Vector2Int chunkPosition)
     {
-        if (!Instance.chunks.ContainsKey(chunkPosition))
+        if (!chunks.ContainsKey(chunkPosition))
         {
-            Instance.chunks[chunkPosition] = new Chunk(chunkPosition, Instance.chunkSize, Instance.chunkList);
+            chunks[chunkPosition] = new Chunk(chunkPosition, chunkSize, chunkList);
         }
-        return Instance.chunks[chunkPosition];
+        return chunks[chunkPosition];
     }
+    
+    public Chunk TryGetChunk(Vector2Int chunkPosition)
+    {
+        chunks.TryGetValue(chunkPosition, out var chunk);
+        return chunk;
+    }
+
     
     private void OnDrawGizmos()
     {

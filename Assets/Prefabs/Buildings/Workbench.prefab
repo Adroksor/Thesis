@@ -104,5 +104,6 @@ MonoBehaviour:
   allowedTiles: []
   drop: []
   itemPrefab: {fileID: 0}
+  isGhost: 1
   internalInventory:
     inventorySize: 0

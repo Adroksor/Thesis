@@ -11,6 +11,7 @@ public class Chunk
     public Dictionary<Vector2Int, GameObject> occupiedTiles; // Dictionary to track occupied tiles in this chunk
     public bool isLoaded; // Whether the chunk is currently loaded
     public bool tilesSpawned;
+    public bool resourcesSpawned = false;
     public GameObject chunkOBJ;
 
     public Chunk(Vector2Int position, int size, GameObject chunkList)

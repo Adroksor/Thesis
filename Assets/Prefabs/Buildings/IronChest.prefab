@@ -174,5 +174,6 @@ MonoBehaviour:
   - name: Iron chest
     amount: 1
   itemPrefab: {fileID: 3974185785587960047, guid: a81c3a7a9bf2e3a4886ee2bae6bb66fe, type: 3}
+  isGhost: 1
   internalInventory:
     inventorySize: 0

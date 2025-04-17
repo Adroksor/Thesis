@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class ResourceSpawner : MonoBehaviour
 {
-    BuildingGrid buildingGrid;
 
     [Range(0, 1)]
     public List<float> spawnRate;
@@ -19,20 +18,28 @@ public class ResourceSpawner : MonoBehaviour
         // Select a resource based on weight
         if (Random.Range(0f, 1f) < biome.resourceSpawnRate) // Adjust the probability as needed
         {
-            // Select a resource based on weight
             GameObject resourcePrefab = GetRandomResource(biome.resources);
             if (resourcePrefab != null)
             {
-                // Spawn the resource at the specified position
-                GameObject resource = Instantiate(resourcePrefab, new Vector3(position.x, position.y, 0), Quaternion.identity);
-                return resource;
+                resourcePrefab.TryGetComponent(out Building building);
+                if (building != null)
+                {
+                    if (BuildingGrid.instance.CanPlace(new Vector2Int(position.x, position.y), building))
+                    {
+                        GameObject resource = Instantiate(resourcePrefab, new Vector3(position.x, position.y, 0),
+                            Quaternion.identity);
+                        BuildingGrid.instance.OccupyArea(new Vector2Int(position.x, position.y), building);
+                        return resource;
+                    }
+                }
+                
             }
         }
         return null;
     }
 
     // Get a random resource based on weight
-    private GameObject GetRandomResource(List<BiomeResource> resources)
+    public GameObject GetRandomResource(List<BiomeResource> resources)
     {
         if (resources == null || resources.Count == 0)
         {

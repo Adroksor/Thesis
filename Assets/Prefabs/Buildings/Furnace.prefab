@@ -382,7 +382,6 @@ MonoBehaviour:
   building: {fileID: 2248738307588850206}
   recipeUI: {fileID: 6078014539885310508, guid: 681eadb004370f64cbcf08aac8835a58, type: 3}
   item: {fileID: 2148524315103156881, guid: 70c265eddf72ce744a3b3f99071e14b1, type: 3}
-  button: {fileID: 0}
   selectRecipe: {fileID: 0}
   isSmelting: 0
 --- !u!114 &2248738307588850206
@@ -404,6 +403,7 @@ MonoBehaviour:
   - name: Furnace
     amount: 1
   itemPrefab: {fileID: 3974185785587960047, guid: a81c3a7a9bf2e3a4886ee2bae6bb66fe, type: 3}
+  isGhost: 1
   internalInventory:
     inventorySize: 0
 --- !u!95 &6756575648240625282

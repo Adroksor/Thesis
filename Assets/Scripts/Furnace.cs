@@ -164,7 +164,7 @@ public class Furnace : MonoBehaviour
 
     public void OpenFurnace()
     {
-        if (!isSmelting)
+        if (!isSmelting && !building.isGhost)
         {
             InventoryManager.instance.playerInventory.OpenInventory();
             InventoryManager.instance.FurnaceUI.SetActive(true);

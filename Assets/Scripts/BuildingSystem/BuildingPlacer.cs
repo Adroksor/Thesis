@@ -21,7 +21,7 @@ public class BuildingPlacer : MonoBehaviour
 
     void Start()
     {
-        if (BuildingGrid.Instance == null)
+        if (BuildingGrid.instance == null)
         {
             Debug.LogError("BuildingGrid not found in the scene!");
         }
@@ -53,6 +53,20 @@ public class BuildingPlacer : MonoBehaviour
             UpdateGhostPosition();
 
         }
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            selectedBuilding = buildingPrefabs[2];
+            UpdateGhostObject();
+            UpdateGhostPosition();
+
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            selectedBuilding = buildingPrefabs[3];
+            UpdateGhostObject();
+            UpdateGhostPosition();
+
+        }
         if (Input.GetKeyDown(KeyCode.X))
         {
             selectedBuilding = null;
@@ -66,28 +80,12 @@ public class BuildingPlacer : MonoBehaviour
             {
                 PlaceBuilding(selectedBuilding);
             }
-            else
-            {
-                GameObject buildingOBJ = BuildingGrid.Instance.GetObjectAtPosition(mouseGridPosition);
-                if (buildingOBJ != null)
-                {
-                    Building building = buildingOBJ.GetComponent<Building>();
-                    if (building != null)
-                    {
-                        building.Remove();
-                    }
-                    else
-                    {
-                        Debug.Log("No building script found");
-                    }
-                }
-            }
         }
 
         if (Input.GetMouseButtonDown(1))
         {
-            Vector2Int currentChunkPosition = BuildingGrid.Instance.WorldToChunkPosition(mouseGridPosition);
-            currentChunk = WorldGenerator.GetChunkAt(currentChunkPosition);
+            Vector2Int currentChunkPosition = BuildingGrid.instance.WorldToChunkPosition(mouseGridPosition);
+            currentChunk = WorldGenerator.instance.TryGetChunk(currentChunkPosition);
         }
 
         
@@ -96,17 +94,17 @@ public class BuildingPlacer : MonoBehaviour
 
     public void PlaceBuilding(GameObject buildingPrefab)
     {
-        Vector2Int currentChunkPosition = BuildingGrid.Instance.WorldToChunkPosition(mouseGridPosition);
-        currentChunk = WorldGenerator.GetChunkAt(currentChunkPosition);
+        Vector2Int currentChunkPosition = BuildingGrid.instance.WorldToChunkPosition(mouseGridPosition);
+        currentChunk = WorldGenerator.instance.TryGetChunk(currentChunkPosition);
         
-        if (BuildingGrid.Instance.CanPlace(mouseGridPosition, buildingPrefab))
+        Building buildingP = buildingPrefab.GetComponent<Building>();
+        
+        if (BuildingGrid.instance.CanPlace(mouseGridPosition, buildingP))
         {
-            
-            GameObject buildingObject = Instantiate(buildingPrefab, buildingsList.transform);
-            
-            Building building = buildingObject.GetComponent<Building>();
-
-            
+            GameObject buildingOBJ =  Instantiate(buildingPrefab, buildingsList.transform);
+            Building building = buildingOBJ.GetComponent<Building>();
+            building.isGhost = false;
+            Debug.Log("Placed building " + mouseGridPosition);
             building.Place(mouseGridPosition);
         }
         else
@@ -125,7 +123,8 @@ public class BuildingPlacer : MonoBehaviour
         ghostBuilding.transform.position = new Vector3(mouseGridPosition.x, mouseGridPosition.y, 0);
         
         SpriteRenderer sprite = ghostBuilding.GetComponent<SpriteRenderer>();
-        if (BuildingGrid.Instance.CanPlace(mouseGridPosition, ghostBuilding))
+        
+        if (BuildingGrid.instance.CanPlace(mouseGridPosition, ghostBuilding.GetComponent<Building>()))
         {
             sprite.color = new Color32(0, 255, 0, 128);
         }

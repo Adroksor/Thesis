@@ -20,14 +20,8 @@ MonoBehaviour:
   waterLevel: 0.2
   resourceSpawnRate: 0.2
   resources:
-  - prefab: {fileID: 9145587520886894121, guid: 7fa2a92a36c721f479572188e9a43843, type: 3}
-    rarity: 1
-    weight: 10
   - prefab: {fileID: 3683089129427188936, guid: 0ffeb2c68117d7243b48e480574cfd59, type: 3}
-    rarity: 0
+    rarity: 2
     weight: 10
-  - prefab: {fileID: 9122989731688999228, guid: b24fb886e93d568439b66fa903f05423, type: 3}
-    rarity: 1
-    weight: 5
   biomeTiles:
   - {fileID: 11400000, guid: 896ed7b983861ef47b6ae81888f020a8, type: 2}

@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5351564517103206140}
   - component: {fileID: 5184044938051392747}
+  - component: {fileID: 3682483479144418629}
   m_Layer: 0
   m_Name: Tree2
   m_TagString: Untagged
@@ -86,3 +87,22 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &3682483479144418629
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7090610831018690602}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2be2d4d414968744196a759434702c25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  size: {x: 2, y: 2}
+  isBiomeBased: 0
+  allowedTiles: []
+  drop: []
+  itemPrefab: {fileID: 0}
+  internalInventory:
+    inventorySize: 0

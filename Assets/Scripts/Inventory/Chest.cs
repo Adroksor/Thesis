@@ -64,28 +64,31 @@ public class Chest : MonoBehaviour
 
     public void OpenInventory()
     {
-        if (InventoryManager.instance.currentlyInteractedObject != gameObject && InventoryManager.instance.currentlyInteractedObject != null)
+        if (!building.isGhost)
         {
-            InventoryManager.instance.currentlyInteractedObject.TryGetComponent(out Chest chest);
-            chest.CloseInventory();
-        }
-        if (!inventoryOpen)
-        {
-            UI.transform.parent.gameObject.SetActive(true);
-            playerInventory.OpenInventory();
-            InventoryUI inventoryUI = UI.GetComponentInChildren<InventoryUI>();
-            InventoryManager.instance.currentlyOpenedInventory = UI;
-            InventoryManager.instance.currentlyInteractedObject = gameObject;
+            if (InventoryManager.instance.currentlyInteractedObject != gameObject && InventoryManager.instance.currentlyInteractedObject != null)
+            {
+                InventoryManager.instance.currentlyInteractedObject.TryGetComponent(out Chest chest);
+                chest.CloseInventory();
+            }
+            if (!inventoryOpen)
+            {
+                UI.transform.parent.gameObject.SetActive(true);
+                playerInventory.OpenInventory();
+                InventoryUI inventoryUI = UI.GetComponentInChildren<InventoryUI>();
+                InventoryManager.instance.currentlyOpenedInventory = UI;
+                InventoryManager.instance.currentlyInteractedObject = gameObject;
 
-            if (inventoryUI != null)
-            {
-                InventoryManager.instance.LoadData(inventoryData, inventoryUI);
+                if (inventoryUI != null)
+                {
+                    InventoryManager.instance.LoadData(inventoryData, inventoryUI);
+                }
+                else
+                {
+                    Debug.LogWarning("No Inventory UI found");
+                }
+                inventoryOpen = true;
             }
-            else
-            {
-                Debug.LogWarning("No Inventory UI found");
-            }
-            inventoryOpen = true;
         }
     }
 

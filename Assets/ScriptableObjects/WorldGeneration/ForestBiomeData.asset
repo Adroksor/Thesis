@@ -20,9 +20,6 @@ MonoBehaviour:
   waterLevel: 0.3
   resourceSpawnRate: 0.2
   resources:
-  - prefab: {fileID: 7090610831018690602, guid: bc24ffd0d205c56409437c9e6dec3c10, type: 3}
-    rarity: 2
-    weight: 20
   - prefab: {fileID: 2115053947144719865, guid: fe1ffb225525dca49a937f23646491bf, type: 3}
     rarity: 2
     weight: 10
@@ -30,7 +27,7 @@ MonoBehaviour:
     rarity: 2
     weight: 10
   - prefab: {fileID: 7940226109284693816, guid: ba3177e8e916f804681ec75701c3b980, type: 3}
-    rarity: 1
+    rarity: 2
     weight: 10
   - prefab: {fileID: 2115053947144719865, guid: f850a532f42a6b0478a212d1e5474d51, type: 3}
     rarity: 2

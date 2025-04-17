@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7719807391443348970}
   - component: {fileID: 1567127140871846677}
+  - component: {fileID: 3878403637204866664}
   m_Layer: 6
   m_Name: CactusSmall
   m_TagString: Untagged
@@ -86,3 +87,23 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &3878403637204866664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1507175338785462679}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2be2d4d414968744196a759434702c25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  size: {x: 1, y: 1}
+  isBiomeBased: 0
+  allowedTiles:
+  - {fileID: 11400000, guid: 32da9a7b21c7b884ca804a21c3095001, type: 2}
+  drop: []
+  itemPrefab: {fileID: 0}
+  internalInventory:
+    inventorySize: 0

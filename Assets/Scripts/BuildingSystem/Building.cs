@@ -12,9 +12,8 @@ public class Building : MonoBehaviour
 
     public List<ItemDataID> drop;
     public GameObject itemPrefab;
+    public bool isGhost = false;
     
-    
-    private BuildingGrid buildingGrid; // Reference to the BuildingGrid
     private Vector2Int gridPosition; // Position of the building on the grid
 
     public InventoryData internalInventory;
@@ -23,14 +22,6 @@ public class Building : MonoBehaviour
 
     void Start()
     {
-        // Find the BuildingGrid in the scene
-        buildingGrid = BuildingGrid.instance;
-        
-        if (buildingGrid == null)
-        {
-            Debug.LogError("BuildingGrid not found in the scene!");
-        }
-
         itemPrefab = InventoryManager.instance.droppedItem;
     }
 
@@ -39,7 +30,7 @@ public class Building : MonoBehaviour
     public void Place(Vector2Int position)
     {
         gridPosition = position;
-        buildingGrid.OccupyArea(position, this);
+        BuildingGrid.instance.OccupyArea(position, this);
         transform.position = new Vector3(position.x, position.y, 0);
         Debug.Log("Building placed successfully!");
     }
@@ -48,7 +39,7 @@ public class Building : MonoBehaviour
     public void Remove()
     {
         gettingRemoved?.Invoke(this);
-        buildingGrid.FreeArea(gridPosition, size);
+        BuildingGrid.instance.FreeArea(gridPosition, size);
         DropItems(drop);
         DropInternalItems();
         Destroy(gameObject);

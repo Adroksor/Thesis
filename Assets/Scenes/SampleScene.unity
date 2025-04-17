@@ -1880,7 +1880,6 @@ GameObject:
   - component: {fileID: 1274033424}
   - component: {fileID: 1274033426}
   - component: {fileID: 1274033425}
-  - component: {fileID: 1274033427}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1949,30 +1948,6 @@ MonoBehaviour:
   moveSpeed: 5
   rb: {fileID: 1274033425}
   worldGenerator: {fileID: 1979668318}
---- !u!114 &1274033427
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1274033423}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f628ac0e9d581b448cad8c854f60fa8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  buildingsList: {fileID: 1387002613}
-  buildingPrefabs:
-  - {fileID: 4888030565546613888, guid: 091e8176724549742a2f1f0ab1b18814, type: 3}
-  - {fileID: 195022980738136414, guid: d9e753c5ac42b7943a78a0ef35111068, type: 3}
-  selectedBuilding: {fileID: 0}
-  ghostBuilding: {fileID: 0}
-  currentChunk:
-    position: {x: 0, y: 0}
-    isLoaded: 0
-    tilesSpawned: 0
-    chunkOBJ: {fileID: 0}
-  mouseGridPosition: {x: 0, y: 0}
 --- !u!1 &1329061649
 GameObject:
   m_ObjectHideFlags: 0
@@ -2180,6 +2155,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1582148453}
   - component: {fileID: 1582148452}
+  - component: {fileID: 1582148454}
   m_Layer: 0
   m_Name: BuildingGrid
   m_TagString: Untagged
@@ -2216,6 +2192,33 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1582148454
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1582148451}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f628ac0e9d581b448cad8c854f60fa8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buildingsList: {fileID: 1387002613}
+  buildingPrefabs:
+  - {fileID: 4888030565546613888, guid: 091e8176724549742a2f1f0ab1b18814, type: 3}
+  - {fileID: 195022980738136414, guid: d9e753c5ac42b7943a78a0ef35111068, type: 3}
+  - {fileID: 4888030565546613888, guid: 4791962ddb677c348ace567f983bfb80, type: 3}
+  - {fileID: 4888030565546613888, guid: d662aa422753ad14994eef3dffe61a57, type: 3}
+  selectedBuilding: {fileID: 0}
+  ghostBuilding: {fileID: 0}
+  currentChunk:
+    position: {x: 0, y: 0}
+    isLoaded: 0
+    tilesSpawned: 0
+    resourcesSpawned: 0
+    chunkOBJ: {fileID: 0}
+  mouseGridPosition: {x: 0, y: 0}
 --- !u!114 &1656569407 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6315783863499085946, guid: e19101ba9bc56e94b8eb088fa2ba505e, type: 3}
@@ -2486,7 +2489,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   chunkSize: 16
   chunkList: {fileID: 689055812}
-  renderDistance: 5
+  renderDistance: 3
   tilemap: {fileID: 760717630}
   waterTile: {fileID: 11400000, guid: 7ff3938c989083d40b4c4c24b9f4d96b, type: 2}
   biomeList:
@@ -2502,7 +2505,7 @@ MonoBehaviour:
   lacunarity: 2
   noiseOffset: {x: 0, y: 0}
   playerChunkPosition: {x: 0, y: 0}
-  spawnResources: 1
+  spawnResources: 0
 --- !u!4 &1979668319
 Transform:
   m_ObjectHideFlags: 0
@@ -2531,9 +2534,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnRate:
-  - 0.8
-  - 0.15
+  - 0.2
   - 0.05
+  - 0.005
 --- !u!1 &2029919437
 GameObject:
   m_ObjectHideFlags: 0

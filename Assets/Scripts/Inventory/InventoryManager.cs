@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class InventoryManager : MonoBehaviour
-{
+{   
+    public static InventoryManager instance;
+    
     public PlayerInventory playerInventory;
     public InventoryUI playerInventoryUI;
     public InventoryUI hotbarInventoryUI;
@@ -19,7 +21,6 @@ public class InventoryManager : MonoBehaviour
     public InventorySlotUI initialSlot;
     public ItemData draggedItem;
     public int draggedItemCount;
-    public static InventoryManager instance;
     
     [Header("OpenInventory")]
     public InventoryUI currentlyOpenedInventory;

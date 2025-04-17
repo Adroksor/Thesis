@@ -21,13 +21,13 @@ MonoBehaviour:
   resourceSpawnRate: 0.02
   resources:
   - prefab: {fileID: 2922914110254860002, guid: 6cfc66fc1405f2244a952c242f8e4749, type: 3}
-    rarity: 0
+    rarity: 2
     weight: 30
   - prefab: {fileID: 1507175338785462679, guid: 1a87de27d9553bc4d9f15cba60d3c7f6, type: 3}
-    rarity: 0
+    rarity: 2
     weight: 5
   - prefab: {fileID: 7940226109284693816, guid: 9af3bd79c843cea4dad10b881d348ecf, type: 3}
-    rarity: 1
+    rarity: 2
     weight: 10
   biomeTiles:
   - {fileID: 11400000, guid: 1d04363c6ee1f474183dab2eeb712aec, type: 2}
