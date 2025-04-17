@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2195009512856526135}
   - component: {fileID: 837162447254973206}
   - component: {fileID: -1109332882575865287}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: IronOre
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -107,6 +107,8 @@ MonoBehaviour:
   - name: Iron ore
     amount: 5
   itemPrefab: {fileID: 0}
+  internalInventory:
+    inventorySize: 0
 --- !u!61 &-1109332882575865287
 BoxCollider2D:
   m_ObjectHideFlags: 0

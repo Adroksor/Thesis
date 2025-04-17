@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2195009512856526135}
   - component: {fileID: -8491838430923924086}
   - component: {fileID: -7723028832028343748}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: GoldOre
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -107,6 +107,8 @@ MonoBehaviour:
   - name: Gold ore
     amount: 5
   itemPrefab: {fileID: 0}
+  internalInventory:
+    inventorySize: 0
 --- !u!61 &-7723028832028343748
 BoxCollider2D:
   m_ObjectHideFlags: 0

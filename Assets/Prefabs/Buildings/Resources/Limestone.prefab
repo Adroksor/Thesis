@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7056242590911217586}
   - component: {fileID: 7782193245167324364}
   - component: {fileID: 6611099129043248516}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Limestone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -107,6 +107,8 @@ MonoBehaviour:
   - name: 
     amount: 0
   itemPrefab: {fileID: 0}
+  internalInventory:
+    inventorySize: 0
 --- !u!61 &6611099129043248516
 BoxCollider2D:
   m_ObjectHideFlags: 0

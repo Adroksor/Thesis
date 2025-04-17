@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7056242590911217586}
   - component: {fileID: -8134729982789106679}
   - component: {fileID: 5014723985207274091}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Stone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -107,6 +107,8 @@ MonoBehaviour:
   - name: Stone
     amount: 5
   itemPrefab: {fileID: 0}
+  internalInventory:
+    inventorySize: 0
 --- !u!61 &5014723985207274091
 BoxCollider2D:
   m_ObjectHideFlags: 0

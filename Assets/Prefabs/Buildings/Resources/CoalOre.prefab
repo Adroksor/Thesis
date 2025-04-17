@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4627623003020800108}
   - component: {fileID: 2599089713700729929}
   - component: {fileID: -1257547112713354362}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: CoalOre
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -107,6 +107,8 @@ MonoBehaviour:
   - name: Coal
     amount: 5
   itemPrefab: {fileID: 0}
+  internalInventory:
+    inventorySize: 0
 --- !u!61 &-1257547112713354362
 BoxCollider2D:
   m_ObjectHideFlags: 0
