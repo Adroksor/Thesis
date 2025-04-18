@@ -67,6 +67,27 @@ public class BuildingPlacer : MonoBehaviour
             UpdateGhostPosition();
 
         }
+        if (Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            selectedBuilding = buildingPrefabs[4];
+            UpdateGhostObject();
+            UpdateGhostPosition();
+
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha6))
+        {
+            selectedBuilding = buildingPrefabs[5];
+            UpdateGhostObject();
+            UpdateGhostPosition();
+
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha7))
+        {
+            selectedBuilding = buildingPrefabs[6];
+            UpdateGhostObject();
+            UpdateGhostPosition();
+
+        }
         if (Input.GetKeyDown(KeyCode.X))
         {
             selectedBuilding = null;

@@ -2,7 +2,9 @@ using UnityEngine;
 
 public class TopDownPlayerMovement : MonoBehaviour
 {
-    public float moveSpeed = 5f; // Speed of the player movement
+    public float moveSpeed;
+    public float walkSpeed = 5f; // Speed of the player movement
+    public float sprintSpeed = 20f;
     public Rigidbody2D rb; // Reference to the Rigidbody2D component
     public WorldGenerator worldGenerator; // Reference to the WorldGenerator script
 
@@ -21,6 +23,15 @@ public class TopDownPlayerMovement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R)) // Press R to reset the world
         {
             ResetWorld();
+        }
+
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            moveSpeed = sprintSpeed;
+        }
+        else
+        {
+            moveSpeed = walkSpeed;
         }
     }
 
