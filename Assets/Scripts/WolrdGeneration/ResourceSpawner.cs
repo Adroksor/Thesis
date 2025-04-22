@@ -43,7 +43,6 @@ public class ResourceSpawner : MonoBehaviour
     {
         if (resources == null || resources.Count == 0)
         {
-            Debug.LogWarning("No resources available in this biome.");
             return null;
         }
 

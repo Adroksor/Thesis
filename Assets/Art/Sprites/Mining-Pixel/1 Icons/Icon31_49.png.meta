@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 50bddcf6366923f478757db3c8fb10f5
+guid: 11eedb173f76a41498e08273716077a5
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -6034460472791577125
-    second: IronOreRock_0
+      213: -6156552863181655869
+    second: Icon31_49_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -49,8 +49,8 @@ TextureImporter:
   spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 0
-  alignment: 9
-  spritePivot: {x: 0.25, y: 0.25}
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
@@ -75,7 +75,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: IronOreRock_0
+      name: Icon31_49_0
       rect:
         serializedVersion: 2
         x: 2
         y: 2
         width: 30
-        height: 28
+        height: 27
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -114,8 +114,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: bdd4f140c2a414ca0800000000000000
-      internalID: -6034460472791577125
+      spriteID: 3c0b42d2ac78f8aa0800000000000000
+      internalID: -6156552863181655869
       vertices: []
       indices: 
       edges: []
@@ -131,7 +131,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      IronOreRock_0: -6034460472791577125
+      Icon31_49_0: -6156552863181655869
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

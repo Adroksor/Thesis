@@ -8,6 +8,7 @@ public class Building : MonoBehaviour
 {
     public Vector2Int size = new Vector2Int(1, 1); // Size of the building (in tiles)
     public bool isBiomeBased = false;
+    public bool placableOnWater = false;
     public TileBase[] allowedTiles; // Tiles the building can be placed on (e.g., water for pumps)
 
     public List<ItemDataID> drop;

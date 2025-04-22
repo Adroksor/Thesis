@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 2c899f7bddec61740a4ab0eef9f8fa77
+guid: 0008ed2cacfbd3e42b9f0f439239ad7e
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5524559876696558621
-    second: testOreRock_0
+      213: -1726037206718319109
+    second: GoldOreRock2_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -51,7 +51,7 @@ TextureImporter:
   spriteMeshType: 0
   alignment: 9
   spritePivot: {x: 0.25, y: 0.25}
-  spritePixelsToUnits: 16
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -75,7 +75,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -100,22 +100,22 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: testOreRock_0
+      name: GoldOreRock2_0
       rect:
         serializedVersion: 2
-        x: 2
+        x: 4
         y: 2
-        width: 30
-        height: 28
+        width: 60
+        height: 57
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 3e330210012d453b0800000000000000
-      internalID: -5524559876696558621
+      spriteID: bf572703e42eb08e0800000000000000
+      internalID: -1726037206718319109
       vertices: []
       indices: 
       edges: []
@@ -124,14 +124,14 @@ TextureImporter:
     physicsShape: []
     bones: []
     spriteID: 5e97eb03825dee720800000000000000
-    internalID: 1537655665
+    internalID: 0
     vertices: []
     indices: 
     edges: []
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      testOreRock_0: -5524559876696558621
+      GoldOreRock2_0: -1726037206718319109
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

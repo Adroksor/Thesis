@@ -35,32 +35,23 @@ public class BuildingGrid : MonoBehaviour
     public bool CanPlace(Vector2Int position, Building building)
     {
         Vector2Int size = building.size;
-        
-        // Check if the area is available
-        if (!IsAreaAvailable(position, size))
-        {
-            return false;
-        }
-        if (!building.isBiomeBased)
-        {
-            return true;
-        }
         // Check if the building can be placed on the tiles
         for (int x = position.x; x < position.x + size.x; x++)
         {
             for (int y = position.y; y < position.y + size.y; y++)
             {
-                TileBase tile = GetTileAtPosition(new Vector2Int(x, y));
-                if (tile == null)
-                {
-                    // Skip this placement, tile isn't initialized yet
+                Vector2Int tilePos = new Vector2Int(x, y);
+
+                if (IsTileOccupied(tilePos)) return false;
+
+                TileBase tile = GetTileAtPosition(tilePos);
+                if (tile == null) return false;
+
+                if (!building.placableOnWater && tile == WorldGenerator.instance.waterTile)
                     return false;
-                }
-                if (tile == null || !IsTileAllowed(tile, building))
-                {
-                    Debug.Log("Building cannot be placed on this tile!");
+
+                if (building.isBiomeBased && !IsTileAllowed(tile, building))
                     return false;
-                }
             }
         }
         return true; // Building can be placed

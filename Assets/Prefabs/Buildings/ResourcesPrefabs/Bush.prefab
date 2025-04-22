@@ -105,6 +105,8 @@ MonoBehaviour:
   allowedTiles: []
   drop:
   - name: Oak log
+    amount: 1
+  - name: Berries
     amount: 2
   itemPrefab: {fileID: 0}
   isGhost: 0
