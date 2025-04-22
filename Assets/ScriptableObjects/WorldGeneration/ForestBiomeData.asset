@@ -32,5 +32,8 @@ MonoBehaviour:
   - prefab: {fileID: 2115053947144719865, guid: f850a532f42a6b0478a212d1e5474d51, type: 3}
     rarity: 2
     weight: 10
+  - prefab: {fileID: 6222434865182514260, guid: 5ce891519ae7c924ea7701371af1f728, type: 3}
+    rarity: 1
+    weight: 5
   biomeTiles:
   - {fileID: 11400000, guid: 03dc631b4c839ca4aa97152c77da0759, type: 2}
