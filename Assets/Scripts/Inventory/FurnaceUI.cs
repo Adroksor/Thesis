@@ -10,6 +10,7 @@ public class FurnaceUI : MonoBehaviour
     public Furnace furnace;
     public GameObject item;
     public GameObject recipeUIp;
+    public Button smeltButton;
 
     public SelectRecipe selectRecipe;
 
@@ -71,14 +72,10 @@ public class FurnaceUI : MonoBehaviour
             bool canSmelt =
                 InventoryManager.instance.DoesInventoryHaveItems(
                     InventoryManager.instance.playerInventory.inventoryData, items);
-            if (canSmelt)
-            {
-                recipeButton.button.interactable = true;
-            }
-            else
-            {
-                recipeButton.button.interactable = false;
-            }
+            
+            recipeButton.button.interactable = canSmelt;
+            smeltButton.interactable = canSmelt;
+            
 
             GameObject outputUI = Instantiate(item, outputs.transform);
             ItemUI outputItemUI = outputUI.GetComponent<ItemUI>();
@@ -140,7 +137,40 @@ public class FurnaceUI : MonoBehaviour
 
         recipeButton.button.interactable = canSmelt;
     }
+
+    UpdateSmeltButtonInteractability();
 }
+    
+    public void UpdateSmeltButtonInteractability()
+    {
+        RecipeData recipe = selectRecipe.selectedRecipe;
+        int amount = selectRecipe.amountSelection.amount;
+
+        if (recipe == null || amount <= 0)
+        {
+            smeltButton.interactable = false;
+            return;
+        }
+
+        List<ItemDataID> totalNeededItems = new List<ItemDataID>();
+
+        foreach (RecipeSlotData input in recipe.Input)
+        {
+            totalNeededItems.Add(new ItemDataID
+            {
+                name = input.Item.Name,
+                amount = input.Amount * amount
+            });
+        }
+
+        bool canSmelt = InventoryManager.instance.DoesInventoryHaveItems(
+            InventoryManager.instance.playerInventory.inventoryData,
+            totalNeededItems
+        );
+
+        smeltButton.interactable = canSmelt;
+    }
+
 
     
     public void OnRecipeClicked(string recipeName)
@@ -166,5 +196,7 @@ public class FurnaceUI : MonoBehaviour
                 }
             }
         }
+        UpdateSmeltButtonInteractability();
+
     }
 }
