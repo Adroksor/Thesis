@@ -1,5 +1,6 @@
 
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -14,7 +15,12 @@ public class PlayerInventory : MonoBehaviour
     {
         inventoryData = new InventoryData(27);
         PopulateInventoryWithRandomItems(inventorySize / 2);
-
+        
+        Dictionary<ItemData, int> combined = InventoryManager.instance.GetCombinedInventory(inventoryData);
+        foreach (var item in combined)
+        {
+            Debug.Log(item.Key.Name + ", amount: " + item.Value);
+        }
     }
 
     private void Update()
@@ -42,12 +48,12 @@ public class PlayerInventory : MonoBehaviour
 
     public void PopulateInventoryWithRandomItems(int amount)
     {
-        string[] itemNames = {"Coal", "Iron ore", "Iron ingot", "Steel ingot" };
+        string[] itemNames = {"Coal", "Iron ore", "Iron ingot", "Steel ingot", "Oak log" };
         int randomIndex;
         for (int i = 0; i < amount; i++)
         {
             randomIndex = Random.Range(0, itemNames.Length);
-            inventoryData.SetData(Random.Range(0, inventorySize), itemNames[randomIndex], Random.Range(0, 8));
+            inventoryData.SetData(Random.Range(0, inventorySize), itemNames[randomIndex], Random.Range(0, 20));
         }
     }
 

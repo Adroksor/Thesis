@@ -43,7 +43,6 @@ public class Building : MonoBehaviour
         DropItems(drop);
         DropInternalItems();
         Destroy(gameObject);
-        Debug.Log("Building removed!");
     }
 
     public void DropItems(List<ItemDataID> itemsToDrop)

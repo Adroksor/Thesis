@@ -4,7 +4,7 @@ public static class ItemDatabaseInstance
 {
     private static ItemDatabase _instance;
 
-    public static ItemDatabase Instance
+    public static ItemDatabase instance
     {
         get
         {

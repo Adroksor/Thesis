@@ -330,6 +330,8 @@ GameObject:
   - component: {fileID: 1189925026630506733}
   - component: {fileID: 2983610842137441859}
   - component: {fileID: 4802920293579743686}
+  - component: {fileID: 3086657862852420028}
+  - component: {fileID: 500158399139161482}
   m_Layer: 0
   m_Name: FurnaceRecipeList
   m_TagString: Untagged
@@ -443,6 +445,37 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 350, y: 300}
   m_EdgeRadius: 0
+--- !u!114 &3086657862852420028
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1385974527259942514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4b78424ff652b04697d5c315b058737, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  furnace: {fileID: 0}
+  selectedRecipe: {fileID: 0}
+  amountSelection: {fileID: 261170923162216802}
+--- !u!114 &500158399139161482
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1385974527259942514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39e9b3448ef44a04ea51e0594b6cdf28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  furnace: {fileID: 0}
+  item: {fileID: 2148524315103156881, guid: 70c265eddf72ce744a3b3f99071e14b1, type: 3}
+  recipeUIp: {fileID: 6078014539885310508, guid: 681eadb004370f64cbcf08aac8835a58, type: 3}
+  selectRecipe: {fileID: 3086657862852420028}
 --- !u!1 &3796523642188895672
 GameObject:
   m_ObjectHideFlags: 0

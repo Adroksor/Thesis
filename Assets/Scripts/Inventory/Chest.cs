@@ -113,7 +113,6 @@ public class Chest : MonoBehaviour
     public void RemovingChest(Building building)
     {
         CloseInventory();
-        Debug.Log("data updated");
         building.internalInventory = inventoryData;
     }
 }

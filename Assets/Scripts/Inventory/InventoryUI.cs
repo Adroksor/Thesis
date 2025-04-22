@@ -16,7 +16,7 @@ public class InventoryUI : MonoBehaviour
         {
             InitializeInventory();
         }
-        missingItem = ItemDatabaseInstance.Instance.missingItem;
+        missingItem = ItemDatabaseInstance.instance.missingItem;
         
     }
 

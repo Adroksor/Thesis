@@ -5,7 +5,7 @@ using UnityEngine.UIElements;
 
 public class SelectRecipe : MonoBehaviour
 {
-    public Furnace furnace;
+    public FurnaceUI furnaceUI;
 
     public RecipeData selectedRecipe;
     public AmountSelection amountSelection;
@@ -18,11 +18,10 @@ public class SelectRecipe : MonoBehaviour
 
     public void StartSmelting()
     {
-        furnace.StartSmelting(selectedRecipe, amountSelection.amount);
+        furnaceUI.furnace.ConsumeRecipeIngredients(selectedRecipe, amountSelection.amount);
+        furnaceUI.furnace.StartSmelting(selectedRecipe, amountSelection.amount);
         amountSelection.SetAmount(1);
         InventoryManager.instance.FurnaceUI.SetActive(false);
         InventoryManager.instance.playerInventory.CloseInventory();
-
     }
-    
 }

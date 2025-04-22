@@ -246,7 +246,7 @@ public class InventoryManager : MonoBehaviour
         }
         foreach (var (key, value) in inventoryData.inventoryData)
         {
-            inventoryUI.slots[key].SetData(ItemDatabaseInstance.Instance.GetItemByName(value.name), value.amount);
+            inventoryUI.slots[key].SetData(ItemDatabaseInstance.instance.GetItemByName(value.name), value.amount);
         }
     }
 
@@ -328,7 +328,52 @@ public class InventoryManager : MonoBehaviour
         }
         return amount;
     }
+    
+    public bool TryRemoveItemsFromInventoryData(ItemData itemData, int amount, InventoryData targetInventoryData)
+    {
+        int remaining = amount;
 
+        // First, collect all slots that contain the item
+        List<int> matchingSlots = new List<int>();
+        foreach (var kvp in targetInventoryData.inventoryData)
+        {
+            if (kvp.Value.name == itemData.Name)
+            {
+                matchingSlots.Add(kvp.Key);
+            }
+        }
+
+        // Sort by slot index for consistency
+        matchingSlots.Sort();
+        
+        foreach (int index in matchingSlots)
+        {
+            if (remaining <= 0) break;
+
+            ItemDataID item = targetInventoryData.inventoryData[index];
+            if (item.amount <= remaining)
+            {
+                remaining -= item.amount;
+                targetInventoryData.inventoryData[index] = new ItemDataID(); // Clear the slot
+            }
+            else
+            {
+                targetInventoryData.inventoryData[index] = new ItemDataID { name = item.name, amount = item.amount - remaining };
+                remaining = 0;
+            }
+        }
+
+        // Refresh UI if it's open
+        if (playerInventoryUI.isActiveAndEnabled)
+        {
+            LoadData(targetInventoryData, playerInventoryUI);
+        }
+
+        return remaining == 0; // true if we removed the full amount
+    }
+
+
+    
     public int IndexOfFirstOrEmptySlotData(InventoryData inventoryData, int startIndex = 0, string itemToTransfer = null)
     {
         for (int i = startIndex; i < inventoryData.inventorySize; i++)
@@ -343,5 +388,47 @@ public class InventoryManager : MonoBehaviour
             }
         }
         return -1;
+    }
+
+    public Dictionary<ItemData, int> GetCombinedInventory(InventoryData inventoryData)
+    {
+        Dictionary<ItemData, int> combinedItems = new Dictionary<ItemData, int>();
+
+        foreach (var item in inventoryData.inventoryData)
+        {
+            ItemData itemData = ItemDatabaseInstance.instance.GetItemByName(item.Value.name);
+            if (itemData.Name != "MissingItem")
+            {
+                if (!combinedItems.ContainsKey(itemData))
+                {
+                    combinedItems.Add(itemData, item.Value.amount);
+                }
+                else
+                {
+                    combinedItems[itemData] += item.Value.amount;
+                }
+            }
+        }
+        return combinedItems;
+    }
+
+    public bool DoesInventoryHaveItems(InventoryData inventoryData, List<ItemDataID> itemDataIDs)
+    {
+        Dictionary<ItemData, int> combinedItems = GetCombinedInventory(inventoryData);
+        foreach (var input in itemDataIDs)
+        {
+            ItemData item = ItemDatabaseInstance.instance.GetItemByName(input.name);
+            if (!combinedItems.ContainsKey(item))
+            {
+                return false;
+            }
+
+            if (input.amount > combinedItems[item])
+            {
+
+                return false;
+            }
+        }
+        return true;
     }
 }

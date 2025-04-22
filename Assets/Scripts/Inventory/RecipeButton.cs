@@ -9,6 +9,6 @@ public class RecipeButton : MonoBehaviour
     public void Setup(string name, System.Action<string> onClick)
     {
         recipeName = name;
-        button.onClick.AddListener(() => onClick(recipeName));
+            button.onClick.AddListener(() => onClick(recipeName));
     }
 }

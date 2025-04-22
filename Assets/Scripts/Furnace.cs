@@ -19,9 +19,6 @@ public class Furnace : MonoBehaviour
     public FurnaceInventory furnaceInventory;
     public Building building;
     
-    public GameObject recipeUI;
-    public GameObject item;
-    public SelectRecipe selectRecipe;
     
     private RecipeData currentRecipe;
     private int targetAmount;
@@ -35,72 +32,7 @@ public class Furnace : MonoBehaviour
         building.internalInventory = null; // No longer using InventoryData
         building.gettingRemoved += RemovingFurnace;
 
-        selectRecipe = InventoryManager.instance.FurnaceUI.GetComponent<SelectRecipe>();
     }
-
-    public void InitializeRecipes()
-    {
-        GameObject furnaceUI = InventoryManager.instance.FurnaceUI;
-        GameObject recipeListUI = furnaceUI.transform.Find("Scroll View/Viewport/RecipeList").gameObject;
-
-
-        foreach (Transform child in recipeListUI.transform)
-        {
-            Destroy(child.gameObject);
-        }
-
-        foreach (RecipeData recipe in InventoryManager.instance.furnaceRecipes)
-        {
-            GameObject recipeUI = Instantiate(this.recipeUI, recipeListUI.transform);
-            
-            RecipeButton recipeButton = recipeUI.GetComponent<RecipeButton>();
-            recipeButton.Setup(recipe.name, OnRecipeClicked);
-            GameObject inputs = recipeUI.transform.Find("Inputs").gameObject;
-            GameObject outputs = recipeUI.transform.Find("Outputs").gameObject;
-
-            foreach (RecipeSlotData input in recipe.Input)
-            {
-                GameObject inputUI = Instantiate(item, inputs.transform);
-                ItemUI inputItemUI = inputUI.GetComponent<ItemUI>();
-                inputUI.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
-                inputItemUI.itemCount = input.Amount;
-                inputItemUI.itemIcon = input.Item.ItemImage;
-                inputItemUI.UpdateItemUI();
-            }
-
-            GameObject outputUI = Instantiate(item, outputs.transform);
-            ItemUI outputItemUI = outputUI.GetComponent<ItemUI>();
-            outputItemUI.itemCount = recipe.Output.Amount;
-            outputItemUI.itemIcon = recipe.Output.Item.ItemImage;
-            outputItemUI.UpdateItemUI();
-
-        }
-    }
-    
-    public void OnRecipeClicked(string recipeName)
-    {
-        RecipeData recipe = InventoryManager.instance.furnaceRecipes.Find(r => r.name == recipeName);
-        if (recipe != null)
-        {
-            Debug.Log("Clicked recipe: " + recipe.Output.Item.Name);
-            SelectRecipe(recipe);
-        }
-        else
-        {
-            Debug.LogWarning("Recipe not found: " + recipeName);
-        }
-    }
-
-    public void SelectRecipe(RecipeData recipe)
-    {
-        selectRecipe.selectedRecipe = recipe;
-        
-        GameObject furnaceUI = InventoryManager.instance.FurnaceUI;
-        Image icon = furnaceUI.transform.Find("AmountSelection/ItemIcon").GetComponent<Image>();
-        icon.sprite = recipe.Output.Item.ItemImage;
-
-    }
-
     
     public void StartSmelting(RecipeData recipe, int amount)
     {
@@ -170,8 +102,9 @@ public class Furnace : MonoBehaviour
             InventoryManager.instance.FurnaceUI.SetActive(true);
             InventoryManager.instance.currentlyInteractedObject = gameObject;
             
-            selectRecipe.furnace = this;
-            InitializeRecipes();
+            FurnaceUI furnaceUI = InventoryManager.instance.FurnaceUI.GetComponent<FurnaceUI>();
+            furnaceUI.furnace = this;
+            furnaceUI.InitializeRecipes();
         }
     }
 
@@ -179,8 +112,6 @@ public class Furnace : MonoBehaviour
     {
         InventoryManager.instance.FurnaceUI.SetActive(false);
         InventoryManager.instance.currentlyInteractedObject = null;
-        selectRecipe.furnace = null;
-
     }
 
     public void StopSmelting()
@@ -215,9 +146,17 @@ public class Furnace : MonoBehaviour
             if (!string.IsNullOrEmpty(input.name) && input.amount > 0)
             {
                 building.DropItem(new ItemDataID{name = input.name, amount = input.amount});
-
             }
         }
         furnaceInventory.Clear();
     }
+    
+    public void ConsumeRecipeIngredients(RecipeData recipe, int amount)
+    {
+        foreach (RecipeSlotData input in recipe.Input)
+        {
+            InventoryManager.instance.TryRemoveItemsFromInventoryData(input.Item, input.Amount * amount, InventoryManager.instance.playerInventory.inventoryData );
+        }
+    }
+
 }

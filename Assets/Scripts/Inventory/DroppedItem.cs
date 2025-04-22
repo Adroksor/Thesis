@@ -62,7 +62,7 @@ public class DroppedItem : MonoBehaviour
      private void TryPickup()
      {
           int remaining = InventoryManager.instance.TryAddItemToInventoryData(
-               ItemDatabaseInstance.Instance.GetItemByName(itemName),
+               ItemDatabaseInstance.instance.GetItemByName(itemName),
                amount,
                InventoryManager.instance.playerInventoryScript.inventoryData
           );
@@ -82,6 +82,6 @@ public class DroppedItem : MonoBehaviour
      {
           itemName = itemData.name;
           amount = itemData.amount;
-          spriteRenderer.sprite = ItemDatabaseInstance.Instance.GetItemByName(itemName).ItemImage;
+          spriteRenderer.sprite = ItemDatabaseInstance.instance.GetItemByName(itemName).ItemImage;
      }
 }
