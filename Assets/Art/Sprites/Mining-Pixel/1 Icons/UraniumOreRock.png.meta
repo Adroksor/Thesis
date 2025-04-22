@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: d745b012ec7b10a49858d665f9b7dd69
+guid: faa51a4ec11a3714c9efe32dc7dcfd3c
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -7588226318907022157
-    second: Icons 31_0
+      213: -7755242312885909824
+    second: UraniumOreRock_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,12 +46,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
-  spriteMeshType: 1
-  alignment: 0
-  spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spriteMeshType: 0
+  alignment: 9
+  spritePivot: {x: 0.25, y: 0.25}
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Icons 31_0
+      name: UraniumOreRock_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 320
-        height: 128
+        x: 4
+        y: 2
+        width: 60
+        height: 57
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -114,8 +114,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 3b4e64afd5431b690800000000000000
-      internalID: -7588226318907022157
+      spriteID: 0c64b599438df5490800000000000000
+      internalID: -7755242312885909824
       vertices: []
       indices: 
       edges: []
@@ -123,7 +123,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -131,7 +131,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Icons 31_0: -7588226318907022157
+      UraniumOreRock_0: -7755242312885909824
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
