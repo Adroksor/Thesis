@@ -19,7 +19,6 @@ public class PlayerInventory : MonoBehaviour
         Dictionary<ItemData, int> combined = InventoryManager.instance.GetCombinedInventory(inventoryData);
         foreach (var item in combined)
         {
-            Debug.Log(item.Key.Name + ", amount: " + item.Value);
         }
     }
 

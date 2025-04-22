@@ -129,8 +129,8 @@ public class BuildingGrid : MonoBehaviour
     public TileBase GetTileAtPosition(Vector2Int worldPosition)
     {
         Vector2Int chunkPos = WorldToChunkPosition(worldPosition);
-        Chunk chunk = WorldGenerator.instance.TryGetChunk(chunkPos); // safe version
-
+        Chunk chunk = WorldGenerator.instance.TryGetChunk(chunkPos);
+        
         if (chunk != null)
         {
             Vector2Int localPos = new Vector2Int(

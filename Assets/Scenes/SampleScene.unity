@@ -188,6 +188,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 520525488455767831, guid: 4791962ddb677c348ace567f983bfb80, type: 3}
+      propertyPath: m_DrawMode
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 787814681244267765, guid: 4791962ddb677c348ace567f983bfb80, type: 3}
       propertyPath: selectRecipe
       value: 
@@ -1173,7 +1177,7 @@ Transform:
   m_GameObject: {fileID: 689055812}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -15.46875, y: 15.625, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1921,7 +1925,7 @@ Transform:
   m_GameObject: {fileID: 1387002613}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -15.46875, y: 15.625, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2128,6 +2132,7 @@ MonoBehaviour:
   currentChunk:
     position: {x: 0, y: 0}
     isLoaded: 0
+    isModified: 0
     tilesSpawned: 0
     resourcesSpawned: 0
     chunkOBJ: {fileID: 0}
@@ -2153,6 +2158,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1677620993}
   - component: {fileID: 1677620992}
+  - component: {fileID: 1677620994}
+  - component: {fileID: 1677620995}
   m_Layer: 0
   m_Name: SaveLoadManager
   m_TagString: Untagged
@@ -2187,6 +2194,33 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1677620994
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1677620991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b086f8956452724c960d84993de26a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1677620995
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1677620991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9364ee4bedd3caa419b461ff644d425d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerPosition: {x: 0, y: 0}
+  playerScript: {fileID: 1274033426}
+  seed: 0
 --- !u!1 &1922051034
 GameObject:
   m_ObjectHideFlags: 0
@@ -2294,7 +2328,7 @@ Transform:
   m_GameObject: {fileID: 1936806070}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 15.46875, y: -15.625, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2400,6 +2434,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4001dacede3766f47a93e2ef56d5f2ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  seed: 0
   chunkSize: 16
   chunkList: {fileID: 689055812}
   renderDistance: 3

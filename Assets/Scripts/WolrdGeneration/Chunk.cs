@@ -10,6 +10,7 @@ public class Chunk
     public TileBase[,] tiles; // 2D array of tiles in the chunk
     public Dictionary<Vector2Int, GameObject> occupiedTiles; // Dictionary to track occupied tiles in this chunk
     public bool isLoaded; // Whether the chunk is currently loaded
+    public bool isModified;
     public bool tilesSpawned;
     public bool resourcesSpawned = false;
     public GameObject chunkOBJ;

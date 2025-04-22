@@ -380,9 +380,6 @@ MonoBehaviour:
     inputSlotCount: 0
     outputSlotCount: 0
   building: {fileID: 2248738307588850206}
-  recipeUI: {fileID: 6078014539885310508, guid: 681eadb004370f64cbcf08aac8835a58, type: 3}
-  item: {fileID: 2148524315103156881, guid: 70c265eddf72ce744a3b3f99071e14b1, type: 3}
-  selectRecipe: {fileID: 0}
   isSmelting: 0
 --- !u!114 &2248738307588850206
 MonoBehaviour:
@@ -398,6 +395,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   size: {x: 1, y: 1}
   isBiomeBased: 0
+  placableOnWater: 0
   allowedTiles: []
   drop:
   - name: Furnace

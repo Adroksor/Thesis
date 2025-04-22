@@ -6,37 +6,6 @@ public class ResourceSpawner : MonoBehaviour
 
     [Range(0, 1)]
     public List<float> spawnRate;
-    public GameObject SpawnResources(Vector2Int position, BiomeData biome)
-    {
-        // Find the biome data
-        if (biome == null)
-        {
-            Debug.LogError($"Biome not found!");
-            return null;
-        }
-
-        // Select a resource based on weight
-        if (Random.Range(0f, 1f) < biome.resourceSpawnRate) // Adjust the probability as needed
-        {
-            GameObject resourcePrefab = GetRandomResource(biome.resources);
-            if (resourcePrefab != null)
-            {
-                resourcePrefab.TryGetComponent(out Building building);
-                if (building != null)
-                {
-                    if (BuildingGrid.instance.CanPlace(new Vector2Int(position.x, position.y), building))
-                    {
-                        GameObject resource = Instantiate(resourcePrefab, new Vector3(position.x, position.y, 0),
-                            Quaternion.identity);
-                        BuildingGrid.instance.OccupyArea(new Vector2Int(position.x, position.y), building);
-                        return resource;
-                    }
-                }
-                
-            }
-        }
-        return null;
-    }
 
     // Get a random resource based on weight
     public GameObject GetRandomResource(List<BiomeResource> resources)

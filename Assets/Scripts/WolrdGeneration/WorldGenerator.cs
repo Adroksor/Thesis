@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 public class WorldGenerator : MonoBehaviour
 {
+    public int seed;
     public int chunkSize = 16; // Size of each chunk (e.g., 16x16 tiles)
     public GameObject chunkList;
     public int renderDistance = 3; // Number of chunks to load around the player
@@ -18,7 +19,7 @@ public class WorldGenerator : MonoBehaviour
     public int octaves = 4; // Number of noise layers (octaves)
     public float persistence = 0.5f; // Amplitude multiplier for each octave
     public float lacunarity = 2f; // Frequency multiplier for each octave
-    public Vector2 noiseOffset; // Random offset for the noise
+    public Vector2 noiseOffset;
 
     public Dictionary<Vector2Int, Chunk> chunks = new Dictionary<Vector2Int, Chunk>(); // Dictionary to store all chunks
     [SerializeField]
@@ -46,14 +47,17 @@ public class WorldGenerator : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player").transform; // Find the player object
 
         // Generate a random offset for the noise
-        noiseOffset = new Vector2(Random.Range(10000f, 100000f), Random.Range(10000f, 100000f));
+        seed = GameManager.instance.seed;
+        int randomX = seed;
+        int randomY = seed / 2;
+        noiseOffset = new Vector2(randomX, randomY);
 
         UpdateChunks();
     }
 
     void Update()
     {
-        // Check if the player has moved to a new chunk
+        
         Vector2Int currentPlayerChunkPosition = GetChunkPosition(player.position);
         if (currentPlayerChunkPosition != playerChunkPosition)
         {
@@ -463,21 +467,15 @@ public class WorldGenerator : MonoBehaviour
             Destroy(chunk.chunkOBJ);
         }
         chunks.Clear();
+        
+        seed = GameManager.instance.seed;
+        int randomX = seed;
+        int randomY = seed / 2;
+        noiseOffset = new Vector2(randomX, randomY);
 
-        // Generate a new random offset for the noise
-        noiseOffset = new Vector2(Random.Range(1000f, 10000f), Random.Range(1000f, 10000f));
 
         // Regenerate the world around the player
         UpdateChunks();
-    }
-    
-    public Chunk GetChunkAt(Vector2Int chunkPosition)
-    {
-        if (!chunks.ContainsKey(chunkPosition))
-        {
-            chunks[chunkPosition] = new Chunk(chunkPosition, chunkSize, chunkList);
-        }
-        return chunks[chunkPosition];
     }
     
     public Chunk TryGetChunk(Vector2Int chunkPosition)
