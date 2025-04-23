@@ -34,6 +34,17 @@ public class MouseManager : MonoBehaviour
                         furnace.OpenFurnace();
                     }
                 }
+                
+                var workbench = hit.collider.GetComponent<Workbench>();
+                if (workbench != null)
+                {
+                    {
+                        if (InventoryManager.instance.currentlyOpenedInventory == null)
+                        {
+                            workbench.OpenWorkbench();
+                        }
+                    }
+                }
             }
         }
 

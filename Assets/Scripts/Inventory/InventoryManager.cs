@@ -12,9 +12,14 @@ public class InventoryManager : MonoBehaviour
     public InventoryUI equipmentInventory;
 
     public List<InventoryUI> inventoriyUIs;
-
+    
+    [Header("UI Elements")]
     public GameObject FurnaceUI;
+    public GameObject WorkbenchUI;
+    [Header("Buildings Recipes")]
     public List<RecipeData> furnaceRecipes;
+    public List<RecipeData> workbenchRecipes;
+
 
     public PlayerInventory playerInventoryScript;
     
@@ -27,6 +32,7 @@ public class InventoryManager : MonoBehaviour
     public GameObject currentlyInteractedObject;
 
     public GameObject droppedItem;
+
     private void Awake()
     {
         if (instance != null && instance != this)

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 520525488455767831}
   - component: {fileID: 2248738307588850206}
   - component: {fileID: 5966244423382874335}
+  - component: {fileID: 737442694971478301}
   m_Layer: 6
   m_Name: Workbench
   m_TagString: Untagged
@@ -157,3 +158,16 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &737442694971478301
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4888030565546613888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a3da2e9b6c66ac4bb2115e7a4e02a59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  building: {fileID: 2248738307588850206}

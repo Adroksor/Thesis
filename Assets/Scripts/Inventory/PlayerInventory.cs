@@ -98,6 +98,11 @@ public class PlayerInventory : MonoBehaviour
             {
                 furnace.CloseFurnace();
             }
+            inventory2Object.TryGetComponent<Workbench>(out Workbench workbench);
+            if (workbench != null)
+            {
+                workbench.CloseWorkbench();
+            }
         }
     }
 }

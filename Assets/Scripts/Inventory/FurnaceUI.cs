@@ -18,7 +18,6 @@ public class FurnaceUI : MonoBehaviour
     private void Start()
     {
         selectRecipe = InventoryManager.instance.FurnaceUI.GetComponent<SelectRecipe>();
-
     }
 
     private void OnEnable()
@@ -86,7 +85,7 @@ public class FurnaceUI : MonoBehaviour
     }
     
     public void UpdateAllRecipeUIs(int selectedAmount)
-{
+    {
     GameObject furnaceUI = InventoryManager.instance.FurnaceUI;
     GameObject recipeListUI = furnaceUI.transform.Find("Scroll View/Viewport/RecipeList").gameObject;
 
