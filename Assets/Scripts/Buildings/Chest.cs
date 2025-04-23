@@ -6,7 +6,8 @@ using Random = UnityEngine.Random;
 
 public class Chest : MonoBehaviour
 {
-    public string chestID;
+    public string Guid => guid;
+    private string guid;
     public InventoryData inventoryData;
     public InventoryUI UI;
     public int chestSize;
@@ -17,10 +18,6 @@ public class Chest : MonoBehaviour
     
     private void Awake()
     {
-        if (string.IsNullOrEmpty(chestID))
-        {
-            chestID = Guid.NewGuid().ToString(); // Unique chest ID
-        }
         inventoryData = new InventoryData(chestSize);
         PopulateChestWithRandomItems(chestSize / 2);
 
@@ -115,4 +112,18 @@ public class Chest : MonoBehaviour
         CloseInventory();
         building.internalInventory = inventoryData;
     }
+}
+
+
+[Serializable] 
+public class ChestSaveData {
+    public string guid;
+    public Vector2 position;
+    public List<ItemDataID> inventory;   // your serialisable inventory list
+}
+
+public interface ISaveableObject {
+    string Guid { get; }                     // stable ID you already generate
+    object CaptureState();                   // returns a SaveData object
+    void RestoreState(object state);         // injects SaveData back in
 }

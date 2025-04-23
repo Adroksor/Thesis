@@ -17,5 +17,8 @@ public class ItemData : ScriptableObject
     [field: SerializeField]
     [field: TextArea]
     public string Description { get; set; }
+    [field: SerializeField]
+    public bool isPlacable { get; set; }
+    
 
 }

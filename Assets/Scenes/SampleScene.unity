@@ -249,37 +249,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4791962ddb677c348ace567f983bfb80, type: 3}
---- !u!1 &144658135
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 144658136}
-  m_Layer: 0
-  m_Name: Chest
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &144658136
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 144658135}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 97.93971, y: 37.92545, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &154004031
 GameObject:
   m_ObjectHideFlags: 0
@@ -2220,7 +2189,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerPosition: {x: 0, y: 0}
   playerScript: {fileID: 1274033426}
+  buildingPlacer: {fileID: 1582148454}
   seed: 0
+  objects: []
 --- !u!1 &1922051034
 GameObject:
   m_ObjectHideFlags: 0
@@ -3191,7 +3162,6 @@ SceneRoots:
   - {fileID: 1229445797}
   - {fileID: 619394802}
   - {fileID: 1274033424}
-  - {fileID: 144658136}
   - {fileID: 155196714}
   - {fileID: 203400791}
   - {fileID: 71864831}

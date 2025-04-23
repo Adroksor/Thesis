@@ -1,8 +1,12 @@
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
 public class BuildingPlacer : MonoBehaviour
 {
+    public static BuildingPlacer instance;
+    
     public GameObject buildingsList;
 
     public GameObject[] buildingPrefabs;
@@ -19,6 +23,18 @@ public class BuildingPlacer : MonoBehaviour
     
     private Vector2Int lastMouseGridPosition;
 
+    
+    private void Awake()
+    {
+        if (instance != null && instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        instance = this;
+    }
+    
     void Start()
     {
         if (BuildingGrid.instance == null)
@@ -99,7 +115,22 @@ public class BuildingPlacer : MonoBehaviour
         {
             if (selectedBuilding != null)
             {
-                PlaceBuilding(selectedBuilding);
+                PlayerInventory playerInventory = InventoryManager.instance.playerInventory;
+                ItemDataID item = new ItemDataID
+                {
+                    name = selectedBuilding.name,
+                    amount = 1
+                };
+                if (InventoryManager.instance.DoesInventoryHaveItem(playerInventory.inventoryData, item))
+                {
+                    PlaceBuilding(selectedBuilding);
+                    InventoryManager.instance.TryRemoveItemsFromInventoryData(ItemDatabaseInstance.instance.GetItemByname(item.name), 1, playerInventory.inventoryData);
+                    if (!InventoryManager.instance.DoesInventoryHaveItem(playerInventory.inventoryData, item))
+                    {
+                        selectedBuilding = null;
+                        Destroy(ghostBuilding);
+                    }
+                }
             }
         }
 
@@ -125,8 +156,8 @@ public class BuildingPlacer : MonoBehaviour
             GameObject buildingOBJ =  Instantiate(buildingPrefab, buildingsList.transform);
             Building building = buildingOBJ.GetComponent<Building>();
             building.isGhost = false;
-            Debug.Log("Placed building " + mouseGridPosition);
             building.Place(mouseGridPosition);
+            GameManager.instance.objects.Add(buildingOBJ);
         }
         else
         {
@@ -155,12 +186,16 @@ public class BuildingPlacer : MonoBehaviour
         }
     }
 
-    private void UpdateGhostObject()
+    public void UpdateGhostObject(GameObject ghost = null)
     {
-        
         if (ghostBuilding != null)
         {
             Destroy(ghostBuilding);
+        }
+
+        if (ghost != null)
+        {
+            selectedBuilding = ghost;
         }
         
         ghostBuilding = Instantiate(selectedBuilding);
@@ -168,5 +203,10 @@ public class BuildingPlacer : MonoBehaviour
         SpriteRenderer sprite = ghostBuilding.GetComponent<SpriteRenderer>();
         sprite.color = new Color32(255, 255, 255, 128);
         sprite.sortingOrder = 10;
+    }
+
+    public GameObject GetObjectByName(string name)
+    {
+        return buildingPrefabs.FirstOrDefault(prefab => prefab.name == name);
     }
 }

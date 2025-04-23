@@ -33,7 +33,6 @@ public class Building : MonoBehaviour
         gridPosition = position;
         BuildingGrid.instance.OccupyArea(position, this);
         transform.position = new Vector3(position.x, position.y, 0);
-        Debug.Log("Building placed successfully!");
     }
 
     // Remove the building from the grid

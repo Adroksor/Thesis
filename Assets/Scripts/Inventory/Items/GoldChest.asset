@@ -17,3 +17,4 @@ MonoBehaviour:
   <Name>k__BackingField: Gold chest
   <ItemImage>k__BackingField: {fileID: 21300000, guid: f454a9b30f6baee4e9452c72828dcb23, type: 3}
   <Description>k__BackingField: Large storage.
+  <isPlacable>k__BackingField: 1

@@ -35,3 +35,11 @@ public struct ItemDataID
     public string name;
     public int amount;
 }
+
+[System.Serializable]
+public struct InventorySlotSave        // <-- name it whatever you like
+{
+    public int    slotIndex;           // original dictionary key
+    public string itemName;            // value.name
+    public int    amount;              // value.amount
+}

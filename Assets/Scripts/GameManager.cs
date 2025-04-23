@@ -13,8 +13,12 @@ public class GameManager : MonoBehaviour
 
     public TopDownPlayerMovement playerScript;
     
+    public BuildingPlacer buildingPlacer;
+    
     [Header("Seed")]
     public int seed;
+    [Header("Lists of objects")]
+    public List<GameObject> objects = new List<GameObject>();
 
     private void Awake()
     {

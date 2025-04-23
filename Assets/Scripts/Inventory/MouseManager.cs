@@ -47,7 +47,7 @@ public class MouseManager : MonoBehaviour
             if (hit.collider != null)
             {
                 var building = hit.collider.GetComponent<Building>();
-                if (building != null)
+                if (building != null && !building.isGhost)
                 {
                     building.Remove();
                 }

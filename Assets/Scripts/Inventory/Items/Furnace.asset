@@ -17,3 +17,4 @@ MonoBehaviour:
   <Name>k__BackingField: Furnace
   <ItemImage>k__BackingField: {fileID: 21300000, guid: cbbbc0f58b51f6a4bb136ffa8f0d1147, type: 3}
   <Description>k__BackingField: Used for smelting ores and more. Pogchamp
+  <isPlacable>k__BackingField: 1

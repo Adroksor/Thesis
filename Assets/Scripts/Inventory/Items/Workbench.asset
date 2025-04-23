@@ -17,3 +17,4 @@ MonoBehaviour:
   <Name>k__BackingField: Workbench
   <ItemImage>k__BackingField: {fileID: 21300000, guid: 28d3a5e12b9d229419e607bb8bb4988f, type: 3}
   <Description>k__BackingField: Used for crafting items.
+  <isPlacable>k__BackingField: 1

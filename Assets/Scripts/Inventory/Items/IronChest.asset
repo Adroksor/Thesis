@@ -17,3 +17,4 @@ MonoBehaviour:
   <Name>k__BackingField: Iron chest
   <ItemImage>k__BackingField: {fileID: 21300000, guid: 92e9bd673e0134d4a8d030b23d7872cf, type: 3}
   <Description>k__BackingField: Medium storage.
+  <isPlacable>k__BackingField: 1

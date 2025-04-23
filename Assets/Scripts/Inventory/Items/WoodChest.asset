@@ -17,3 +17,4 @@ MonoBehaviour:
   <Name>k__BackingField: Wood chest
   <ItemImage>k__BackingField: {fileID: 21300000, guid: 518caa49ab9c84442b7fa471d8475d46, type: 3}
   <Description>k__BackingField: Small storage.
+  <isPlacable>k__BackingField: 1

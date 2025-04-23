@@ -25,6 +25,11 @@ public class ItemDatabase : ScriptableObject
         return items.FirstOrDefault(item => item.Name == name) ?? missingItem;
     }
     
+    public ItemData GetItemByname(string name)
+    {
+        return items.FirstOrDefault(item => item.name == name) ?? missingItem;
+    }
+    
     public bool TryGetItemByID(int id, out ItemData result)
     {
         result = items.FirstOrDefault(item => item.ID == id);

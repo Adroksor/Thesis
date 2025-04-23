@@ -189,11 +189,11 @@ public class InventoryManager : MonoBehaviour
         ItemData clickedItem = slot.itemData;
         int clickedItemCount = slot.itemCount;
 
+        if (clickedItem == null || clickedItemCount <= 0)
+            return;
+        
         if (Input.GetKey(KeyCode.LeftShift))
         {
-            if (clickedItem == null || clickedItemCount <= 0)
-                return;
-
             InventoryUI destinationInventory;
 
             if (currentlyOpenedInventory == null)
@@ -211,6 +211,20 @@ public class InventoryManager : MonoBehaviour
                 slot.SetData(null, 0);
             else
                 slot.SetData(clickedItem, leftover);
+        }
+        else
+        {
+            if (clickedItem.isPlacable)
+            {
+                BuildingPlacer buildingPlacer = GameManager.instance.buildingPlacer;
+                GameObject building = buildingPlacer.GetObjectByName(clickedItem.name);
+                if (building != null)
+                {
+                    buildingPlacer.UpdateGhostObject(building);
+                    buildingPlacer.UpdateGhostPosition();
+                    playerInventory.CloseInventory();
+                }
+            }
         }
     }
     
@@ -431,4 +445,19 @@ public class InventoryManager : MonoBehaviour
         }
         return true;
     }
+    
+    public bool DoesInventoryHaveItem(InventoryData inventoryData, ItemDataID itemDataID)
+    {
+        if (itemDataID.amount <= 0) return false;
+
+        Dictionary<ItemData, int> combined = GetCombinedInventory(inventoryData);
+
+        ItemData item = ItemDatabaseInstance.instance.GetItemByname(itemDataID.name);
+        if (item == null)
+            return false;
+        combined.TryGetValue(item, out int amount);
+        return amount >= itemDataID.amount; 
+    }
+
+    
 }
