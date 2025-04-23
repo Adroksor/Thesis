@@ -15,16 +15,14 @@ public class TopDownPlayerMovement : MonoBehaviour
 
     void Update()
     {
-        GameManager.instance.playerPosition = transform.position;
-        // Get input from the player
-        movement.x = Input.GetAxisRaw("Horizontal"); // Left/Right or A/D
-        movement.y = Input.GetAxisRaw("Vertical"); // Up/Down or W/S
+        movement.x = Input.GetAxisRaw("Horizontal");
+        movement.y = Input.GetAxisRaw("Vertical");
 
-        // Normalize the movement vector to prevent faster diagonal movement
         movement = movement.normalized;
 
-        // Check for reset input
-        if (Input.GetKeyDown(KeyCode.R)) // Press R to reset the world
+        GameManager.instance.playerPosition = transform.position;
+        
+        if (Input.GetKeyDown(KeyCode.R))
         {
             ResetWorld();
         }
@@ -62,8 +60,7 @@ public class TopDownPlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        // Move the player using Rigidbody2D
-        rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
+        rb.velocity = movement * moveSpeed; 
     }
 
     void ResetWorld()

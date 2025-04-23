@@ -13,7 +13,7 @@ public class Building : MonoBehaviour
 
     public List<ItemDataID> drop;
     public GameObject itemPrefab;
-    public bool isGhost = false;
+    public bool isGhost = true;
     
     private Vector2Int gridPosition; // Position of the building on the grid
 

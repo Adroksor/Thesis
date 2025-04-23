@@ -2021,6 +2021,7 @@ MonoBehaviour:
   - {fileID: 4314607683826619954, guid: 34ce8b5a044c4bf4383d38131c567fb0, type: 3}
   - {fileID: 2302502741258006299, guid: d5aef93eff07dc2429165205c456694b, type: 3}
   - {fileID: 5093319215209900071, guid: da1dd2d8260ce774d9cefd141584fb4f, type: 3}
+  - {fileID: 2459083480883987986, guid: 8d5dcfdc0a8b0df4a85829c9d7468283, type: 3}
   selectedBuilding: {fileID: 0}
   ghostBuilding: {fileID: 0}
   currentChunk:
@@ -2291,6 +2292,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c26366c89c199904c8da564891a0122d, type: 2}
   - {fileID: 11400000, guid: bf2b2e249ead63a4faa6322901b65b4e, type: 2}
   - {fileID: 11400000, guid: 720a79022e35ca041869f0b0165abed0, type: 2}
+  - {fileID: 11400000, guid: 10211c9672e1d2d479e282d3c52a3b95, type: 2}
   playerInventoryScript: {fileID: 2029919439}
   initialSlot: {fileID: 0}
   draggedItem: {fileID: 0}
@@ -2412,11 +2414,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8315212383705253226, guid: d662aa422753ad14994eef3dffe61a57, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.65
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8315212383705253226, guid: d662aa422753ad14994eef3dffe61a57, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.35
+      value: -2
       objectReference: {fileID: 0}
     - target: {fileID: 8315212383705253226, guid: d662aa422753ad14994eef3dffe61a57, type: 3}
       propertyPath: m_LocalPosition.z

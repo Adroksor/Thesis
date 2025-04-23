@@ -22,13 +22,13 @@ MonoBehaviour:
   resources:
   - prefab: {fileID: 2115053947144719865, guid: fe1ffb225525dca49a937f23646491bf, type: 3}
     rarity: 2
-    weight: 100
+    weight: 10
   - prefab: {fileID: 6512435319642745909, guid: 6b1a17c11b820e04bb5f55240820c94e, type: 3}
     rarity: 2
     weight: 10
   - prefab: {fileID: 7940226109284693816, guid: ba3177e8e916f804681ec75701c3b980, type: 3}
     rarity: 2
-    weight: 10
+    weight: 50
   - prefab: {fileID: 2115053947144719865, guid: f850a532f42a6b0478a212d1e5474d51, type: 3}
     rarity: 2
     weight: 10

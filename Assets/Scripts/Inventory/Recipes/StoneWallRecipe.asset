@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b3c46697d40164b4b88f43bf492afc26, type: 3}
-  m_Name: FurnaceRecipe
+  m_Name: StoneWallRecipe
   m_EditorClassIdentifier: 
-  <recipeName>k__BackingField: Furnace
+  <recipeName>k__BackingField: Stone wall
   <Output>k__BackingField:
-    Item: {fileID: 11400000, guid: 85b0c367d5446da44a1d26c9105c3702, type: 2}
+    Item: {fileID: 11400000, guid: 949860c97263ad24c938bd57380f0d3e, type: 2}
     Amount: 1
   <Input>k__BackingField:
   - Item: {fileID: 11400000, guid: 2850ed79c8edd564da0bd2f738074b9a, type: 2}
-    Amount: 4
+    Amount: 5
