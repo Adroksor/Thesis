@@ -27,6 +27,43 @@ public class InventoryData
         }
         inventoryData[slot] = new ItemDataID { name = name, amount = amount };
     }
+    
+    public List<SlotSaveData> ToSaveList()
+    {
+        List<SlotSaveData> list = new();
+
+        foreach (var kvp in inventoryData)
+        {
+            if (string.IsNullOrEmpty(kvp.Value.name) || kvp.Value.amount == 0)
+                continue;                       // skip empty slots (optional)
+
+            list.Add(new SlotSaveData
+            {
+                slotIndex = kvp.Key,
+                itemName  = kvp.Value.name,
+                amount    = kvp.Value.amount
+            });
+        }
+        return list;
+    }
+
+    public void FromSaveList(List<SlotSaveData> list)
+    {
+        // clear but keep size
+        foreach (int key in new List<int>(inventoryData.Keys))
+            inventoryData[key] = new ItemDataID();
+
+        foreach (var e in list)
+        {
+            inventoryData[e.slotIndex] = new ItemDataID
+            {
+                name   = e.itemName,
+                amount = e.amount
+            };
+        }
+    }
+
+    
 }
 
 [System.Serializable]
@@ -34,12 +71,4 @@ public struct ItemDataID
 {
     public string name;
     public int amount;
-}
-
-[System.Serializable]
-public struct InventorySlotSave        // <-- name it whatever you like
-{
-    public int    slotIndex;           // original dictionary key
-    public string itemName;            // value.name
-    public int    amount;              // value.amount
 }

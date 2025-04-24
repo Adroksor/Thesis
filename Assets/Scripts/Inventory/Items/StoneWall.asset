@@ -15,6 +15,6 @@ MonoBehaviour:
   <isStackable>k__BackingField: 0
   <MaxStackSize>k__BackingField: 20
   <Name>k__BackingField: Stone wall
-  <ItemImage>k__BackingField: {fileID: 21300000, guid: eccf9e47aa8ef6c4f941d4a1f623a326, type: 3}
+  <ItemImage>k__BackingField: {fileID: 21300000, guid: 906de298da852cd4f899ef6176aa943d, type: 3}
   <Description>k__BackingField: 
   <isPlacable>k__BackingField: 1

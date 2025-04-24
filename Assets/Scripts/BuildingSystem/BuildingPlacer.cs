@@ -157,7 +157,6 @@ public class BuildingPlacer : MonoBehaviour
             Building building = buildingOBJ.GetComponent<Building>();
             building.isGhost = false;
             building.Place(mouseGridPosition);
-            GameManager.instance.objects.Add(buildingOBJ);
         }
         else
         {

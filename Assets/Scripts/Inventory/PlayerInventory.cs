@@ -47,7 +47,7 @@ public class PlayerInventory : MonoBehaviour
 
     public void PopulateInventoryWithRandomItems(int amount)
     {
-        string[] itemNames = {"Coal", "Iron ore", "Iron ingot", "Steel ingot", "Oak log" };
+        string[] itemNames = {"Coal", "Iron ore", "Iron ingot", "Steel ingot", "Oak log", "Stone wall"};
         int randomIndex;
         for (int i = 0; i < amount; i++)
         {

@@ -36,9 +36,3 @@ public class SaveManager : MonoBehaviour
 
     
 }
-
-[System.Serializable]
-public struct ChunkData
-{
-    
-}

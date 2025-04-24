@@ -120,14 +120,5 @@ public class Building : MonoBehaviour
         }
     }
     
-    public void Save(ref BuildingPositionData data)
-    {
-        data.position = transform.position;
-        data.buildingName = transform.name;
-    }
-
-    public void Load(BuildingPositionData data)
-    {
-        transform.position = data.position;
-    }
+    
 }

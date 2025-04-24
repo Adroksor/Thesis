@@ -62,6 +62,11 @@ public class MouseManager : MonoBehaviour
                 {
                     building.Remove();
                 }
+                var staticBuilding = hit.collider.GetComponent<staticObject>();
+                if (staticBuilding != null)
+                {
+                    staticBuilding.Remove();
+                }
             }
         }
     }

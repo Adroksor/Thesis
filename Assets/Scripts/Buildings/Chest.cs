@@ -19,13 +19,21 @@ public class Chest : MonoBehaviour
     private void Awake()
     {
         inventoryData = new InventoryData(chestSize);
-        PopulateChestWithRandomItems(chestSize / 2);
+        //PopulateChestWithRandomItems(chestSize / 2);
 
         SetChestUI();
         
         playerInventory = InventoryManager.instance.playerInventory;
 
         building.gettingRemoved += RemovingChest;
+    }
+
+    private void Start()
+    {
+        if (!building.isGhost)
+        {
+            GameManager.instance.chests.Add(gameObject);
+        }
     }
 
     private void SetChestUI()
@@ -111,19 +119,24 @@ public class Chest : MonoBehaviour
     {
         CloseInventory();
         building.internalInventory = inventoryData;
+        GameManager.instance.chests.Remove(gameObject);
     }
-}
+    
+    
+    public void Save(ref ChestData data)
+    {
+        data.position = transform.position;
+        data.buildingName = transform.name;
 
+        List<SlotSaveData> inventory = inventoryData.ToSaveList();
+        data.inventory = inventory;
 
-[Serializable] 
-public class ChestSaveData {
-    public string guid;
-    public Vector2 position;
-    public List<ItemDataID> inventory;   // your serialisable inventory list
-}
+    }
 
-public interface ISaveableObject {
-    string Guid { get; }                     // stable ID you already generate
-    object CaptureState();                   // returns a SaveData object
-    void RestoreState(object state);         // injects SaveData back in
+    public void Load(ChestData data)
+    {
+        transform.position = data.position;
+        inventoryData.FromSaveList(data.inventory);
+        building.isGhost = false;
+    }
 }

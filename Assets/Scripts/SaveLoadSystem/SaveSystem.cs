@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.XR;
 
 public class SaveSystem
@@ -12,7 +13,8 @@ public class SaveSystem
     public struct SaveData
     {
         public PlayerPositionData playerSaveData;
-        public BuildingSaveData buildingSaveData;
+        public List<StaticObjectData> buildings;
+        public List<ChestData> chests;
     }
     
     public static string SaveFileName()
@@ -32,15 +34,27 @@ public class SaveSystem
     private static void HandleSaveData()
     {
         GameManager.instance.Save(ref _saveData.playerSaveData);
-        _saveData.buildingSaveData.buildingPositions = new List<BuildingPositionData>();
-
+        
+        
+        _saveData.buildings = new List<StaticObjectData>();
         foreach (var obj in GameManager.instance.objects)
         {
-            if (obj.TryGetComponent(out Building building))
+            if (obj.TryGetComponent(out staticObject building))
             {
-                BuildingPositionData posData = new BuildingPositionData();
-                building.Save(ref posData);                      // calls your method
-                _saveData.buildingSaveData.buildingPositions.Add(posData);
+                StaticObjectData posData = new StaticObjectData();
+                building.Save(ref posData);
+                _saveData.buildings.Add(posData);
+            }
+        }
+        
+        _saveData.chests = new List<ChestData>();
+        foreach (var obj in GameManager.instance.chests)
+        {
+            if (obj.TryGetComponent(out Chest building))
+            {
+                ChestData posData = new ChestData();
+                building.Save(ref posData);
+                _saveData.chests.Add(posData);
             }
         }
     }
@@ -57,16 +71,28 @@ public class SaveSystem
     {
         GameManager.instance.Load(_saveData.playerSaveData);
         
-        foreach (var posData in _saveData.buildingSaveData.buildingPositions)
+        
+        foreach (var posData in _saveData.buildings)
         {
-            // choose the prefab however you like (one prefab, or look up by type)
             GameObject prefab = GameManager.instance.GetObjectByName(posData.buildingName);
             GameObject obj = GameObject.Instantiate(prefab, posData.position, Quaternion.identity);
 
-            if (obj.TryGetComponent(out Building building))
+            if (obj.TryGetComponent(out staticObject building))
             {
-                building.Load(posData);                 // sets the transform.position
-                GameManager.instance.objects.Add(obj);  // track it again for next save
+                building.Load(posData);
+                GameManager.instance.objects.Add(obj);
+            }
+        }
+
+        foreach (var chestData in _saveData.chests)
+        {
+            GameObject prefab = GameManager.instance.GetObjectByName(chestData.buildingName);
+            GameObject obj = GameObject.Instantiate(prefab, chestData.position, Quaternion.identity);
+            
+            if (obj.TryGetComponent(out Chest building))
+            {
+                building.Load(chestData);
+                GameManager.instance.chests.Add(obj);
             }
         }
     }
@@ -81,7 +107,7 @@ public struct PlayerPositionData
 }
 
 [System.Serializable]
-public struct BuildingPositionData
+public struct StaticObjectData
 {
     public Vector2 position;
     public string buildingName;
@@ -90,5 +116,21 @@ public struct BuildingPositionData
 [System.Serializable]
 public struct BuildingSaveData
 {
-    public List<BuildingPositionData> buildingPositions;
+    public List<StaticObjectData> buildingPositions;
+}
+
+[System.Serializable]
+public struct ChestData             // chest = building + inventory
+{
+    public Vector2 position;
+    public string buildingName;
+    public List<SlotSaveData> inventory;
+}
+
+[System.Serializable]
+public struct SlotSaveData          // <-- only used for persistence
+{
+    public int    slotIndex;        // key in the dictionary
+    public string itemName;
+    public int    amount;
 }

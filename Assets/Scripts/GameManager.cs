@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
     public int seed;
     [Header("Lists of objects")]
     public List<GameObject> objects = new List<GameObject>();
+    public List<GameObject> chests = new List<GameObject>();
     
     public GameObject[] buildingPrefabs;
 
