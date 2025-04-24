@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -19,6 +20,9 @@ public class GameManager : MonoBehaviour
     public int seed;
     [Header("Lists of objects")]
     public List<GameObject> objects = new List<GameObject>();
+    
+    public GameObject[] buildingPrefabs;
+
 
     private void Awake()
     {
@@ -36,6 +40,12 @@ public class GameManager : MonoBehaviour
     }
     
     
+    public GameObject GetObjectByName(string name)
+    {
+        return buildingPrefabs.FirstOrDefault(prefab => prefab.name == name);
+    }
+    
+    
     public void Save(ref PlayerPositionData data)
     {
         data.position = playerPosition;
@@ -45,4 +55,6 @@ public class GameManager : MonoBehaviour
     {
         playerScript.transform.position = data.position;
     }
+    
+    
 }

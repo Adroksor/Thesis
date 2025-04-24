@@ -9,7 +9,6 @@ public class BuildingPlacer : MonoBehaviour
     
     public GameObject buildingsList;
 
-    public GameObject[] buildingPrefabs;
     private WorldGenerator worldGenerator;
 
     public GameObject selectedBuilding;
@@ -58,48 +57,48 @@ public class BuildingPlacer : MonoBehaviour
         
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            selectedBuilding = buildingPrefabs[0];
+            selectedBuilding = GameManager.instance.buildingPrefabs[0];
             UpdateGhostObject();
             UpdateGhostPosition();
         }
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            selectedBuilding = buildingPrefabs[1];
+            selectedBuilding = GameManager.instance.buildingPrefabs[1];
             UpdateGhostObject();
             UpdateGhostPosition();
 
         }
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
-            selectedBuilding = buildingPrefabs[2];
+            selectedBuilding = GameManager.instance.buildingPrefabs[2];
             UpdateGhostObject();
             UpdateGhostPosition();
 
         }
         if (Input.GetKeyDown(KeyCode.Alpha4))
         {
-            selectedBuilding = buildingPrefabs[3];
+            selectedBuilding = GameManager.instance.buildingPrefabs[3];
             UpdateGhostObject();
             UpdateGhostPosition();
 
         }
         if (Input.GetKeyDown(KeyCode.Alpha5))
         {
-            selectedBuilding = buildingPrefabs[4];
+            selectedBuilding = GameManager.instance.buildingPrefabs[4];
             UpdateGhostObject();
             UpdateGhostPosition();
 
         }
         if (Input.GetKeyDown(KeyCode.Alpha6))
         {
-            selectedBuilding = buildingPrefabs[5];
+            selectedBuilding = GameManager.instance.buildingPrefabs[5];
             UpdateGhostObject();
             UpdateGhostPosition();
 
         }
         if (Input.GetKeyDown(KeyCode.Alpha7))
         {
-            selectedBuilding = buildingPrefabs[6];
+            selectedBuilding = GameManager.instance.buildingPrefabs[6];
             UpdateGhostObject();
             UpdateGhostPosition();
 
@@ -154,6 +153,7 @@ public class BuildingPlacer : MonoBehaviour
         if (BuildingGrid.instance.CanPlace(mouseGridPosition, buildingP))
         {
             GameObject buildingOBJ =  Instantiate(buildingPrefab, buildingsList.transform);
+            buildingOBJ.name = buildingPrefab.name;
             Building building = buildingOBJ.GetComponent<Building>();
             building.isGhost = false;
             building.Place(mouseGridPosition);
@@ -205,8 +205,4 @@ public class BuildingPlacer : MonoBehaviour
         sprite.sortingOrder = 10;
     }
 
-    public GameObject GetObjectByName(string name)
-    {
-        return buildingPrefabs.FirstOrDefault(prefab => prefab.name == name);
-    }
 }

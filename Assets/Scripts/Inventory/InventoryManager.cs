@@ -223,7 +223,7 @@ public class InventoryManager : MonoBehaviour
             if (clickedItem.isPlacable)
             {
                 BuildingPlacer buildingPlacer = GameManager.instance.buildingPlacer;
-                GameObject building = buildingPlacer.GetObjectByName(clickedItem.name);
+                GameObject building = GameManager.instance.GetObjectByName(clickedItem.name);
                 if (building != null)
                 {
                     buildingPlacer.UpdateGhostObject(building);
