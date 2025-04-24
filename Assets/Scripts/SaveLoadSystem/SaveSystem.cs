@@ -15,6 +15,7 @@ public class SaveSystem
         public PlayerPositionData playerSaveData;
         public List<StaticObjectData> buildings;
         public List<ChestData> chests;
+        public List<FurnaceData> furnaces;
     }
     
     public static string SaveFileName()
@@ -71,7 +72,7 @@ public class SaveSystem
     {
         GameManager.instance.Load(_saveData.playerSaveData);
         
-        
+        // Static Buildings
         foreach (var posData in _saveData.buildings)
         {
             GameObject prefab = GameManager.instance.GetObjectByName(posData.buildingName);
@@ -84,15 +85,33 @@ public class SaveSystem
             }
         }
 
+        // Chests
         foreach (var chestData in _saveData.chests)
         {
             GameObject prefab = GameManager.instance.GetObjectByName(chestData.buildingName);
+            if(prefab == null)
+                continue;
             GameObject obj = GameObject.Instantiate(prefab, chestData.position, Quaternion.identity);
             
             if (obj.TryGetComponent(out Chest building))
             {
                 building.Load(chestData);
                 GameManager.instance.chests.Add(obj);
+            }
+        }
+        
+        // Furnaces
+        foreach (var furnaceData in _saveData.furnaces)
+        {
+            GameObject prefab = GameManager.instance.GetObjectByName(furnaceData.buildingName);
+            if(prefab == null)
+                continue;
+            GameObject obj = GameObject.Instantiate(prefab, furnaceData.position, Quaternion.identity);
+            
+            if (obj.TryGetComponent(out Furnace building))
+            {
+                building.Load(furnaceData);
+                GameManager.instance.furnaces.Add(obj);
             }
         }
     }
@@ -133,4 +152,11 @@ public struct SlotSaveData          // <-- only used for persistence
     public int    slotIndex;        // key in the dictionary
     public string itemName;
     public int    amount;
+}
+
+[System.Serializable]
+public struct FurnaceData             // chest = building + inventory
+{
+    public Vector2 position;
+    public string buildingName;
 }

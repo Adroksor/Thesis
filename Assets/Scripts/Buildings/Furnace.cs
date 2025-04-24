@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.UI;
 
 
@@ -27,6 +28,10 @@ public class Furnace : MonoBehaviour
         building.internalInventory = null; // No longer using InventoryData
         building.gettingRemoved += RemovingFurnace;
 
+        if (!building.isGhost)
+        {
+            GameManager.instance.furnaces.Add(gameObject);
+        }
     }
     
     public void StartSmelting(RecipeData recipe, int amount)
@@ -144,6 +149,7 @@ public class Furnace : MonoBehaviour
             }
         }
         furnaceInventory.Clear();
+        GameManager.instance.furnaces.Remove(gameObject);
     }
     
     public void ConsumeRecipeIngredients(RecipeData recipe, int amount)
@@ -152,6 +158,19 @@ public class Furnace : MonoBehaviour
         {
             InventoryManager.instance.TryRemoveItemsFromInventoryData(input.Item, input.Amount * amount, InventoryManager.instance.playerInventory.inventoryData );
         }
+    }
+    
+    public void Save(ref FurnaceData data)
+    {
+        data.position = transform.position;
+        data.buildingName = transform.name;
+
+    }
+
+    public void Load(FurnaceData data)
+    {
+        transform.position = data.position;
+        building.isGhost = false;
     }
 
 }

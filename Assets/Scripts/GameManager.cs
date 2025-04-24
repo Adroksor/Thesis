@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
     [Header("Lists of objects")]
     public List<GameObject> objects = new List<GameObject>();
     public List<GameObject> chests = new List<GameObject>();
+    public List<GameObject> furnaces = new List<GameObject>();
     
     public GameObject[] buildingPrefabs;
 

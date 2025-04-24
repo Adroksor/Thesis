@@ -130,7 +130,6 @@ public class Chest : MonoBehaviour
 
         List<SlotSaveData> inventory = inventoryData.ToSaveList();
         data.inventory = inventory;
-
     }
 
     public void Load(ChestData data)
