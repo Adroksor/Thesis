@@ -11,15 +11,15 @@ public class PlayerInventory : MonoBehaviour
     public GameObject UI;
     public bool inventoryOpen = false;
 
+    public InventoryData hotbarData;
+
     private void Start()
     {
         inventoryData = new InventoryData(27);
+        
+        hotbarData = new InventoryData(9);
         PopulateInventoryWithRandomItems(inventorySize / 2);
         
-        Dictionary<ItemData, int> combined = InventoryManager.instance.GetCombinedInventory(inventoryData);
-        foreach (var item in combined)
-        {
-        }
     }
 
     private void Update()
@@ -81,24 +81,24 @@ public class PlayerInventory : MonoBehaviour
         InventoryUI inventoryUI = UI.GetComponentInChildren<InventoryUI>();
         if (inventoryUI != null)
         {
-            InventoryManager.instance.SaveData(inventoryData, inventoryUI);
+            InventoryManager.instance.SaveEQandHotbar();
         }
         inventoryOpen = false;
         
         GameObject inventory2Object = InventoryManager.instance.currentlyInteractedObject;
         if (inventory2Object != null)
         {
-            inventory2Object.TryGetComponent<Chest>(out Chest chest);
+            inventory2Object.TryGetComponent(out Chest chest);
             if (chest != null)
             {
                 chest.CloseInventory();
             }
-            inventory2Object.TryGetComponent<Furnace>(out Furnace furnace);
+            inventory2Object.TryGetComponent(out Furnace furnace);
             if (furnace != null)
             {
                 furnace.CloseFurnace();
             }
-            inventory2Object.TryGetComponent<Workbench>(out Workbench workbench);
+            inventory2Object.TryGetComponent(out Workbench workbench);
             if (workbench != null)
             {
                 workbench.CloseWorkbench();

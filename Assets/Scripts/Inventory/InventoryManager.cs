@@ -139,7 +139,7 @@ public class InventoryManager : MonoBehaviour
                 slot.SetData(draggedItem, draggedItemCount);
             }
         }
-        SaveData(playerInventoryScript.inventoryData, playerInventoryUI);
+        SaveEQandHotbar();
     }
     
     private void OnDropRight(InventorySlotUI slot, InventoryUI inventory)
@@ -188,7 +188,7 @@ public class InventoryManager : MonoBehaviour
 
             }
         }
-        SaveData(playerInventoryScript.inventoryData, playerInventoryUI);
+        SaveEQandHotbar();
     }
     private void OnClick(InventorySlotUI slot, InventoryUI inventory)
     {
@@ -202,6 +202,11 @@ public class InventoryManager : MonoBehaviour
         {
             InventoryUI destinationInventory;
 
+            if (inventory == hotbarInventoryUI && !playerInventory.inventoryOpen)
+            {
+                return;
+            }
+            
             if (currentlyOpenedInventory == null)
                 destinationInventory = hotbarInventoryUI;
             else
@@ -209,6 +214,8 @@ public class InventoryManager : MonoBehaviour
 
             if (destinationInventory == inventory)
                 destinationInventory = playerInventoryUI;
+
+            
 
             int leftover = TryAddItemToInventory(clickedItem, clickedItemCount, destinationInventory);
 
@@ -232,6 +239,12 @@ public class InventoryManager : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void SaveEQandHotbar()
+    {
+        SaveData(playerInventoryScript.inventoryData, playerInventoryUI);
+        SaveData(playerInventoryScript.hotbarData, hotbarInventoryUI);
     }
     
     public void SaveData(InventoryData inventoryData, InventoryUI inventoryUI)

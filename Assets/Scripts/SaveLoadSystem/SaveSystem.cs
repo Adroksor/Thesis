@@ -8,11 +8,10 @@ public class SaveSystem
 {
     private static SaveData _saveData = new SaveData();
     
-    
     [System.Serializable]
     public struct SaveData
     {
-        public PlayerPositionData playerSaveData;
+        public PlayerData playerSaveData;
         public List<StaticObjectData> buildings;
         public List<ChestData> chests;
         public List<FurnaceData> furnaces;
@@ -34,9 +33,14 @@ public class SaveSystem
 
     private static void HandleSaveData()
     {
-        GameManager.instance.Save(ref _saveData.playerSaveData);
+        // Player
+        PlayerData playerData = new PlayerData();
+        GameManager.instance.player.TryGetComponent(out Player player);
+        player.Save(ref playerData);
+        _saveData.playerSaveData = playerData;
         
         
+        // Static Buildings
         _saveData.buildings = new List<StaticObjectData>();
         foreach (var obj in GameManager.instance.objects)
         {
@@ -48,6 +52,7 @@ public class SaveSystem
             }
         }
         
+        // Chests
         _saveData.chests = new List<ChestData>();
         foreach (var obj in GameManager.instance.chests)
         {
@@ -60,17 +65,29 @@ public class SaveSystem
         }
     }
 
+    // Furnaces
     public static void Load()
     {
         Debug.Log("Load called");
+        
         string saveContent = File.ReadAllText(SaveFileName());
         _saveData = JsonUtility.FromJson<SaveData>(saveContent);
+        
         HandleLoadData();
     }
     
     private static void HandleLoadData()
     {
-        GameManager.instance.Load(_saveData.playerSaveData);
+        GameManager.instance.chests.Clear();
+        GameManager.instance.furnaces.Clear();
+        GameManager.instance.objects.Clear();
+
+        
+        
+        // Player
+        GameManager.instance.player.TryGetComponent(out Player player);
+        player.Load(_saveData.playerSaveData);
+        
         
         // Static Buildings
         foreach (var posData in _saveData.buildings)
@@ -120,9 +137,11 @@ public class SaveSystem
 
 
 [System.Serializable]
-public struct PlayerPositionData
+public struct PlayerData
 {
     public Vector2 position;
+    public List<SlotSaveData> inventory;
+    public List<SlotSaveData> hotbar;
 }
 
 [System.Serializable]

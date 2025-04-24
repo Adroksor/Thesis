@@ -24,8 +24,8 @@ public class Furnace : MonoBehaviour
 
     public void Start()
     {
-        furnaceInventory = new FurnaceInventory(5, 3); // Arbitrary slot count — adjust as needed
-        building.internalInventory = null; // No longer using InventoryData
+        furnaceInventory = new FurnaceInventory(5, 3);
+        building.internalInventory = null;
         building.gettingRemoved += RemovingFurnace;
 
         if (!building.isGhost)

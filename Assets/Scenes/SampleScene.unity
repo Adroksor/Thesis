@@ -1578,6 +1578,8 @@ GameObject:
   - component: {fileID: 1274033426}
   - component: {fileID: 1274033425}
   - component: {fileID: 1274033427}
+  - component: {fileID: 1274033429}
+  - component: {fileID: 1274033428}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1599,7 +1601,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 519420032}
-  - {fileID: 2029919438}
   - {fileID: 154004032}
   - {fileID: 943579165}
   m_Father: {fileID: 0}
@@ -1684,6 +1685,38 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.4
+--- !u!114 &1274033428
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1274033423}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16b9b82e75b27044cb6698065a3e03d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventoryData:
+    inventorySize: 0
+  inventorySize: 27
+  UI: {fileID: 263367208}
+  inventoryOpen: 0
+  hotbarData:
+    inventorySize: 0
+--- !u!114 &1274033429
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1274033423}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a75c98c100ecaa64f80e0834c42ffdcc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventoryData: {fileID: 1274033428}
 --- !u!1 &1329061649
 GameObject:
   m_ObjectHideFlags: 0
@@ -1962,8 +1995,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9364ee4bedd3caa419b461ff644d425d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 1274033423}
   playerPosition: {x: 0, y: 0}
-  playerScript: {fileID: 1274033426}
+  PlayerMovement: {fileID: 1274033426}
   buildingPlacer: {fileID: 1582148454}
   seed: 0
   objects: []
@@ -2162,7 +2196,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ace0616943c8c1b498af466326df591d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerInventory: {fileID: 2029919439}
+  playerInventory: {fileID: 1274033428}
   playerInventoryUI: {fileID: 501592445}
   hotbarInventoryUI: {fileID: 1656569407}
   equipmentInventory: {fileID: 0}
@@ -2183,7 +2217,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: bf2b2e249ead63a4faa6322901b65b4e, type: 2}
   - {fileID: 11400000, guid: 720a79022e35ca041869f0b0165abed0, type: 2}
   - {fileID: 11400000, guid: 10211c9672e1d2d479e282d3c52a3b95, type: 2}
-  playerInventoryScript: {fileID: 2029919439}
+  playerInventoryScript: {fileID: 1274033428}
   initialSlot: {fileID: 0}
   draggedItem: {fileID: 0}
   draggedItemCount: 0
@@ -2350,55 +2384,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 191987803}
   m_SourcePrefab: {fileID: 100100000, guid: d662aa422753ad14994eef3dffe61a57, type: 3}
---- !u!1 &2029919437
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2029919438}
-  - component: {fileID: 2029919439}
-  m_Layer: 0
-  m_Name: PlayerInventory
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2029919438
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2029919437}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1274033424}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2029919439
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2029919437}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 16b9b82e75b27044cb6698065a3e03d7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inventoryData:
-    inventorySize: 0
-  inventorySize: 27
-  UI: {fileID: 263367208}
-  inventoryOpen: 0
 --- !u!1001 &2038889184
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -9,10 +9,11 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
-    [Header("Player Stuff")] 
+    [Header("Player Stuff")]
+    public GameObject player;
     public Vector2 playerPosition;
 
-    public TopDownPlayerMovement playerScript;
+    public TopDownPlayerMovement PlayerMovement;
     
     public BuildingPlacer buildingPlacer;
     
@@ -46,17 +47,4 @@ public class GameManager : MonoBehaviour
     {
         return buildingPrefabs.FirstOrDefault(prefab => prefab.name == name);
     }
-    
-    
-    public void Save(ref PlayerPositionData data)
-    {
-        data.position = playerPosition;
-    }
-
-    public void Load(PlayerPositionData data)
-    {
-        playerScript.transform.position = data.position;
-    }
-    
-    
 }
