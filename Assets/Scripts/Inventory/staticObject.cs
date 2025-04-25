@@ -5,9 +5,11 @@ using UnityEngine;
 
 public class staticObject : MonoBehaviour
 {
+    public Building building;
     private void Start()
     {
         GameManager.instance.objects.Add(gameObject);
+        building = gameObject.GetComponent<Building>();
     }
     
     
@@ -29,6 +31,8 @@ public class staticObject : MonoBehaviour
 
     public void Remove()
     {
+        Vector2Int position = new Vector2Int((int)transform.position.x, (int)transform.position.y);
+        BuildingGrid.instance.FreeArea(position, building.size);
         Destroy(gameObject);
     }
 }

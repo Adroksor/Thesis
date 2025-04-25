@@ -174,7 +174,8 @@ public class WorldGenerator : MonoBehaviour
                         if (BuildingGrid.instance.CanPlace(new Vector2Int(worldX, worldY), building))
                         {
                             GameObject resource = Instantiate(resourcePrefab, new Vector3(worldX, worldY, 0), Quaternion.identity);
-                            BuildingGrid.instance.OccupyArea(new Vector2Int(worldX, worldY), building);
+                            Building resBuilding = resource.GetComponent<Building>();
+                            resBuilding.Place(new Vector2Int(worldX, worldY));
                             resource.transform.parent = chunk.chunkOBJ.transform;
                         }
                     }
