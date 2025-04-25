@@ -27,6 +27,11 @@ public class InventoryData
         }
         inventoryData[slot] = new ItemDataID { name = name, amount = amount };
     }
+
+    public ItemDataID GetItemAtIndex(int slot)
+    {
+        return inventoryData[slot];
+    }
     
     public List<SlotSaveData> ToSaveList()
     {

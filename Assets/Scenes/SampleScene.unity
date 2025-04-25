@@ -2210,6 +2210,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 9468c040fcd39d64e9c428943a96c91e, type: 2}
   - {fileID: 11400000, guid: 221ab8b3ee554b94e9f5843539a4905d, type: 2}
   - {fileID: 11400000, guid: 29df3318c8796ec4fb28e9d4b75f91c7, type: 2}
+  - {fileID: 11400000, guid: 77ad85c9eee98f945ae96dc319f05a99, type: 2}
   workbenchRecipes:
   - {fileID: 11400000, guid: e89f8142a4bd1104ab6b56f71b66fddd, type: 2}
   - {fileID: 11400000, guid: 8785c960597a02643978bf1d1e970159, type: 2}

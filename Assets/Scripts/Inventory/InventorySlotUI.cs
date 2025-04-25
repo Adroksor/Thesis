@@ -4,12 +4,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class InventorySlotUI : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDropHandler, IPointerClickHandler
+public class InventorySlotUI : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDropHandler, IPointerClickHandler,IPointerEnterHandler, IPointerExitHandler
 {
     public ItemData itemData;
     public int itemCount;
     public ItemUI itemUI;
     public InventoryUI parentPage;
+    private bool isHovered;
 
     public Action<InventorySlotUI, InventoryUI> onBeginDragLeft, onBeginDragRight, onEndDrag, onDropRight, onDropLeft, onClick;
 
@@ -19,6 +20,29 @@ public class InventorySlotUI : MonoBehaviour, IBeginDragHandler, IEndDragHandler
 
         SetData(itemData, itemCount);
     }
+    
+    void Update()
+    {
+        if (parentPage == InventoryManager.instance.playerInventoryUI)
+        {
+            if (isHovered && Input.GetKeyDown(KeyCode.Q))
+            {
+                DropItemInSlot();
+            }
+        }
+    }
+    
+    private void DropItemInSlot()
+    {
+        // Whatever API you already have for removing + spawning a dropped item
+        InventoryData inv = InventoryManager.instance.playerInventory.inventoryData;
+        int index = parentPage.slots.IndexOf(this);
+        InventoryManager.instance.DropItemPlayer(inv.GetItemAtIndex(index), GameManager.instance.playerPosition);
+        SetData(null, 0);
+        InventoryManager.instance.SaveEQandHotbar();
+        // Optional: visual feedback, sound, UI refresh
+    }
+    
 
     public void SetData(ItemData itemData, int itemCount)
     {
@@ -39,6 +63,9 @@ public class InventorySlotUI : MonoBehaviour, IBeginDragHandler, IEndDragHandler
         }
     }
 
+    public void OnPointerEnter(PointerEventData eventData) => isHovered = true;
+    public void OnPointerExit (PointerEventData eventData) => isHovered = false;
+    
 
     public void OnBeginDrag(PointerEventData eventData)
     {

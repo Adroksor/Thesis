@@ -101,7 +101,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11223a940b4cd864a893dd3d49ad1b03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chestID: 
   inventoryData:
     inventorySize: 0
   UI: {fileID: 0}
@@ -169,11 +168,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   size: {x: 1, y: 1}
   isBiomeBased: 0
+  placableOnWater: 0
   allowedTiles: []
   drop:
   - name: Gold chest
     amount: 1
   itemPrefab: {fileID: 3974185785587960047, guid: a81c3a7a9bf2e3a4886ee2bae6bb66fe, type: 3}
-  isGhost: 1
+  isGhost: 0
   internalInventory:
     inventorySize: 0

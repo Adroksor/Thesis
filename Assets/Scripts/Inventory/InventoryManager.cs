@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class InventoryManager : MonoBehaviour
 {   
@@ -479,4 +480,24 @@ public class InventoryManager : MonoBehaviour
     }
 
     
+    public void DropItemPlayer(ItemDataID item, Vector3 position)
+    {
+        if (item.name != null || item.amount != 0)
+        {
+            Vector3 positionOffset = Random.insideUnitCircle / 2;
+
+            positionOffset.z = 0;
+            positionOffset.y -= 0.15f;
+            GameObject dropped = Instantiate(droppedItem, position + positionOffset,
+                Quaternion.identity);
+
+            DroppedItem droppedScript = dropped.GetComponent<DroppedItem>();
+            if (droppedScript != null)
+            {
+                droppedScript.SetItem(item);
+                droppedScript.canPickup = false;
+            }
+            
+        }
+    }
 }

@@ -110,7 +110,7 @@ MonoBehaviour:
   - name: Workbench
     amount: 1
   itemPrefab: {fileID: 0}
-  isGhost: 1
+  isGhost: 0
   internalInventory:
     inventorySize: 0
 --- !u!61 &5966244423382874335

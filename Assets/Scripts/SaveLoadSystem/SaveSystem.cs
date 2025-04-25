@@ -1,8 +1,6 @@
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
-using UnityEngine.Serialization;
-using UnityEngine.XR;
 
 public class SaveSystem
 {
@@ -11,6 +9,7 @@ public class SaveSystem
     [System.Serializable]
     public struct SaveData
     {
+        public int worldSeed;
         public PlayerData playerSaveData;
         public List<StaticObjectData> buildings;
         public List<ChestData> chests;
@@ -39,6 +38,8 @@ public class SaveSystem
         player.Save(ref playerData);
         _saveData.playerSaveData = playerData;
         
+        // World
+        _saveData.worldSeed = GameManager.instance.seed;
         
         // Static Buildings
         _saveData.buildings = new List<StaticObjectData>();
@@ -63,9 +64,19 @@ public class SaveSystem
                 _saveData.chests.Add(posData);
             }
         }
+        // Furnaces
+        _saveData.furnaces = new List<FurnaceData>();
+        foreach (var obj in GameManager.instance.furnaces)
+        {
+            if (obj.TryGetComponent(out Furnace building))
+            {
+                FurnaceData posData = new FurnaceData();
+                building.Save(ref posData);
+                _saveData.furnaces.Add(posData);
+            }
+        }
     }
 
-    // Furnaces
     public static void Load()
     {
         Debug.Log("Load called");
@@ -78,6 +89,7 @@ public class SaveSystem
     
     private static void HandleLoadData()
     {
+        
         GameManager.instance.chests.Clear();
         GameManager.instance.furnaces.Clear();
         GameManager.instance.objects.Clear();
@@ -88,6 +100,10 @@ public class SaveSystem
         GameManager.instance.player.TryGetComponent(out Player player);
         player.Load(_saveData.playerSaveData);
         
+        
+        // World
+        GameManager.instance.seed = _saveData.worldSeed;
+        WorldGenerator.instance.ResetWorld();
         
         // Static Buildings
         foreach (var posData in _saveData.buildings)

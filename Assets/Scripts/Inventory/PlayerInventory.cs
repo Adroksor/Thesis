@@ -20,6 +20,7 @@ public class PlayerInventory : MonoBehaviour
         hotbarData = new InventoryData(9);
         PopulateInventoryWithRandomItems(inventorySize / 2);
         
+        
     }
 
     private void Update()

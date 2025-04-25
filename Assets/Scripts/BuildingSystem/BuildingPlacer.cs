@@ -198,6 +198,7 @@ public class BuildingPlacer : MonoBehaviour
         }
         
         ghostBuilding = Instantiate(selectedBuilding);
+        ghostBuilding.GetComponent<Building>().isGhost = true;
         ghostBuilding.GetComponent<Collider2D>().enabled = false;
         ghostBuilding.name = "GhostBuilding";
         SpriteRenderer sprite = ghostBuilding.GetComponent<SpriteRenderer>();

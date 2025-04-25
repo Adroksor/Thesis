@@ -401,7 +401,7 @@ MonoBehaviour:
   - name: Furnace
     amount: 1
   itemPrefab: {fileID: 3974185785587960047, guid: a81c3a7a9bf2e3a4886ee2bae6bb66fe, type: 3}
-  isGhost: 1
+  isGhost: 0
   internalInventory:
     inventorySize: 0
 --- !u!95 &6756575648240625282

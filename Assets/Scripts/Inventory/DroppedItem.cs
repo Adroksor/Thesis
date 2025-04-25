@@ -8,6 +8,8 @@ public class DroppedItem : MonoBehaviour
      public string itemName;
      public int amount;
 
+     public bool canPickup = true;
+
      public Animator animator;
      
      public SpriteRenderer spriteRenderer;

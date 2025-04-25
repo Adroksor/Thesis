@@ -14,7 +14,22 @@ public class PickUpItem : MonoBehaviour
             DroppedItem droppedItem = other.GetComponent<DroppedItem>();
             if (droppedItem != null)
             {
-                droppedItem.StartCollecting(transform);
+                if (droppedItem.canPickup)
+                {
+                    droppedItem.StartCollecting(transform);
+                }
+            }
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.gameObject.layer == LayerMask.NameToLayer("PickUp"))
+        {
+            DroppedItem droppedItem = other.GetComponent<DroppedItem>();
+            if (droppedItem != null)
+            {
+                droppedItem.canPickup = true;
             }
         }
     }
