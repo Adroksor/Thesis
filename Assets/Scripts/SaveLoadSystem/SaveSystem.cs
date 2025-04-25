@@ -89,7 +89,6 @@ public class SaveSystem
     
     private static void HandleLoadData()
     {
-        
         GameManager.instance.chests.Clear();
         GameManager.instance.furnaces.Clear();
         GameManager.instance.objects.Clear();
@@ -110,6 +109,7 @@ public class SaveSystem
         {
             GameObject prefab = GameManager.instance.GetObjectByName(posData.buildingName);
             GameObject obj = GameObject.Instantiate(prefab, posData.position, Quaternion.identity);
+            obj.name = posData.buildingName;
 
             if (obj.TryGetComponent(out staticObject building))
             {
@@ -125,7 +125,8 @@ public class SaveSystem
             if(prefab == null)
                 continue;
             GameObject obj = GameObject.Instantiate(prefab, chestData.position, Quaternion.identity);
-            
+            obj.name = chestData.buildingName;
+
             if (obj.TryGetComponent(out Chest building))
             {
                 building.Load(chestData);
@@ -140,7 +141,8 @@ public class SaveSystem
             if(prefab == null)
                 continue;
             GameObject obj = GameObject.Instantiate(prefab, furnaceData.position, Quaternion.identity);
-            
+            obj.name = furnaceData.buildingName;
+
             if (obj.TryGetComponent(out Furnace building))
             {
                 building.Load(furnaceData);
