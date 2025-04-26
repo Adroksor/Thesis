@@ -121,11 +121,11 @@ public class SaveSystem
         // Chests
         foreach (var chestData in _saveData.chests)
         {
-            GameObject prefab = GameManager.instance.GetObjectByName(chestData.buildingName);
+            GameObject prefab = GameManager.instance.GetObjectByName(chestData.buildingName.ToString());
             if(prefab == null)
                 continue;
             GameObject obj = GameObject.Instantiate(prefab, chestData.position, Quaternion.identity);
-            obj.name = chestData.buildingName;
+            obj.name = chestData.buildingName.ToString();
 
             if (obj.TryGetComponent(out Chest building))
             {
@@ -137,11 +137,11 @@ public class SaveSystem
         // Furnaces
         foreach (var furnaceData in _saveData.furnaces)
         {
-            GameObject prefab = GameManager.instance.GetObjectByName(furnaceData.buildingName);
+            GameObject prefab = GameManager.instance.GetObjectByName(furnaceData.buildingName.ToString());
             if(prefab == null)
                 continue;
             GameObject obj = GameObject.Instantiate(prefab, furnaceData.position, Quaternion.identity);
-            obj.name = furnaceData.buildingName;
+            obj.name = furnaceData.buildingName.ToString();
 
             if (obj.TryGetComponent(out Furnace building))
             {
@@ -179,7 +179,7 @@ public struct BuildingSaveData
 public struct ChestData             // chest = building + inventory
 {
     public Vector2 position;
-    public string buildingName;
+    public ItemType buildingName;
     public List<SlotSaveData> inventory;
 }
 
@@ -187,7 +187,7 @@ public struct ChestData             // chest = building + inventory
 public struct SlotSaveData          // <-- only used for persistence
 {
     public int    slotIndex;        // key in the dictionary
-    public string itemName;
+    public ItemType itemName;
     public int    amount;
 }
 
@@ -195,5 +195,5 @@ public struct SlotSaveData          // <-- only used for persistence
 public struct FurnaceData             // chest = building + inventory
 {
     public Vector2 position;
-    public string buildingName;
+    public ItemType buildingName;
 }

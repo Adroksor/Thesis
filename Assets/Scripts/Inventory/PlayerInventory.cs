@@ -48,12 +48,19 @@ public class PlayerInventory : MonoBehaviour
 
     public void PopulateInventoryWithRandomItems(int amount)
     {
-        string[] itemNames = {"Coal", "Iron ore", "Iron ingot", "Steel ingot", "Oak log", "Stone wall"};
+        string[] itemNames = {"Coal", "Furnace", "IronIngot", "SteelIngot", "OakLog", "StoneWall"};
         int randomIndex;
         for (int i = 0; i < amount; i++)
         {
             randomIndex = Random.Range(0, itemNames.Length);
-            inventoryData.SetData(Random.Range(0, inventorySize), itemNames[randomIndex], Random.Range(0, 20));
+            if (Enum.TryParse(itemNames[randomIndex], out ItemType enumItem))
+            {
+                inventoryData.SetData(Random.Range(0, inventorySize), enumItem, Random.Range(0, 20));
+            }
+            else
+            {
+                Debug.Log($"Cant find item {itemNames[randomIndex]}");
+            }
         }
     }
 

@@ -51,7 +51,7 @@ public class Building : MonoBehaviour
         {
             for(int i = 0; i < item.amount; i++)
             {
-                if (item.name != null || item.amount != 0)
+                if (item.name != ItemType.None || item.amount != 0)
                 {
                     Vector3 positionOffset = Random.insideUnitCircle / 2;
 
@@ -80,7 +80,7 @@ public class Building : MonoBehaviour
         {
             foreach (var (key, value) in internalInventory.inventoryData)
             {
-                if (value.name != null || value.amount != 0)
+                if (value.name != ItemType.None || value.amount != 0)
                 {
                     Vector3 positionOffset = Random.insideUnitCircle / 2;
 
@@ -102,7 +102,7 @@ public class Building : MonoBehaviour
 
     public void DropItem(ItemDataID item)
     {
-        if (item.name != null || item.amount != 0)
+        if (item.name != ItemType.None || item.amount != 0)
         {
             Vector3 positionOffset = Random.insideUnitCircle / 2;
 

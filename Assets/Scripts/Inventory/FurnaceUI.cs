@@ -63,7 +63,7 @@ public class FurnaceUI : MonoBehaviour
 
                 ItemDataID itemData = new ItemDataID
                 {
-                    name = input.Item.Name,
+                    name = Enum.Parse<ItemType>(input.Item.Name),
                     amount = input.Amount
                 };
                 items.Add(itemData);
@@ -127,7 +127,7 @@ public class FurnaceUI : MonoBehaviour
         // Update interactability based on required input
         List<ItemDataID> requiredItems = recipe.Input.Select(input => new ItemDataID
         {
-            name = input.Item.Name,
+            name = Enum.Parse<ItemType>(input.Item.Name),
             amount = input.Amount * selectedAmount
         }).ToList();
 
@@ -157,7 +157,7 @@ public class FurnaceUI : MonoBehaviour
         {
             totalNeededItems.Add(new ItemDataID
             {
-                name = input.Item.Name,
+                name = Enum.Parse<ItemType>(input.Item.Name),
                 amount = input.Amount * amount
             });
         }

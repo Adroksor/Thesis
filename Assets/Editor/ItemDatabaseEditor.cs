@@ -11,33 +11,20 @@ public class ItemDatabaseEditor : Editor
 
     public override void OnInspectorGUI()
     {
-        // Draw the default inspector fields (items list, missingItem)
         DrawDefaultInspector();
-
-        // Get a reference to the ItemDatabase instance being inspected
         ItemDatabase database = (ItemDatabase)target;
-
-        // Add some visual space
+        
         EditorGUILayout.Space(20);
-
-        // Display a label for clarity
         EditorGUILayout.LabelField("Database Actions", EditorStyles.boldLabel);
 
-        // Optionally, allow editing the target folder path in the inspector
         _itemFolderPath = EditorGUILayout.TextField("Items Folder Path", _itemFolderPath);
 
-        // Create the button
         if (GUILayout.Button($"Load Items"))
         {
-            // Call the public loading function on the database instance
-            // Pass the path from the text field
             database.LoadItemsFromFolder(_itemFolderPath);
-
-            // Optional: Log confirmation in the console
-            Debug.Log("Load Items button clicked via Custom Editor.");
+            ItemEnumGenerator.WriteEnum(database.items);
         }
 
-        // Add more buttons or custom GUI elements here if needed
         EditorGUILayout.Space(10);
         if (GUILayout.Button("Clear Item List"))
         {

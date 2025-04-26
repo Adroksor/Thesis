@@ -20,9 +20,9 @@ public class ItemDatabase : ScriptableObject
         return items.FirstOrDefault(item => item.ID == id) ?? missingItem;
     }
 
-    public ItemData GetItemByName(string name)
+    public ItemData GetItemByType(ItemType name)
     {
-        return items.FirstOrDefault(item => item.Name == name) ?? missingItem;
+        return items.FirstOrDefault(item => item.name == name.ToString()) ?? missingItem;
     }
     
     public ItemData GetItemByname(string name)
@@ -30,18 +30,7 @@ public class ItemDatabase : ScriptableObject
         return items.FirstOrDefault(item => item.name == name) ?? missingItem;
     }
     
-    public bool TryGetItemByID(int id, out ItemData result)
-    {
-        result = items.FirstOrDefault(item => item.ID == id);
-        return result != null;
-    }
-
-    public bool TryGetItemByName(string name, out ItemData result)
-    {
-        result = items.FirstOrDefault(item => item.Name == name);
-        return result != null;
-    }
-       public void LoadItemsFromFolder(string folderPath = "")
+    public void LoadItemsFromFolder(string folderPath = "")
     {
 #if UNITY_EDITOR
         Debug.Log($"Attempting to load ItemData assets from: {folderPath}");

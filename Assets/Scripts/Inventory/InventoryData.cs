@@ -1,7 +1,4 @@
-using System;
 using System.Collections.Generic;
-using UnityEngine;
-using Random = UnityEngine.Random;
 
 
 [System.Serializable]
@@ -15,13 +12,13 @@ public class InventoryData
         inventorySize = size;
         for (int i = 0; i < size; i++)
         {
-            inventoryData[i] = new ItemDataID { name = null, amount = 0 };
+            inventoryData[i] = new ItemDataID { name = ItemType.None, amount = 0 };
         }
     }
     
-    public void SetData(int slot, string name, int amount)
+    public void SetData(int slot, ItemType name, int amount)
     {
-        if (name == null || amount == 0)
+        if (name == ItemType.None || amount == 0)
         {
             return;
         }
@@ -39,7 +36,7 @@ public class InventoryData
 
         foreach (var kvp in inventoryData)
         {
-            if (string.IsNullOrEmpty(kvp.Value.name) || kvp.Value.amount == 0)
+            if (kvp.Value.name == ItemType.None || kvp.Value.amount == 0)
                 continue;                       // skip empty slots (optional)
 
             list.Add(new SlotSaveData
@@ -74,6 +71,6 @@ public class InventoryData
 [System.Serializable]
 public struct ItemDataID
 {
-    public string name;
+    public ItemType name;
     public int amount;
 }

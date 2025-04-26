@@ -45,6 +45,7 @@ public class GameManager : MonoBehaviour
     
     public GameObject GetObjectByName(string name)
     {
+        Debug.Log(name);
         return buildingPrefabs.FirstOrDefault(prefab => prefab.name == name);
     }
 }

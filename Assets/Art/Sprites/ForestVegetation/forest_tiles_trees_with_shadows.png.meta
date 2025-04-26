@@ -1,10 +1,19 @@
 fileFormatVersion: 2
-guid: a7f718cedbb5c3345a3921dcc2219d1d
+guid: 2849e99e2095604408a0d2bec8adfe3f
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6853316077166303748
-    second: Tree_0
+      213: -1055012468761984385
+    second: forest_tiles_trees_with_shadows_0
+  - first:
+      213: -4825195368456758273
+    second: forest_tiles_trees_with_shadows_1
+  - first:
+      213: 3859317182943614036
+    second: forest_tiles_trees_with_shadows_2
+  - first:
+      213: 1159278887251244379
+    second: forest_tiles_trees_with_shadows_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -37,7 +46,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -100,13 +109,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Tree_0
+      name: forest_tiles_trees_with_shadows_0
       rect:
         serializedVersion: 2
-        x: 6
-        y: 4
-        width: 18
-        height: 49
+        x: 0
+        y: 39
+        width: 64
+        height: 57
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -114,8 +123,71 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 40a98f869aedb1f50800000000000000
-      internalID: 6853316077166303748
+      spriteID: f7285d5dfb7db51f0800000000000000
+      internalID: -1055012468761984385
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: forest_tiles_trees_with_shadows_1
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 19
+        width: 13
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ffb564b9066790db0800000000000000
+      internalID: -4825195368456758273
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: forest_tiles_trees_with_shadows_2
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 20
+        width: 27
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4545ae4c78c0f8530800000000000000
+      internalID: 3859317182943614036
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: forest_tiles_trees_with_shadows_3
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 33
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b55783e7106961010800000000000000
+      internalID: 1159278887251244379
       vertices: []
       indices: 
       edges: []
@@ -130,7 +202,11 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      forest_tiles_trees_with_shadows_0: -1055012468761984385
+      forest_tiles_trees_with_shadows_1: -4825195368456758273
+      forest_tiles_trees_with_shadows_2: 3859317182943614036
+      forest_tiles_trees_with_shadows_3: 1159278887251244379
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

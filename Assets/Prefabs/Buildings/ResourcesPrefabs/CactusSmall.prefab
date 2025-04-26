@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7719807391443348970}
   - component: {fileID: 1567127140871846677}
   - component: {fileID: 3878403637204866664}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: CactusSmall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -101,9 +101,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   size: {x: 1, y: 1}
   isBiomeBased: 0
+  placableOnWater: 0
   allowedTiles:
   - {fileID: 11400000, guid: 32da9a7b21c7b884ca804a21c3095001, type: 2}
   drop: []
   itemPrefab: {fileID: 0}
+  isGhost: 0
   internalInventory:
     inventorySize: 0

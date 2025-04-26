@@ -19,38 +19,38 @@ public class FurnaceInventory
         outputSlots = new List<ItemDataID>(outputCount);
 
         for (int i = 0; i < inputCount; i++)
-            inputSlots.Add(new ItemDataID { name = null, amount = 0 });
+            inputSlots.Add(new ItemDataID { name = ItemType.None, amount = 0 });
 
         for (int i = 0; i < outputCount; i++)
-            outputSlots.Add(new ItemDataID { name = null, amount = 0 });
+            outputSlots.Add(new ItemDataID { name = ItemType.None, amount = 0 });
     }
     
     public void ClearInputs()
     {
         for (int i = 0; i < inputSlots.Count; i++)
-            inputSlots[i] = new ItemDataID { name = null, amount = 0 };
+            inputSlots[i] = new ItemDataID { name = ItemType.None, amount = 0 };
     }
 
     public void ClearOutputs()
     {
         for (int i = 0; i < outputSlots.Count; i++)
-            outputSlots[i] = new ItemDataID { name = null, amount = 0 };
+            outputSlots[i] = new ItemDataID { name = ItemType.None, amount = 0 };
     }
 
 
-    public void SetInput(int slot, string name, int amount)
+    public void SetInput(int slot, ItemType name, int amount)
     {
-        if (slot >= 0 && slot < inputSlotCount && !string.IsNullOrEmpty(name) && amount > 0)
+        if (slot >= 0 && slot < inputSlotCount && name != ItemType.None && amount > 0)
             inputSlots[slot] = new ItemDataID { name = name, amount = amount };
     }
 
-    public void SetOutput(int slot, string name, int amount)
+    public void SetOutput(int slot, ItemType name, int amount)
     {
-        if (slot >= 0 && slot < outputSlotCount && !string.IsNullOrEmpty(name) && amount > 0)
+        if (slot >= 0 && slot < outputSlotCount && name != ItemType.None && amount > 0)
             outputSlots[slot] = new ItemDataID { name = name, amount = amount };
     }
 
-    public void AddToOutput(string name, int amount)
+    public void AddToOutput(ItemType name, int amount)
     {
         for (int i = 0; i < outputSlots.Count; i++)
         {
@@ -65,7 +65,7 @@ public class FurnaceInventory
 
         for (int i = 0; i < outputSlots.Count; i++)
         {
-            if (string.IsNullOrEmpty(outputSlots[i].name))
+            if (outputSlots[i].name == ItemType.None)
             {
                 outputSlots[i] = new ItemDataID { name = name, amount = amount };
                 return;
@@ -81,7 +81,7 @@ public class FurnaceInventory
         {
             var slot = inputSlots[i];
 
-            if (slot.name == name)
+            if (slot.name == ItemType.None)
             {
                 if (slot.amount >= amount)
                 {
@@ -97,13 +97,12 @@ public class FurnaceInventory
         Debug.LogWarning($"Item {name} not found in input slots.");
     }
 
-
     public void Clear()
     {
         for (int i = 0; i < inputSlots.Count; i++)
-            inputSlots[i] = new ItemDataID { name = null, amount = 0 };
+            inputSlots[i] = new ItemDataID { name = ItemType.None, amount = 0 };
 
         for (int i = 0; i < outputSlots.Count; i++)
-            outputSlots[i] = new ItemDataID { name = null, amount = 0 };
+            outputSlots[i] = new ItemDataID { name = ItemType.None, amount = 0 };
     }
 }

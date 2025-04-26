@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,7 +44,7 @@ public class WorkbenchUI : MonoBehaviour
 
                 ItemDataID itemData = new ItemDataID
                 {
-                    name = input.Item.Name,
+                    name = Enum.Parse<ItemType>(input.Item.Name),
                     amount = input.Amount
                 };
                 items.Add(itemData);
@@ -93,7 +94,7 @@ public class WorkbenchUI : MonoBehaviour
             // Update interactability based on required input
             List<ItemDataID> requiredItems = recipe.Input.Select(input => new ItemDataID
             {
-                name = input.Item.Name,
+                name = Enum.Parse<ItemType>(input.Item.Name),
                 amount = input.Amount
             }).ToList();
 

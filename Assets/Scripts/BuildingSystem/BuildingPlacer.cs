@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -117,13 +118,13 @@ public class BuildingPlacer : MonoBehaviour
                 PlayerInventory playerInventory = InventoryManager.instance.playerInventory;
                 ItemDataID item = new ItemDataID
                 {
-                    name = selectedBuilding.name,
+                    name = Enum.Parse<ItemType>(selectedBuilding.name),
                     amount = 1
                 };
                 if (InventoryManager.instance.DoesInventoryHaveItem(playerInventory.inventoryData, item))
                 {
                     PlaceBuilding(selectedBuilding);
-                    InventoryManager.instance.TryRemoveItemsFromInventoryData(ItemDatabaseInstance.instance.GetItemByname(item.name), 1, playerInventory.inventoryData);
+                    InventoryManager.instance.TryRemoveItemsFromInventoryData(ItemDatabaseInstance.instance.GetItemByname(item.name.ToString()), 1, playerInventory.inventoryData);
                     if (!InventoryManager.instance.DoesInventoryHaveItem(playerInventory.inventoryData, item))
                     {
                         selectedBuilding = null;

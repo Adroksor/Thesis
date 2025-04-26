@@ -17,7 +17,7 @@ public class MouseManager : MonoBehaviour
             RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero, math.INFINITY, interactableLayer);
             if (hit.collider != null)
             {
-                var chest = hit.collider.GetComponent<Chest>();
+                var chest = hit.collider.GetComponentInParent<Chest>();
                 if (chest != null)
                 {
                     if (InventoryManager.instance.currentlyOpenedInventory == null)
@@ -26,7 +26,7 @@ public class MouseManager : MonoBehaviour
                     }
                 }
                 
-                var furnace = hit.collider.GetComponent<Furnace>();
+                var furnace = hit.collider.GetComponentInParent<Furnace>();
                 if (furnace != null)
                 {
                     if (InventoryManager.instance.currentlyOpenedInventory == null)
@@ -35,7 +35,7 @@ public class MouseManager : MonoBehaviour
                     }
                 }
                 
-                var workbench = hit.collider.GetComponent<Workbench>();
+                var workbench = hit.collider.GetComponentInParent<Workbench>();
                 if (workbench != null)
                 {
                     {
@@ -57,12 +57,12 @@ public class MouseManager : MonoBehaviour
             RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero, math.INFINITY, interactableLayer);
             if (hit.collider != null)
             {
-                var building = hit.collider.GetComponent<Building>();
+                var building = hit.collider.GetComponentInParent<Building>();
                 if (building != null && !building.isGhost)
                 {
                     building.Remove();
                 }
-                var staticBuilding = hit.collider.GetComponent<staticObject>();
+                var staticBuilding = hit.collider.GetComponentInParent<staticObject>();
                 if (staticBuilding != null)
                 {
                     staticBuilding.Remove();

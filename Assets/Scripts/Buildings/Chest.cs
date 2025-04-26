@@ -63,7 +63,7 @@ public class Chest : MonoBehaviour
         for (int i = 0; i < amount; i++)
         {
             randomIndex = Random.Range(0, itemNames.Length);
-            inventoryData.SetData(Random.Range(0, chestSize), itemNames[randomIndex], Random.Range(0, 8));
+            inventoryData.SetData(Random.Range(0, chestSize),Enum.Parse<ItemType>(itemNames[randomIndex]), Random.Range(0, 8));
         }
     }
 
@@ -126,7 +126,7 @@ public class Chest : MonoBehaviour
     public void Save(ref ChestData data)
     {
         data.position = transform.position;
-        data.buildingName = transform.name;
+        data.buildingName = Enum.Parse<ItemType>(transform.name);;
 
         List<SlotSaveData> inventory = inventoryData.ToSaveList();
         data.inventory = inventory;

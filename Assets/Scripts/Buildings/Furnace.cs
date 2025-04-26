@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
@@ -58,7 +59,7 @@ public class Furnace : MonoBehaviour
         for (int i = 0; i < currentRecipe.Input.Count; i++)
         {
             var input = currentRecipe.Input[i];
-            furnaceInventory.SetInput(i, input.Item.Name, input.Amount * targetAmount);
+            furnaceInventory.SetInput(i, Enum.Parse<ItemType>(input.Item.Name), input.Amount * targetAmount);
         }
 
         smeltingCoroutine = StartCoroutine(SmeltingRoutine());
@@ -76,7 +77,7 @@ public class Furnace : MonoBehaviour
             {
                 currentItemFinished = true;
                 Bounce();
-                building.DropItem(new ItemDataID{name = currentRecipe.Output.Item.Name, amount = currentRecipe.Output.Amount});
+                building.DropItem(new ItemDataID{name = Enum.Parse<ItemType>(currentRecipe.Output.Item.Name), amount = currentRecipe.Output.Amount});
             });
             
             foreach (var input in currentRecipe.Input)
@@ -143,7 +144,7 @@ public class Furnace : MonoBehaviour
         // Return all inputs and outputs to internal inventory
         foreach (var input in furnaceInventory.inputSlots)
         {
-            if (!string.IsNullOrEmpty(input.name) && input.amount > 0)
+            if (input.name != ItemType.None && input.amount > 0)
             {
                 building.DropItem(new ItemDataID{name = input.name, amount = input.amount});
             }
@@ -163,7 +164,7 @@ public class Furnace : MonoBehaviour
     public void Save(ref FurnaceData data)
     {
         data.position = transform.position;
-        data.buildingName = transform.name;
+        data.buildingName = Enum.Parse<ItemType>(transform.name);
 
     }
 
