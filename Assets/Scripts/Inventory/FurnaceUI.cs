@@ -43,7 +43,7 @@ public class FurnaceUI : MonoBehaviour
 
         foreach (RecipeData recipe in InventoryManager.instance.furnaceRecipes)
         {
-            List<ItemDataID> items = new List<ItemDataID>();
+            List<ItemStack> items = new List<ItemStack>();
             
             GameObject recipeUI = Instantiate(recipeUIp, recipeListUI.transform);
             
@@ -61,9 +61,9 @@ public class FurnaceUI : MonoBehaviour
                 inputItemUI.itemIcon = input.Item.ItemImage;
                 inputItemUI.UpdateItemUI();
 
-                ItemDataID itemData = new ItemDataID
+                ItemStack itemData = new ItemStack
                 {
-                    name = Enum.Parse<ItemType>(input.Item.Name),
+                    item = input.Item,
                     amount = input.Amount
                 };
                 items.Add(itemData);
@@ -125,9 +125,9 @@ public class FurnaceUI : MonoBehaviour
         }
 
         // Update interactability based on required input
-        List<ItemDataID> requiredItems = recipe.Input.Select(input => new ItemDataID
+        List<ItemStack> requiredItems = recipe.Input.Select(input => new ItemStack
         {
-            name = Enum.Parse<ItemType>(input.Item.Name),
+            item = input.Item,
             amount = input.Amount * selectedAmount
         }).ToList();
 
@@ -151,13 +151,13 @@ public class FurnaceUI : MonoBehaviour
             return;
         }
 
-        List<ItemDataID> totalNeededItems = new List<ItemDataID>();
+        List<ItemStack> totalNeededItems = new List<ItemStack>();
 
         foreach (RecipeSlotData input in recipe.Input)
         {
-            totalNeededItems.Add(new ItemDataID
+            totalNeededItems.Add(new ItemStack
             {
-                name = Enum.Parse<ItemType>(input.Item.Name),
+                item = input.Item,
                 amount = input.Amount * amount
             });
         }

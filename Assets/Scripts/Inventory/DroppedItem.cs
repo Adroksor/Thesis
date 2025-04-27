@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class DroppedItem : MonoBehaviour
 {
-     public ItemType itemName;
+     public string itemName;
      public int amount;
 
      public bool canPickup = true;
@@ -64,7 +64,7 @@ public class DroppedItem : MonoBehaviour
      private void TryPickup()
      {
           int remaining = InventoryManager.instance.TryAddItemToInventoryData(
-               ItemDatabaseInstance.instance.GetItemByType(itemName),
+               ItemDatabaseInstance.instance.GetItemByname(itemName),
                amount,
                InventoryManager.instance.playerInventoryScript.inventoryData
           );
@@ -80,10 +80,10 @@ public class DroppedItem : MonoBehaviour
      }
 
 
-     public void SetItem(ItemDataID itemData)
+     public void SetItem(ItemStack itemData)
      {
-          itemName = itemData.name;
+          itemName = itemData.item.name;
           amount = itemData.amount;
-          spriteRenderer.sprite = ItemDatabaseInstance.instance.GetItemByType(itemName).ItemImage;
+          spriteRenderer.sprite = itemData.item.ItemImage;
      }
 }

@@ -116,19 +116,22 @@ public class BuildingPlacer : MonoBehaviour
             if (selectedBuilding != null)
             {
                 PlayerInventory playerInventory = InventoryManager.instance.playerInventory;
-                ItemDataID item = new ItemDataID
+                ItemStack item = new ItemStack
                 {
-                    name = Enum.Parse<ItemType>(selectedBuilding.name),
+                    item = ItemDatabaseInstance.instance.GetItemByname(selectedBuilding.name),
                     amount = 1
                 };
                 if (InventoryManager.instance.DoesInventoryHaveItem(playerInventory.inventoryData, item))
                 {
-                    PlaceBuilding(selectedBuilding);
-                    InventoryManager.instance.TryRemoveItemsFromInventoryData(ItemDatabaseInstance.instance.GetItemByname(item.name.ToString()), 1, playerInventory.inventoryData);
-                    if (!InventoryManager.instance.DoesInventoryHaveItem(playerInventory.inventoryData, item))
+                    bool placed = PlaceBuilding(selectedBuilding);
+                    if (placed)
                     {
-                        selectedBuilding = null;
-                        Destroy(ghostBuilding);
+                        InventoryManager.instance.TryRemoveItemsFromInventoryData(ItemDatabaseInstance.instance.GetItemByname(item.item.name), 1, playerInventory.inventoryData);
+                        if (!InventoryManager.instance.DoesInventoryHaveItem(playerInventory.inventoryData, item))
+                        {
+                            selectedBuilding = null;
+                            Destroy(ghostBuilding);
+                        }   
                     }
                 }
             }
@@ -144,7 +147,7 @@ public class BuildingPlacer : MonoBehaviour
         lastMouseGridPosition = mouseGridPosition;
     }
 
-    public void PlaceBuilding(GameObject buildingPrefab)
+    public bool PlaceBuilding(GameObject buildingPrefab)
     {
         Vector2Int currentChunkPosition = BuildingGrid.instance.WorldToChunkPosition(mouseGridPosition);
         currentChunk = WorldGenerator.instance.TryGetChunk(currentChunkPosition);
@@ -158,11 +161,11 @@ public class BuildingPlacer : MonoBehaviour
             Building building = buildingOBJ.GetComponent<Building>();
             building.isGhost = false;
             building.Place(mouseGridPosition);
+            return true;
         }
-        else
-        {
-            Debug.Log("Cannot place building here!");
-        }
+        Debug.Log("Cannot place building here!");
+        return false;
+        
     }
 
     public void UpdateGhostPosition()

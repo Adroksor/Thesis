@@ -106,10 +106,10 @@ MonoBehaviour:
   placableOnWater: 0
   allowedTiles: []
   drop:
-  - name: 13
+  - item: {fileID: 11400000, guid: 98111f6bc07b9f54e98dc409fdc15930, type: 2}
     amount: 1
-  - name: 2
-    amount: 2
+  - item: {fileID: 11400000, guid: d0ba7440c7fbbfb47ada2503a4fe0b99, type: 2}
+    amount: 3
   itemPrefab: {fileID: 0}
   isGhost: 0
   internalInventory:

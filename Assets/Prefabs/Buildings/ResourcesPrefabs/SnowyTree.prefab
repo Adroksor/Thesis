@@ -106,7 +106,7 @@ MonoBehaviour:
   allowedTiles:
   - {fileID: 11400000, guid: 896ed7b983861ef47b6ae81888f020a8, type: 2}
   drop:
-  - name: 13
+  - item: {fileID: 11400000, guid: d0ba7440c7fbbfb47ada2503a4fe0b99, type: 2}
     amount: 5
   itemPrefab: {fileID: 0}
   isGhost: 1

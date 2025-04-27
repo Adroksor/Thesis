@@ -13,12 +13,20 @@ public class ItemData : ScriptableObject
     [field: SerializeField]
     public string Name { get; set; }
     [field: SerializeField]
+    public ItemCategory Itemtype { get; set; }
+    [field: SerializeField]
     public Sprite ItemImage { get; set; }
     [field: SerializeField]
     [field: TextArea]
     public string Description { get; set; }
-    [field: SerializeField]
-    public bool isPlacable { get; set; }
-    
+}
 
+public enum ItemCategory
+{
+    None,
+    Material,
+    Weapon,
+    Armor,
+    Placeable,
+    Consumable,
 }

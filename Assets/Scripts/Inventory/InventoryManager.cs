@@ -228,7 +228,7 @@ public class InventoryManager : MonoBehaviour
         }
         else
         {
-            if (clickedItem.isPlacable)
+            if (clickedItem.Itemtype == ItemCategory.Placeable)
             {
                 BuildingPlacer buildingPlacer = GameManager.instance.buildingPlacer;
                 GameObject building = GameManager.instance.GetObjectByName(clickedItem.name);
@@ -258,15 +258,12 @@ public class InventoryManager : MonoBehaviour
 
             if (slot.itemData != null)
             {
-                if (Enum.TryParse(slot.itemData.name, true, out ItemType id))
-                {
-                    inventoryData.inventoryData[i] = new ItemDataID { name = id, amount = slot.itemCount };
-                }
+                inventoryData.inventoryData[i] = new ItemStack { item = slot.itemData, amount = slot.itemCount };
             }
             else
             {
                 // keep an explicit “empty” entry
-                inventoryData.inventoryData[i] = new ItemDataID { name = ItemType.None, amount = 0 };
+                inventoryData.inventoryData[i] = new ItemStack { item = null, amount = 0 };
             }
         }
 
@@ -284,7 +281,7 @@ public class InventoryManager : MonoBehaviour
         }
         foreach (var (key, value) in inventoryData.inventoryData)
         {
-            inventoryUI.slots[key].SetData(ItemDatabaseInstance.instance.GetItemByType(value.name), value.amount);
+            inventoryUI.slots[key].SetData(value.item, value.amount);
         }
     }
 
@@ -338,24 +335,24 @@ public class InventoryManager : MonoBehaviour
         int index = -1;
         while (amount > 0)
         {
-            index = IndexOfFirstOrEmptySlotData(targetInventoryData, index + 1, Enum.Parse<ItemType>(itemData.name));
+            index = IndexOfFirstOrEmptySlotData(targetInventoryData, index + 1, itemData);
             if (index == -1) return amount;
-            int maxStackSize = itemData.MaxStackSize; 
-            targetInventoryData.inventoryData.TryGetValue(index, out ItemDataID itemAtIndex);
+            int maxStackSize = itemData.MaxStackSize;
+            targetInventoryData.inventoryData.TryGetValue(index, out ItemStack itemAtIndex);
 
-            if (itemAtIndex.name == ItemType.None)
+            if (itemAtIndex.item == null)
             {
                 // New stack
                 int added = Mathf.Min(amount, maxStackSize);
-                targetInventoryData.inventoryData[index] = new ItemDataID { name = Enum.Parse<ItemType>(itemData.name), amount = added };
+                targetInventoryData.inventoryData[index] = new ItemStack { item = itemData, amount = added };
                 amount -= added;
             }
-            else if (itemAtIndex.name == Enum.Parse<ItemType>(itemData.name) && itemAtIndex.amount < maxStackSize)
+            else if (itemAtIndex.item != null && itemAtIndex.amount < maxStackSize)
             {
                 // Add to existing stack
                 int spaceLeft = maxStackSize - itemAtIndex.amount;
                 int added = Mathf.Min(amount, spaceLeft);
-                targetInventoryData.inventoryData[index] = new ItemDataID { name = Enum.Parse<ItemType>(itemData.name), amount = itemAtIndex.amount + added };
+                targetInventoryData.inventoryData[index] = new ItemStack { item = itemData, amount = itemAtIndex.amount + added };
                 amount -= added;
             }
         }
@@ -375,7 +372,7 @@ public class InventoryManager : MonoBehaviour
         List<int> matchingSlots = new List<int>();
         foreach (var kvp in targetInventoryData.inventoryData)
         {
-            if (kvp.Value.name == Enum.Parse<ItemType>(itemData.name))
+            if (kvp.Value.item == itemData)
             {
                 matchingSlots.Add(kvp.Key);
             }
@@ -388,15 +385,15 @@ public class InventoryManager : MonoBehaviour
         {
             if (remaining <= 0) break;
 
-            ItemDataID item = targetInventoryData.inventoryData[index];
+            ItemStack item = targetInventoryData.inventoryData[index];
             if (item.amount <= remaining)
             {
                 remaining -= item.amount;
-                targetInventoryData.inventoryData[index] = new ItemDataID(); // Clear the slot
+                targetInventoryData.inventoryData[index] = new ItemStack(); // Clear the slot
             }
             else
             {
-                targetInventoryData.inventoryData[index] = new ItemDataID { name = item.name, amount = item.amount - remaining };
+                targetInventoryData.inventoryData[index] = new ItemStack { item = itemData, amount = item.amount - remaining };
                 remaining = 0;
             }
         }
@@ -412,15 +409,15 @@ public class InventoryManager : MonoBehaviour
 
 
     
-    public int IndexOfFirstOrEmptySlotData(InventoryData inventoryData, int startIndex = 0, ItemType itemToTransfer = ItemType.None)
+    public int IndexOfFirstOrEmptySlotData(InventoryData inventoryData, int startIndex = 0, ItemData itemToTransfer = null)
     {
         for (int i = startIndex; i < inventoryData.inventorySize; i++)
         {   
-            if (inventoryData.inventoryData[i].name == itemToTransfer)
+            if (inventoryData.inventoryData[i].item == itemToTransfer)
             {
                 return i;
             }
-            if (inventoryData.inventoryData[i].name == ItemType.None)
+            if (inventoryData.inventoryData[i].item == null)
             {
                 return i;
             }
@@ -434,7 +431,9 @@ public class InventoryManager : MonoBehaviour
 
         foreach (var item in inventoryData.inventoryData)
         {
-            ItemData itemData = ItemDatabaseInstance.instance.GetItemByType(item.Value.name);
+            ItemData itemData = item.Value.item;
+            if(itemData == null)
+                continue;
             if (itemData.name != "MissingItem")
             {
                 if (!combinedItems.ContainsKey(itemData))
@@ -450,12 +449,12 @@ public class InventoryManager : MonoBehaviour
         return combinedItems;
     }
 
-    public bool DoesInventoryHaveItems(InventoryData inventoryData, List<ItemDataID> itemDataIDs)
+    public bool DoesInventoryHaveItems(InventoryData inventoryData, List<ItemStack> itemStackss)
     {
         Dictionary<ItemData, int> combinedItems = GetCombinedInventory(inventoryData);
-        foreach (var input in itemDataIDs)
+        foreach (var input in itemStackss)
         {
-            ItemData item = ItemDatabaseInstance.instance.GetItemByType(input.name);
+            ItemData item = input.item;
             if (!combinedItems.ContainsKey(item))
             {
                 return false;
@@ -470,23 +469,23 @@ public class InventoryManager : MonoBehaviour
         return true;
     }
     
-    public bool DoesInventoryHaveItem(InventoryData inventoryData, ItemDataID itemDataID)
+    public bool DoesInventoryHaveItem(InventoryData inventoryData, ItemStack itemStack)
     {
-        if (itemDataID.amount <= 0) return false;
+        if (itemStack.amount <= 0) return false;
 
         Dictionary<ItemData, int> combined = GetCombinedInventory(inventoryData);
 
-        ItemData item = ItemDatabaseInstance.instance.GetItemByname(itemDataID.name.ToString());
+        ItemData item = itemStack.item;
         if (item == null)
             return false;
         combined.TryGetValue(item, out int amount);
-        return amount >= itemDataID.amount; 
+        return amount >= itemStack.amount; 
     }
 
     
-    public void DropItemPlayer(ItemDataID item, Vector3 position)
+    public void DropItemPlayer(ItemStack item, Vector3 position)
     {
-        if (item.name != ItemType.None || item.amount != 0)
+        if (item.item != null || item.amount != 0)
         {
             Vector3 positionOffset = Random.insideUnitCircle / 2;
 

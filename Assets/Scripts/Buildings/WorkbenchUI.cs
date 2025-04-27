@@ -24,7 +24,7 @@ public class WorkbenchUI : MonoBehaviour
 
         foreach (RecipeData recipe in InventoryManager.instance.workbenchRecipes)
         {
-            List<ItemDataID> items = new List<ItemDataID>();
+            List<ItemStack> items = new List<ItemStack>();
 
             GameObject recipeUI = Instantiate(recipeUIp, recipeListUI.transform);
 
@@ -42,9 +42,9 @@ public class WorkbenchUI : MonoBehaviour
                 inputItemUI.itemIcon = input.Item.ItemImage;
                 inputItemUI.UpdateItemUI();
 
-                ItemDataID itemData = new ItemDataID
+                ItemStack itemData = new ItemStack
                 {
-                    name = Enum.Parse<ItemType>(input.Item.Name),
+                    item = input.Item,
                     amount = input.Amount
                 };
                 items.Add(itemData);
@@ -92,9 +92,9 @@ public class WorkbenchUI : MonoBehaviour
             }
             
             // Update interactability based on required input
-            List<ItemDataID> requiredItems = recipe.Input.Select(input => new ItemDataID
+            List<ItemStack> requiredItems = recipe.Input.Select(input => new ItemStack
             {
-                name = Enum.Parse<ItemType>(input.Item.Name),
+                item = input.Item,
                 amount = input.Amount
             }).ToList();
 

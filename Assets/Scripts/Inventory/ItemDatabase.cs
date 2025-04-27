@@ -19,11 +19,7 @@ public class ItemDatabase : ScriptableObject
     {
         return items.FirstOrDefault(item => item.ID == id) ?? missingItem;
     }
-
-    public ItemData GetItemByType(ItemType name)
-    {
-        return items.FirstOrDefault(item => item.name == name.ToString()) ?? missingItem;
-    }
+    
     
     public ItemData GetItemByname(string name)
     {

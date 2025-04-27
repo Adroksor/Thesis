@@ -11,7 +11,7 @@ public class Building : MonoBehaviour
     public bool placableOnWater = false;
     public TileBase[] allowedTiles; // Tiles the building can be placed on (e.g., water for pumps)
 
-    public List<ItemDataID> drop;
+    public List<ItemStack> drop;
     public GameObject itemPrefab;
     public bool isGhost = true;
     
@@ -45,13 +45,13 @@ public class Building : MonoBehaviour
         Destroy(gameObject);
     }
 
-    public void DropItems(List<ItemDataID> itemsToDrop)
+    public void DropItems(List<ItemStack> itemsToDrop)
     {
         foreach (var item in itemsToDrop)
         {
             for(int i = 0; i < item.amount; i++)
             {
-                if (item.name != ItemType.None || item.amount != 0)
+                if (!string.IsNullOrEmpty(item.item.name) || item.amount != 0)
                 {
                     Vector3 positionOffset = Random.insideUnitCircle / 2;
 
@@ -63,9 +63,11 @@ public class Building : MonoBehaviour
                     DroppedItem droppedScript = dropped.GetComponent<DroppedItem>();
                     if (droppedScript != null)
                     {
-                        ItemDataID toSet = new ItemDataID();
-                        toSet.name = item.name;
-                        toSet.amount = 1;
+                        ItemStack toSet = new ItemStack
+                        {
+                            item = item.item,
+                            amount = 1
+                        };
                         droppedScript.SetItem(toSet);
                     }
                 }
@@ -80,7 +82,11 @@ public class Building : MonoBehaviour
         {
             foreach (var (key, value) in internalInventory.inventoryData)
             {
-                if (value.name != ItemType.None || value.amount != 0)
+                if (value.item == null)
+                {
+                    continue;
+                }
+                if (!string.IsNullOrEmpty(value.item.name))
                 {
                     Vector3 positionOffset = Random.insideUnitCircle / 2;
 
@@ -100,9 +106,9 @@ public class Building : MonoBehaviour
         }
     }
 
-    public void DropItem(ItemDataID item)
+    public void DropItem(ItemStack item)
     {
-        if (item.name != ItemType.None || item.amount != 0)
+        if (!string.IsNullOrEmpty(item.item.name) || item.amount != 0)
         {
             Vector3 positionOffset = Random.insideUnitCircle / 2;
 

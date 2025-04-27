@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
+#if UNITY_EDITOR
 
 public static class ItemEnumGenerator
 {
@@ -49,3 +50,4 @@ public static class ItemEnumGenerator
         return char.IsDigit(cleaned[0]) ? "_" + cleaned : cleaned;
     }
 }
+#endif

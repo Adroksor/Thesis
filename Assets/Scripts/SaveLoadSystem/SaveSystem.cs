@@ -179,7 +179,7 @@ public struct BuildingSaveData
 public struct ChestData             // chest = building + inventory
 {
     public Vector2 position;
-    public ItemType buildingName;
+    public string buildingName;
     public List<SlotSaveData> inventory;
 }
 
@@ -187,7 +187,7 @@ public struct ChestData             // chest = building + inventory
 public struct SlotSaveData          // <-- only used for persistence
 {
     public int    slotIndex;        // key in the dictionary
-    public ItemType itemName;
+    public string itemName;
     public int    amount;
 }
 
@@ -195,5 +195,5 @@ public struct SlotSaveData          // <-- only used for persistence
 public struct FurnaceData             // chest = building + inventory
 {
     public Vector2 position;
-    public ItemType buildingName;
+    public string buildingName;
 }

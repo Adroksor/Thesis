@@ -22,7 +22,6 @@ public class ItemDatabaseEditor : Editor
         if (GUILayout.Button($"Load Items"))
         {
             database.LoadItemsFromFolder(_itemFolderPath);
-            ItemEnumGenerator.WriteEnum(database.items);
         }
 
         EditorGUILayout.Space(10);

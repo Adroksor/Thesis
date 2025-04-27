@@ -4,7 +4,7 @@ using System.Collections.Generic;
 [System.Serializable]
 public class InventoryData
 {
-    public Dictionary<int, ItemDataID> inventoryData = new Dictionary<int, ItemDataID>();
+    public Dictionary<int, ItemStack> inventoryData = new Dictionary<int, ItemStack>();
     public int inventorySize;
 
     public InventoryData(int size)
@@ -12,20 +12,20 @@ public class InventoryData
         inventorySize = size;
         for (int i = 0; i < size; i++)
         {
-            inventoryData[i] = new ItemDataID { name = ItemType.None, amount = 0 };
+            inventoryData[i] = new ItemStack { item = null, amount = 0 };
         }
     }
     
-    public void SetData(int slot, ItemType name, int amount)
+    public void SetData(int slot, ItemStack itemStack)
     {
-        if (name == ItemType.None || amount == 0)
+        if (string.IsNullOrEmpty(itemStack.item.name) || itemStack.amount == 0)
         {
             return;
         }
-        inventoryData[slot] = new ItemDataID { name = name, amount = amount };
+        inventoryData[slot] = new ItemStack { item = itemStack.item, amount = itemStack.amount };
     }
 
-    public ItemDataID GetItemAtIndex(int slot)
+    public ItemStack GetItemAtIndex(int slot)
     {
         return inventoryData[slot];
     }
@@ -36,13 +36,13 @@ public class InventoryData
 
         foreach (var kvp in inventoryData)
         {
-            if (kvp.Value.name == ItemType.None || kvp.Value.amount == 0)
+            if (kvp.Value.item == null || kvp.Value.amount == 0)
                 continue;                       // skip empty slots (optional)
 
             list.Add(new SlotSaveData
             {
                 slotIndex = kvp.Key,
-                itemName  = kvp.Value.name,
+                itemName  = kvp.Value.item.name,
                 amount    = kvp.Value.amount
             });
         }
@@ -53,13 +53,13 @@ public class InventoryData
     {
         // clear but keep size
         foreach (int key in new List<int>(inventoryData.Keys))
-            inventoryData[key] = new ItemDataID();
+            inventoryData[key] = new ItemStack();
 
         foreach (var e in list)
         {
-            inventoryData[e.slotIndex] = new ItemDataID
+            inventoryData[e.slotIndex] = new ItemStack
             {
-                name   = e.itemName,
+                item   = ItemDatabaseInstance.instance.GetItemByname(e.itemName),
                 amount = e.amount
             };
         }
@@ -69,8 +69,8 @@ public class InventoryData
 }
 
 [System.Serializable]
-public struct ItemDataID
+public struct ItemStack
 {
-    public ItemType name;
+    public ItemData item;
     public int amount;
 }

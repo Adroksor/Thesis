@@ -59,7 +59,12 @@ public class Furnace : MonoBehaviour
         for (int i = 0; i < currentRecipe.Input.Count; i++)
         {
             var input = currentRecipe.Input[i];
-            furnaceInventory.SetInput(i, Enum.Parse<ItemType>(input.Item.Name), input.Amount * targetAmount);
+            ItemStack stack = new ItemStack
+            {
+                item = input.Item,
+                amount = input.Amount
+            };
+            furnaceInventory.SetInput(i, stack);
         }
 
         smeltingCoroutine = StartCoroutine(SmeltingRoutine());
@@ -77,12 +82,12 @@ public class Furnace : MonoBehaviour
             {
                 currentItemFinished = true;
                 Bounce();
-                building.DropItem(new ItemDataID{name = Enum.Parse<ItemType>(currentRecipe.Output.Item.Name), amount = currentRecipe.Output.Amount});
+                building.DropItem(new ItemStack{item = currentRecipe.Output.Item, amount = currentRecipe.Output.Amount});
             });
             
             foreach (var input in currentRecipe.Input)
             {
-                furnaceInventory.SubtractFromInput(input.Item.Name, input.Amount);
+                furnaceInventory.SubtractFromInput(new ItemStack{item = currentRecipe.Output.Item, amount = currentRecipe.Output.Amount});
             }
 
             yield return new WaitUntil(() => currentItemFinished);
@@ -141,12 +146,11 @@ public class Furnace : MonoBehaviour
 
     public void RemovingFurnace(Building building)
     {
-        // Return all inputs and outputs to internal inventory
         foreach (var input in furnaceInventory.inputSlots)
         {
-            if (input.name != ItemType.None && input.amount > 0)
+            if (input.item && input.amount > 0)
             {
-                building.DropItem(new ItemDataID{name = input.name, amount = input.amount});
+                building.DropItem(new ItemStack{item = input.item, amount = input.amount});
             }
         }
         furnaceInventory.Clear();
@@ -164,7 +168,7 @@ public class Furnace : MonoBehaviour
     public void Save(ref FurnaceData data)
     {
         data.position = transform.position;
-        data.buildingName = Enum.Parse<ItemType>(transform.name);
+        data.buildingName = transform.name;
 
     }
 

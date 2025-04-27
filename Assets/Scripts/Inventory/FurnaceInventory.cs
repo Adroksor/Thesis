@@ -5,8 +5,8 @@ using UnityEngine;
 [System.Serializable]
 public class FurnaceInventory
 {
-    public List<ItemDataID> inputSlots;
-    public List<ItemDataID> outputSlots;
+    public List<ItemStack> inputSlots;
+    public List<ItemStack> outputSlots;
     public int inputSlotCount;
     public int outputSlotCount;
 
@@ -15,94 +15,93 @@ public class FurnaceInventory
         inputSlotCount = inputCount;
         outputSlotCount = outputCount;
 
-        inputSlots = new List<ItemDataID>(inputCount);
-        outputSlots = new List<ItemDataID>(outputCount);
+        inputSlots = new List<ItemStack>(inputCount);
+        outputSlots = new List<ItemStack>(outputCount);
 
         for (int i = 0; i < inputCount; i++)
-            inputSlots.Add(new ItemDataID { name = ItemType.None, amount = 0 });
+            inputSlots.Add(new ItemStack { item = null, amount = 0 });
 
         for (int i = 0; i < outputCount; i++)
-            outputSlots.Add(new ItemDataID { name = ItemType.None, amount = 0 });
+            outputSlots.Add(new ItemStack { item = null, amount = 0 });
     }
     
     public void ClearInputs()
     {
         for (int i = 0; i < inputSlots.Count; i++)
-            inputSlots[i] = new ItemDataID { name = ItemType.None, amount = 0 };
+            inputSlots[i] = new ItemStack { item = null, amount = 0 };
     }
 
     public void ClearOutputs()
     {
         for (int i = 0; i < outputSlots.Count; i++)
-            outputSlots[i] = new ItemDataID { name = ItemType.None, amount = 0 };
+            outputSlots[i] = new ItemStack { item = null, amount = 0 };
     }
 
 
-    public void SetInput(int slot, ItemType name, int amount)
+    public void SetInput(int slot, ItemStack itemStack)
     {
-        if (slot >= 0 && slot < inputSlotCount && name != ItemType.None && amount > 0)
-            inputSlots[slot] = new ItemDataID { name = name, amount = amount };
+        if (slot >= 0 && slot < inputSlotCount && !string.IsNullOrEmpty(itemStack.item.name) && itemStack.amount > 0)
+            inputSlots[slot] = new ItemStack { item = itemStack.item, amount = itemStack.amount };
     }
 
-    public void SetOutput(int slot, ItemType name, int amount)
+    public void SetOutput(int slot, ItemStack itemStack)
     {
-        if (slot >= 0 && slot < outputSlotCount && name != ItemType.None && amount > 0)
-            outputSlots[slot] = new ItemDataID { name = name, amount = amount };
+        if (slot >= 0 && slot < outputSlotCount && !string.IsNullOrEmpty(itemStack.item.name) && itemStack.amount > 0)
+            outputSlots[slot] = new ItemStack { item = itemStack.item, amount = itemStack.amount };
     }
 
-    public void AddToOutput(ItemType name, int amount)
+    public void AddToOutput(ItemStack itemStack)
     {
         for (int i = 0; i < outputSlots.Count; i++)
         {
-            var slot = outputSlots[i]; // Copy the struct
-            if (slot.name == name)
+            var slot = outputSlots[i];
+            if (slot.item.name == itemStack.item.name)
             {
-                slot.amount += amount;
-                outputSlots[i] = slot; // Reassign the modified copy back to the list
+                slot.amount += itemStack.amount;
+                outputSlots[i] = slot;
                 return;
             }
         }
 
         for (int i = 0; i < outputSlots.Count; i++)
         {
-            if (outputSlots[i].name == ItemType.None)
+            if (string.IsNullOrEmpty(itemStack.item.name))
             {
-                outputSlots[i] = new ItemDataID { name = name, amount = amount };
+                outputSlots[i] = itemStack;
                 return;
             }
         }
 
-        Debug.LogWarning("No available output slot for item: " + name);
+        Debug.LogWarning("No available output slot for item: " + itemStack.item.name);
     }
 
-    public void SubtractFromInput(string name, int amount)
+    public void SubtractFromInput(ItemStack itemStack)
     {
         for (int i = 0; i < inputSlots.Count; i++)
         {
             var slot = inputSlots[i];
 
-            if (slot.name == ItemType.None)
+            if (string.IsNullOrEmpty(itemStack.item.name))
             {
-                if (slot.amount >= amount)
+                if (slot.amount >= itemStack.amount)
                 {
-                    slot.amount -= amount;
+                    slot.amount -= itemStack.amount;
                     inputSlots[i] = slot;
                     return;
                 }
-                    Debug.LogWarning($"Not enough {name} in the input. Current amount: {slot.amount}, requested: {amount}");
-                    return;
+                Debug.LogWarning($"Not enough {itemStack.item.name} in the input. Current amount: {slot.amount}, requested: {itemStack.amount}");
+                return;
             }
         }
-
-        Debug.LogWarning($"Item {name} not found in input slots.");
+        Debug.LogWarning($"Item {itemStack.item.name} not found in input slots.");
     }
 
     public void Clear()
     {
         for (int i = 0; i < inputSlots.Count; i++)
-            inputSlots[i] = new ItemDataID { name = ItemType.None, amount = 0 };
+            inputSlots[i] = new ItemStack { item = null, amount = 0 };
 
         for (int i = 0; i < outputSlots.Count; i++)
-            outputSlots[i] = new ItemDataID { name = ItemType.None, amount = 0 };
+            outputSlots[i] = new ItemStack { item = null, amount = 0 };
     }
 }

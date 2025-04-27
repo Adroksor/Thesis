@@ -18,7 +18,7 @@ public class PlayerInventory : MonoBehaviour
         inventoryData = new InventoryData(27);
         
         hotbarData = new InventoryData(9);
-        PopulateInventoryWithRandomItems(inventorySize / 2);
+        PopulateInventoryWithRandomItems(20);
         
         
     }
@@ -53,14 +53,13 @@ public class PlayerInventory : MonoBehaviour
         for (int i = 0; i < amount; i++)
         {
             randomIndex = Random.Range(0, itemNames.Length);
-            if (Enum.TryParse(itemNames[randomIndex], out ItemType enumItem))
+            ItemStack stack = new ItemStack
             {
-                inventoryData.SetData(Random.Range(0, inventorySize), enumItem, Random.Range(0, 20));
-            }
-            else
-            {
-                Debug.Log($"Cant find item {itemNames[randomIndex]}");
-            }
+                item = ItemDatabaseInstance.instance.GetItemByname(itemNames[randomIndex]),
+                amount = Random.Range(1, 8)
+            };
+            int random = Random.Range(0, inventoryData.inventorySize);
+            inventoryData.SetData(random, stack);
         }
     }
 
