@@ -3,11 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "InventorySystem/ItemData")]
-public class ItemData : ScriptableObject
+public abstract class ItemData : ScriptableObject
 {
     public int ID => GetInstanceID();
-    [field: SerializeField]
-    public bool isStackable { get; set; }
     [field: SerializeField] 
     public int MaxStackSize { get; set; } = 20;
     [field: SerializeField]
@@ -19,6 +17,8 @@ public class ItemData : ScriptableObject
     [field: SerializeField]
     [field: TextArea]
     public string Description { get; set; }
+
+    public abstract void Use(ItemUser user, ItemStack stack);
 }
 
 public enum ItemCategory
@@ -29,4 +29,5 @@ public enum ItemCategory
     Armor,
     Placeable,
     Consumable,
+    Tool
 }

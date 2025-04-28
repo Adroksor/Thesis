@@ -56,26 +56,6 @@ public class BuildingPlacer : MonoBehaviour
             }
         }
         
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            selectedBuilding = GameManager.instance.buildingPrefabs[0];
-            UpdateGhostObject();
-            UpdateGhostPosition();
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            selectedBuilding = GameManager.instance.buildingPrefabs[1];
-            UpdateGhostObject();
-            UpdateGhostPosition();
-
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            selectedBuilding = GameManager.instance.buildingPrefabs[2];
-            UpdateGhostObject();
-            UpdateGhostPosition();
-
-        }
         if (Input.GetKeyDown(KeyCode.Alpha4))
         {
             selectedBuilding = GameManager.instance.buildingPrefabs[3];
@@ -152,9 +132,9 @@ public class BuildingPlacer : MonoBehaviour
         Vector2Int currentChunkPosition = BuildingGrid.instance.WorldToChunkPosition(mouseGridPosition);
         currentChunk = WorldGenerator.instance.TryGetChunk(currentChunkPosition);
         
-        Building buildingP = buildingPrefab.GetComponent<Building>();
+        Building buildingB = buildingPrefab.GetComponent<Building>();
         
-        if (BuildingGrid.instance.CanPlace(mouseGridPosition, buildingP))
+        if (BuildingGrid.instance.CanPlace(mouseGridPosition, buildingB))
         {
             GameObject buildingOBJ =  Instantiate(buildingPrefab, buildingsList.transform);
             buildingOBJ.name = buildingPrefab.name;

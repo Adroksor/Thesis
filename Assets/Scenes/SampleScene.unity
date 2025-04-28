@@ -1797,6 +1797,8 @@ GameObject:
   - component: {fileID: 1274033427}
   - component: {fileID: 1274033429}
   - component: {fileID: 1274033428}
+  - component: {fileID: 1274033431}
+  - component: {fileID: 1274033430}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -1916,7 +1918,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventoryData:
     inventorySize: 0
-  inventorySize: 27
+  itemUser: {fileID: 1274033430}
   UI: {fileID: 263367208}
   inventoryOpen: 0
   hotbarData:
@@ -1934,6 +1936,39 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventoryData: {fileID: 1274033428}
+--- !u!114 &1274033430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1274033423}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f10913fe842b1349ae7da3d00acea75, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stats: {fileID: 1274033431}
+--- !u!114 &1274033431
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1274033423}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6dbddb5ae1e0a1448a67ecadc8921867, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 0
+  maxHealth: 0
+  stamina: 0
+  maxStamina: 0
+  speed: 0
+  sprintSpeed: 0
+  hunger: 0
+  maxHunger: 100
 --- !u!1 &1329061649
 GameObject:
   m_ObjectHideFlags: 0
@@ -2871,6 +2906,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3898861309314648253, guid: e19101ba9bc56e94b8eb088fa2ba505e, type: 3}
+      propertyPath: inventory
+      value: 
+      objectReference: {fileID: 1274033428}
     - target: {fileID: 4881117283749890128, guid: e19101ba9bc56e94b8eb088fa2ba505e, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0

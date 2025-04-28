@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEngine;
 
 
 [System.Serializable]
@@ -23,6 +24,24 @@ public class InventoryData
             return;
         }
         inventoryData[slot] = new ItemStack { item = itemStack.item, amount = itemStack.amount };
+    }
+
+    public void SubtrackItemFromStack(int slot, InventoryUI UI)
+    {
+        ItemStack item = GetItemAtIndex(slot);
+        Debug.Log(item.item.name + item.amount);
+        
+        if (item.amount - 1 == 0)
+        {
+            ItemStack itemStack = new ItemStack{ item = null, amount = 0};
+            inventoryData[slot] = itemStack; 
+        }
+        else
+        {
+            ItemStack itemStack = new ItemStack{ item = item.item, amount = item.amount - 1};
+            inventoryData[slot] = itemStack; 
+        }
+        InventoryManager.instance.LoadData(this, UI);
     }
 
     public ItemStack GetItemAtIndex(int slot)
@@ -64,8 +83,6 @@ public class InventoryData
             };
         }
     }
-
-    
 }
 
 [System.Serializable]

@@ -7,7 +7,7 @@ using Random = UnityEngine.Random;
 public class PlayerInventory : MonoBehaviour
 {
     public InventoryData inventoryData;
-    public int inventorySize = 27;
+    public ItemUser itemUser;
     public GameObject UI;
     public bool inventoryOpen = false;
 
@@ -48,7 +48,7 @@ public class PlayerInventory : MonoBehaviour
 
     public void PopulateInventoryWithRandomItems(int amount)
     {
-        string[] itemNames = {"Coal", "Furnace", "IronIngot", "SteelIngot", "OakLog", "StoneWall"};
+        string[] itemNames = {"Berries", "StoneWall"};
         int randomIndex;
         for (int i = 0; i < amount; i++)
         {

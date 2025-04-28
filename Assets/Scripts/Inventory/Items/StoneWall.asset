@@ -9,12 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a5cb045fb62b3442a3e28e891b5e1f3, type: 3}
+  m_Script: {fileID: 11500000, guid: 8b91b9b34bffe84468cb2417cce4ff75, type: 3}
   m_Name: StoneWall
   m_EditorClassIdentifier: 
-  <isStackable>k__BackingField: 0
   <MaxStackSize>k__BackingField: 20
   <Name>k__BackingField: Stone wall
   <Itemtype>k__BackingField: 4
   <ItemImage>k__BackingField: {fileID: 21300000, guid: 906de298da852cd4f899ef6176aa943d, type: 3}
   <Description>k__BackingField: 
+  buildingPrefab: {fileID: 2459083480883987986, guid: 8d5dcfdc0a8b0df4a85829c9d7468283, type: 3}

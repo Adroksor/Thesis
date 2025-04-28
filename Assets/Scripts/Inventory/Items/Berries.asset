@@ -9,12 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a5cb045fb62b3442a3e28e891b5e1f3, type: 3}
+  m_Script: {fileID: 11500000, guid: 12e3ed2d0ae23354096cbd00b4cfcbb9, type: 3}
   m_Name: Berries
   m_EditorClassIdentifier: 
-  <isStackable>k__BackingField: 0
   <MaxStackSize>k__BackingField: 20
   <Name>k__BackingField: Berries
   <Itemtype>k__BackingField: 5
   <ItemImage>k__BackingField: {fileID: 21300000, guid: 11eedb173f76a41498e08273716077a5, type: 3}
-  <Description>k__BackingField: Yummy
+  <Description>k__BackingField: 
+  hungerAmount: 10

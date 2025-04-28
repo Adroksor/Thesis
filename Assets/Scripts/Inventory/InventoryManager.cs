@@ -34,6 +34,8 @@ public class InventoryManager : MonoBehaviour
 
     public GameObject droppedItem;
 
+    
+    public Action<InventoryData> OnInventoryChanged;
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -266,6 +268,7 @@ public class InventoryManager : MonoBehaviour
                 inventoryData.inventoryData[i] = new ItemStack { item = null, amount = 0 };
             }
         }
+        OnInventoryChanged?.Invoke(inventoryData);
 
     }
     
