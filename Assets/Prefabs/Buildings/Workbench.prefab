@@ -108,7 +108,7 @@ MonoBehaviour:
   placableOnWater: 0
   allowedTiles: []
   drop:
-  - item: {fileID: 11400000, guid: 1a460b4c59550a04db0630c464eca638, type: 2}
+  - item: {fileID: 11400000, guid: 56e7c8cc026f8b44aa87bbe71fffe751, type: 2}
     amount: 1
   itemPrefab: {fileID: 0}
   isGhost: 0

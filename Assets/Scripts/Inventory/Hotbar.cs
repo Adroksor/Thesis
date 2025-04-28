@@ -24,7 +24,6 @@ public class Hotbar : MonoBehaviour
 
     void Update()
     {
-        Debug.Log(selectedItem);
         // Key 1-9 → select slot
         for (int i = 0; i < 9; i++)
             if (Input.GetKeyDown(KeyCode.Alpha1 + i))

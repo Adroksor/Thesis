@@ -17,6 +17,8 @@ public class DroppedItem : MonoBehaviour
      public bool isBeingCollected = false;
      private float followDuration = 1.5f;
      private float followTimer = 0f;
+
+     private float despawnTimer = 300;
      private Transform target;
 
 
@@ -51,6 +53,11 @@ public class DroppedItem : MonoBehaviour
                     isBeingCollected = false;
                     target = null;
                }
+          }
+          despawnTimer -= Time.deltaTime;
+          if (despawnTimer <= 0)
+          {
+               Destroy(gameObject);
           }
      }
      
