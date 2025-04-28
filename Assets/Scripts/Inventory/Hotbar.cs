@@ -64,12 +64,7 @@ public class Hotbar : MonoBehaviour
                 Debug.Log($"Item {selectedItem.name} not usable from hot-bar");
                 break;
         }
-
-        stack = inventory.hotbarData.inventoryData.GetValueOrDefault(itemIndex);
-        if (stack.item == null)
-        {
-            selectedItem = null;
-        }
+        UpdateSelected(inventory.hotbarData);
     }
 
     public void UpdateSelected(InventoryData inventoryData)
