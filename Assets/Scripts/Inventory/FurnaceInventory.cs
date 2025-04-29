@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [System.Serializable]
@@ -75,26 +76,6 @@ public class FurnaceInventory
         Debug.LogWarning("No available output slot for item: " + itemStack.item.name);
     }
 
-    public void SubtractFromInput(ItemStack itemStack)
-    {
-        for (int i = 0; i < inputSlots.Count; i++)
-        {
-            var slot = inputSlots[i];
-
-            if (string.IsNullOrEmpty(itemStack.item.name))
-            {
-                if (slot.amount >= itemStack.amount)
-                {
-                    slot.amount -= itemStack.amount;
-                    inputSlots[i] = slot;
-                    return;
-                }
-                Debug.LogWarning($"Not enough {itemStack.item.name} in the input. Current amount: {slot.amount}, requested: {itemStack.amount}");
-                return;
-            }
-        }
-        Debug.LogWarning($"Item {itemStack.item.name} not found in input slots.");
-    }
 
     public void Clear()
     {

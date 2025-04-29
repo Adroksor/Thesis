@@ -33,19 +33,19 @@ public class WorkbenchUI : MonoBehaviour
             GameObject inputs = recipeUI.transform.Find("Inputs").gameObject;
             GameObject outputs = recipeUI.transform.Find("Outputs").gameObject;
 
-            foreach (RecipeSlotData input in recipe.Input)
+            foreach (ItemStack input in recipe.Input)
             {
                 GameObject inputUI = Instantiate(item, inputs.transform);
                 ItemUI inputItemUI = inputUI.GetComponent<ItemUI>();
                 inputUI.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
-                inputItemUI.itemCount = input.Amount;
-                inputItemUI.itemIcon = input.Item.ItemImage;
+                inputItemUI.itemCount = input.amount;
+                inputItemUI.itemIcon = input.item.ItemImage;
                 inputItemUI.UpdateItemUI();
 
                 ItemStack itemData = new ItemStack
                 {
-                    item = input.Item,
-                    amount = input.Amount
+                    item = input.item,
+                    amount = input.amount
                 };
                 items.Add(itemData);
             }
@@ -58,8 +58,8 @@ public class WorkbenchUI : MonoBehaviour
 
             GameObject outputUI = Instantiate(item, outputs.transform);
             ItemUI outputItemUI = outputUI.GetComponent<ItemUI>();
-            outputItemUI.itemCount = recipe.Output.Amount;
-            outputItemUI.itemIcon = recipe.Output.Item.ItemImage;
+            outputItemUI.itemCount = recipe.Output.amount;
+            outputItemUI.itemIcon = recipe.Output.item.ItemImage;
             outputItemUI.UpdateItemUI();
         }
     }
@@ -85,7 +85,7 @@ public class WorkbenchUI : MonoBehaviour
                     Transform inputChild = inputs.GetChild(i);
                     if (inputChild.TryGetComponent(out ItemUI inputUI))
                     {
-                        inputUI.itemCount = recipe.Input[i].Amount;
+                        inputUI.itemCount = recipe.Input[i].amount;
                         inputUI.UpdateItemUI();
                     }
                 }
@@ -94,8 +94,8 @@ public class WorkbenchUI : MonoBehaviour
             // Update interactability based on required input
             List<ItemStack> requiredItems = recipe.Input.Select(input => new ItemStack
             {
-                item = input.Item,
-                amount = input.Amount
+                item = input.item,
+                amount = input.amount
             }).ToList();
 
             bool canSmelt = InventoryManager.instance.DoesInventoryHaveItems(
@@ -110,11 +110,11 @@ public class WorkbenchUI : MonoBehaviour
         RecipeData recipe = InventoryManager.instance.workbenchRecipes.Find(r => r.name == recipeName);
         if (recipe != null)
         {
-            foreach (RecipeSlotData slot in recipe.Input)
+            foreach (ItemStack slot in recipe.Input)
             {
-                InventoryManager.instance.TryRemoveItemsFromInventoryData(slot.Item, slot.Amount, InventoryManager.instance.playerInventory.inventoryData );
+                InventoryManager.instance.TryRemoveItemsFromInventoryData(slot.item, slot.amount, InventoryManager.instance.playerInventory.inventoryData );
             }
-            InventoryManager.instance.TryAddItemToInventoryData(recipe.Output.Item, recipe.Output.Amount, InventoryManager.instance.playerInventory.inventoryData);
+            InventoryManager.instance.TryAddItemToInventoryData(recipe.Output.item, recipe.Output.amount, InventoryManager.instance.playerInventory.inventoryData);
 
             UpdateAllRecipeUIs();
         }

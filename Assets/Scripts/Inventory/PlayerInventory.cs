@@ -20,8 +20,6 @@ public class PlayerInventory : MonoBehaviour
         
         hotbarData = new InventoryData(9);
         PopulateInventoryWithRandomItems(20);
-        
-        
     }
 
     private void Update()
@@ -49,7 +47,7 @@ public class PlayerInventory : MonoBehaviour
 
     public void PopulateInventoryWithRandomItems(int amount)
     {
-        string[] itemNames = {"Berries", "StoneWall"};
+        string[] itemNames = {"OakLog", "IronOre", "Coal", "IronIngot"};
         int randomIndex;
         for (int i = 0; i < amount; i++)
         {

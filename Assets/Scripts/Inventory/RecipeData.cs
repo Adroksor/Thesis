@@ -10,16 +10,7 @@ public class RecipeData : ScriptableObject
     [field: SerializeField]
     public string recipeName { get; set; }
     [field: SerializeField]
-    public RecipeSlotData Output { get; set; }
+    public ItemStack Output { get; set; }
     [field: SerializeField]
-    public List<RecipeSlotData> Input { get; set; }
-    
-    
-}
-
-[Serializable]
-public class RecipeSlotData
-{
-    public ItemData Item;
-    public int Amount;
+    public List<ItemStack> Input { get; set; }
 }

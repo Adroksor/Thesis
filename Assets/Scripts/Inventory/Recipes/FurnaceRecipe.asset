@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <recipeName>k__BackingField: Furnace
   <Output>k__BackingField:
-    Item: {fileID: 11400000, guid: 85b0c367d5446da44a1d26c9105c3702, type: 2}
-    Amount: 1
+    item: {fileID: 11400000, guid: 85b0c367d5446da44a1d26c9105c3702, type: 2}
+    amount: 1
   <Input>k__BackingField:
-  - Item: {fileID: 11400000, guid: 2850ed79c8edd564da0bd2f738074b9a, type: 2}
-    Amount: 4
+  - item: {fileID: 11400000, guid: 2850ed79c8edd564da0bd2f738074b9a, type: 2}
+    amount: 5

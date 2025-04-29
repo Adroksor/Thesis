@@ -52,19 +52,19 @@ public class FurnaceUI : MonoBehaviour
             GameObject inputs = recipeUI.transform.Find("Inputs").gameObject;
             GameObject outputs = recipeUI.transform.Find("Outputs").gameObject;
 
-            foreach (RecipeSlotData input in recipe.Input)
+            foreach (ItemStack input in recipe.Input)
             {
                 GameObject inputUI = Instantiate(item, inputs.transform);
                 ItemUI inputItemUI = inputUI.GetComponent<ItemUI>();
                 inputUI.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
-                inputItemUI.itemCount = input.Amount * selectRecipe.amountSelection.amount;
-                inputItemUI.itemIcon = input.Item.ItemImage;
+                inputItemUI.itemCount = input.amount * selectRecipe.amountSelection.amount;
+                inputItemUI.itemIcon = input.item.ItemImage;
                 inputItemUI.UpdateItemUI();
 
                 ItemStack itemData = new ItemStack
                 {
-                    item = input.Item,
-                    amount = input.Amount
+                    item = input.item,
+                    amount = input.amount
                 };
                 items.Add(itemData);
             }
@@ -78,8 +78,8 @@ public class FurnaceUI : MonoBehaviour
 
             GameObject outputUI = Instantiate(item, outputs.transform);
             ItemUI outputItemUI = outputUI.GetComponent<ItemUI>();
-            outputItemUI.itemCount = recipe.Output.Amount;
-            outputItemUI.itemIcon = recipe.Output.Item.ItemImage;
+            outputItemUI.itemCount = recipe.Output.amount;
+            outputItemUI.itemIcon = recipe.Output.item.ItemImage;
             outputItemUI.UpdateItemUI();
         }
     }
@@ -106,7 +106,7 @@ public class FurnaceUI : MonoBehaviour
                 Transform inputChild = inputs.GetChild(i);
                 if (inputChild.TryGetComponent(out ItemUI inputUI))
                 {
-                    inputUI.itemCount = recipe.Input[i].Amount * selectedAmount;
+                    inputUI.itemCount = recipe.Input[i].amount * selectedAmount;
                     inputUI.UpdateItemUI();
                 }
             }
@@ -119,7 +119,7 @@ public class FurnaceUI : MonoBehaviour
             Transform outputChild = outputs.GetChild(0);
             if (outputChild.TryGetComponent(out ItemUI outputUI))
             {
-                outputUI.itemCount = recipe.Output.Amount * selectedAmount;
+                outputUI.itemCount = recipe.Output.amount * selectedAmount;
                 outputUI.UpdateItemUI();
             }
         }
@@ -127,8 +127,8 @@ public class FurnaceUI : MonoBehaviour
         // Update interactability based on required input
         List<ItemStack> requiredItems = recipe.Input.Select(input => new ItemStack
         {
-            item = input.Item,
-            amount = input.Amount * selectedAmount
+            item = input.item,
+            amount = input.amount * selectedAmount
         }).ToList();
 
         bool canSmelt = InventoryManager.instance.DoesInventoryHaveItems(
@@ -153,12 +153,12 @@ public class FurnaceUI : MonoBehaviour
 
         List<ItemStack> totalNeededItems = new List<ItemStack>();
 
-        foreach (RecipeSlotData input in recipe.Input)
+        foreach (ItemStack input in recipe.Input)
         {
             totalNeededItems.Add(new ItemStack
             {
-                item = input.Item,
-                amount = input.Amount * amount
+                item = input.item,
+                amount = input.amount * amount
             });
         }
 
@@ -177,7 +177,7 @@ public class FurnaceUI : MonoBehaviour
         RecipeData recipe = InventoryManager.instance.furnaceRecipes.Find(r => r.name == recipeName);
         if (recipe != null)
         {
-            Debug.Log("Clicked recipe: " + recipe.Output.Item.Name);
+            Debug.Log("Clicked recipe: " + recipe.Output.item.Name);
             selectRecipe.selectedRecipe = recipe;
 
             Transform iconTransform = transform.Find("AmountSelection/ItemIcon");
@@ -187,7 +187,7 @@ public class FurnaceUI : MonoBehaviour
                 Image icon = iconTransform.gameObject.GetComponent<Image>();
                 if (icon != null)
                 {
-                    icon.sprite = recipe.Output.Item.ItemImage;
+                    icon.sprite = recipe.Output.item.ItemImage;
                 }
                 else
                 {

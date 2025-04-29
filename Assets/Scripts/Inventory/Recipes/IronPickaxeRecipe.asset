@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b3c46697d40164b4b88f43bf492afc26, type: 3}
-  m_Name: SteelIngotRecipe
+  m_Name: IronPickaxeRecipe
   m_EditorClassIdentifier: 
-  <recipeName>k__BackingField: Basic steel smelting
+  <recipeName>k__BackingField: Iron pickaxe
   <Output>k__BackingField:
-    item: {fileID: 11400000, guid: b9896154053c1644b87ef524a3351ac1, type: 2}
+    item: {fileID: 11400000, guid: 70d2adc6b851f694fbe9debcf5e448e3, type: 2}
     amount: 1
   <Input>k__BackingField:
-  - item: {fileID: 11400000, guid: 48158c6b74b0f9141a1fa14b0c5c7f1b, type: 2}
+  - item: {fileID: 11400000, guid: d0ba7440c7fbbfb47ada2503a4fe0b99, type: 2}
     amount: 1
   - item: {fileID: 11400000, guid: 7245055f1cb6b9b408b3a226a6eb1cb7, type: 2}
-    amount: 2
+    amount: 3

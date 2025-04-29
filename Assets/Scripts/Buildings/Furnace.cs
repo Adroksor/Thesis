@@ -47,7 +47,7 @@ public class Furnace : MonoBehaviour
         Image progressImage = progressBar.transform.Find("ItemIcon").GetComponent<Image>();
         if (progressImage != null)
         {
-            progressImage.sprite = recipe.Output.Item.ItemImage;
+            progressImage.sprite = recipe.Output.item.ItemImage;
         }
 
         currentRecipe = recipe;
@@ -61,19 +61,17 @@ public class Furnace : MonoBehaviour
             var input = currentRecipe.Input[i];
             ItemStack stack = new ItemStack
             {
-                item = input.Item,
-                amount = input.Amount
+                item = input.item,
+                amount = input.amount * amount
             };
             furnaceInventory.SetInput(i, stack);
-        }
 
+        }
         smeltingCoroutine = StartCoroutine(SmeltingRoutine());
     }
 
     private IEnumerator SmeltingRoutine()
     {
-        isSmelting = true;
-
         while (smeltedAmount < targetAmount)
         {
             bool currentItemFinished = false;
@@ -82,15 +80,21 @@ public class Furnace : MonoBehaviour
             {
                 currentItemFinished = true;
                 Bounce();
-                building.DropItem(new ItemStack{item = currentRecipe.Output.Item, amount = currentRecipe.Output.Amount});
+                building.DropItem(new ItemStack{item = currentRecipe.Output.item, amount = currentRecipe.Output.amount});
             });
-            
+            yield return new WaitUntil(() => currentItemFinished);
             foreach (var input in currentRecipe.Input)
             {
-                furnaceInventory.SubtractFromInput(new ItemStack{item = currentRecipe.Output.Item, amount = currentRecipe.Output.Amount});
+                int index = furnaceInventory.inputSlots.FindIndex(s => s.item == input.item);
+                if (!string.IsNullOrEmpty(input.item.name))
+                {
+                    furnaceInventory.inputSlots[index] = new ItemStack
+                    {
+                        item = input.item,
+                        amount = furnaceInventory.inputSlots[index].amount - input.amount
+                    };
+                }
             }
-
-            yield return new WaitUntil(() => currentItemFinished);
             smeltedAmount++;
 
         }
@@ -159,9 +163,9 @@ public class Furnace : MonoBehaviour
     
     public void ConsumeRecipeIngredients(RecipeData recipe, int amount)
     {
-        foreach (RecipeSlotData input in recipe.Input)
+        foreach (ItemStack input in recipe.Input)
         {
-            InventoryManager.instance.TryRemoveItemsFromInventoryData(input.Item, input.Amount * amount, InventoryManager.instance.playerInventory.inventoryData );
+            InventoryManager.instance.TryRemoveItemsFromInventoryData(input.item, input.amount * amount, InventoryManager.instance.playerInventory.inventoryData );
         }
     }
     

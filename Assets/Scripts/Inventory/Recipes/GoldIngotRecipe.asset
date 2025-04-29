@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <recipeName>k__BackingField: Basic gold smelting
   <Output>k__BackingField:
-    Item: {fileID: 11400000, guid: 0033807537a6fb84b94061d9e2a8ec80, type: 2}
-    Amount: 1
+    item: {fileID: 11400000, guid: 0033807537a6fb84b94061d9e2a8ec80, type: 2}
+    amount: 1
   <Input>k__BackingField:
-  - Item: {fileID: 11400000, guid: 8dc51bbf6814799489ce1f531bc6e53c, type: 2}
-    Amount: 1
-  - Item: {fileID: 11400000, guid: 180b6ad5d6ca7724c977e969474ae070, type: 2}
-    Amount: 2
+  - item: {fileID: 11400000, guid: 8dc51bbf6814799489ce1f531bc6e53c, type: 2}
+    amount: 1
+  - item: {fileID: 11400000, guid: 180b6ad5d6ca7724c977e969474ae070, type: 2}
+    amount: 2

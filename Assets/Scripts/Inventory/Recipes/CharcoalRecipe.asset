@@ -10,14 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b3c46697d40164b4b88f43bf492afc26, type: 3}
-  m_Name: CopperOreRecipe
+  m_Name: CharcoalRecipe
   m_EditorClassIdentifier: 
-  <recipeName>k__BackingField: Basic copper smelting
+  <recipeName>k__BackingField: Basic charcoal smelting
   <Output>k__BackingField:
-    Item: {fileID: 11400000, guid: 86acff55c50f0934fa4db7e68c154ad7, type: 2}
-    Amount: 1
+    item: {fileID: 11400000, guid: 48158c6b74b0f9141a1fa14b0c5c7f1b, type: 2}
+    amount: 1
   <Input>k__BackingField:
-  - Item: {fileID: 11400000, guid: 8dc51bbf6814799489ce1f531bc6e53c, type: 2}
-    Amount: 1
-  - Item: {fileID: 11400000, guid: 2465d7c0896ade549ade3f4d1530956a, type: 2}
-    Amount: 2
+  - item: {fileID: 11400000, guid: d0ba7440c7fbbfb47ada2503a4fe0b99, type: 2}
+    amount: 2
