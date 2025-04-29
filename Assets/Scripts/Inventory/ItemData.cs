@@ -18,7 +18,7 @@ public abstract class ItemData : ScriptableObject
     [field: TextArea]
     public string Description { get; set; }
 
-    public abstract void Use(ItemUser user, ItemStack stack);
+    public abstract bool Use(ItemUser user, ItemStack stack);
 }
 
 public enum ItemCategory

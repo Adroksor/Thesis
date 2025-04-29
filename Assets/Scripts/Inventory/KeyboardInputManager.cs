@@ -1,3 +1,4 @@
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -16,6 +17,45 @@ public class KeyboardInputManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.P))
         {
             QuitApplication();
+        }
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            int interactableLayer = LayerMask.GetMask("Interactable");
+            
+            Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            RaycastHit2D hit = Physics2D.Raycast(mousePos, Vector2.zero, math.INFINITY, interactableLayer);
+            if (hit.collider != null)
+            {
+                var chest = hit.collider.GetComponentInParent<Chest>();
+                if (chest != null)
+                {
+                    if (InventoryManager.instance.currentlyInteractedObject == null)
+                    {
+                        chest.OpenInventory();
+                    }
+                }
+                
+                var furnace = hit.collider.GetComponentInParent<Furnace>();
+                if (furnace != null)
+                {
+                    if (InventoryManager.instance.currentlyInteractedObject == null)
+                    {
+                        furnace.OpenFurnace();
+                    }
+                }
+                
+                var workbench = hit.collider.GetComponentInParent<Workbench>();
+                if (workbench != null)
+                {
+                    {
+                        if (InventoryManager.instance.currentlyInteractedObject == null)
+                        {
+                            workbench.OpenWorkbench();
+                        }
+                    }
+                }
+            }
         }
     }
 

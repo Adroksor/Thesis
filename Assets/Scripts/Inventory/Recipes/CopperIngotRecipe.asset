@@ -15,7 +15,7 @@ MonoBehaviour:
   <recipeName>k__BackingField: Basic copper smelting
   <Output>k__BackingField:
     item: {fileID: 11400000, guid: 86acff55c50f0934fa4db7e68c154ad7, type: 2}
-    amount: 0
+    amount: 1
   <Input>k__BackingField:
   - item: {fileID: 11400000, guid: 8dc51bbf6814799489ce1f531bc6e53c, type: 2}
     amount: 1

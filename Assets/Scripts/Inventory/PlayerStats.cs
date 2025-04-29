@@ -13,6 +13,7 @@ public class PlayerStats : MonoBehaviour
     public int hunger;
     public int maxHunger;
 
+    public float range;
     public void Heal(int amount)
     {
         health += amount;

@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <recipeName>k__BackingField: Stone wall
   <Output>k__BackingField:
-    Item: {fileID: 11400000, guid: 949860c97263ad24c938bd57380f0d3e, type: 2}
-    Amount: 1
+    item: {fileID: 11400000, guid: 949860c97263ad24c938bd57380f0d3e, type: 2}
+    amount: 1
   <Input>k__BackingField:
-  - Item: {fileID: 11400000, guid: 2850ed79c8edd564da0bd2f738074b9a, type: 2}
-    Amount: 5
+  - item: {fileID: 11400000, guid: 2850ed79c8edd564da0bd2f738074b9a, type: 2}
+    amount: 3

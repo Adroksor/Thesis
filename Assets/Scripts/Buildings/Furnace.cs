@@ -16,7 +16,6 @@ public class Furnace : MonoBehaviour
     public FurnaceInventory furnaceInventory;
     public Building building;
     
-    
     private RecipeData currentRecipe;
     private int targetAmount;
     private int smeltedAmount = 0;
@@ -111,7 +110,7 @@ public class Furnace : MonoBehaviour
             InventoryManager.instance.playerInventory.OpenInventory();
             InventoryManager.instance.FurnaceUI.SetActive(true);
             InventoryManager.instance.currentlyInteractedObject = gameObject;
-            
+
             FurnaceUI furnaceUI = InventoryManager.instance.FurnaceUI.GetComponent<FurnaceUI>();
             furnaceUI.furnace = this;
             furnaceUI.InitializeRecipes();

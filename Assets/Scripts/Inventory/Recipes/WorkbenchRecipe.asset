@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <recipeName>k__BackingField: Workbench
   <Output>k__BackingField:
-    item: {fileID: 0}
-    amount: 0
+    item: {fileID: 11400000, guid: 56e7c8cc026f8b44aa87bbe71fffe751, type: 2}
+    amount: 1
   <Input>k__BackingField:
-  - item: {fileID: 0}
-    amount: 0
+  - item: {fileID: 11400000, guid: d0ba7440c7fbbfb47ada2503a4fe0b99, type: 2}
+    amount: 5

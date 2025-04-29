@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <recipeName>k__BackingField: Wooden chest
   <Output>k__BackingField:
-    Item: {fileID: 11400000, guid: 0e6ceaebdf8af524ba9814aa266281a8, type: 2}
-    Amount: 1
+    item: {fileID: 11400000, guid: 0e6ceaebdf8af524ba9814aa266281a8, type: 2}
+    amount: 1
   <Input>k__BackingField:
-  - Item: {fileID: 11400000, guid: d0ba7440c7fbbfb47ada2503a4fe0b99, type: 2}
-    Amount: 5
+  - item: {fileID: 11400000, guid: d0ba7440c7fbbfb47ada2503a4fe0b99, type: 2}
+    amount: 10
