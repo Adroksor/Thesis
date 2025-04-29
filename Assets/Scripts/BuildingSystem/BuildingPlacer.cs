@@ -47,43 +47,12 @@ public class BuildingPlacer : MonoBehaviour
     {
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         mouseGridPosition = new Vector2Int(Mathf.FloorToInt(mousePosition.x + .5f), Mathf.FloorToInt(mousePosition.y + .5f));
-
-        if (mouseGridPosition != lastMouseGridPosition)
+        
+        if (selectedBuilding != null)
         {
-            if (selectedBuilding != null)
-            {
-                UpdateGhostPosition();
-            }
+            UpdateGhostPosition();
         }
         
-        if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            selectedBuilding = GameManager.instance.buildingPrefabs[3];
-            UpdateGhostObject();
-            UpdateGhostPosition();
-
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha5))
-        {
-            selectedBuilding = GameManager.instance.buildingPrefabs[4];
-            UpdateGhostObject();
-            UpdateGhostPosition();
-
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha6))
-        {
-            selectedBuilding = GameManager.instance.buildingPrefabs[5];
-            UpdateGhostObject();
-            UpdateGhostPosition();
-
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha7))
-        {
-            selectedBuilding = GameManager.instance.buildingPrefabs[6];
-            UpdateGhostObject();
-            UpdateGhostPosition();
-
-        }
         if (Input.GetKeyDown(KeyCode.X))
         {
             selectedBuilding = null;
@@ -188,6 +157,11 @@ public class BuildingPlacer : MonoBehaviour
         SpriteRenderer sprite = ghostBuilding.GetComponent<SpriteRenderer>();
         sprite.color = new Color32(255, 255, 255, 128);
         sprite.sortingOrder = 10;
+    }
+
+    public void DestroyGhostBuilding()
+    {
+        Destroy(ghostBuilding);
     }
 
 }

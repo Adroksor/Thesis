@@ -19,9 +19,13 @@ public class PlayerStats : MonoBehaviour
         if (health > maxHealth) health = maxHealth;
     }
 
-    public void RestoreHunger(int amount)
+    public bool RestoreHunger(int amount)
     {
+        if (hunger == maxHunger)
+            return false;
+        
         hunger += amount;
         if (hunger > maxHunger) hunger = maxHunger;
+        return true;
     }
 }

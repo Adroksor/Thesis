@@ -48,6 +48,16 @@ public class InventoryData
     {
         return inventoryData[slot];
     }
+    public int GetIndexOfItem(ItemData target)
+    {
+        foreach (var kvp in inventoryData)
+        {
+            if (kvp.Value.item == target && kvp.Value.amount != 0)
+                return kvp.Key;
+        }
+        return -1;
+    }
+
     
     public List<SlotSaveData> ToSaveList()
     {

@@ -30,6 +30,7 @@ public class Hotbar : MonoBehaviour
             {
                 itemIndex = i;
                 selectedItem = inventory.hotbarData.inventoryData.GetValueOrDefault(itemIndex).item;
+                UpdateSelected(inventory.hotbarData);
             }
 
 
@@ -43,7 +44,7 @@ public class Hotbar : MonoBehaviour
     void TryUseSelected()
     {
         ItemStack stack = inventory.hotbarData.inventoryData.GetValueOrDefault(itemIndex);
-        if (selectedItem == null)
+        if (selectedItem == null || inventory.inventoryOpen)
             return;
         switch (selectedItem.Itemtype)
         {
@@ -51,13 +52,10 @@ public class Hotbar : MonoBehaviour
             case ItemCategory.Weapon:
             case ItemCategory.Consumable:
                 selectedItem.Use(inventory.itemUser, stack);
-                // update back in case amount changed
-                inventory.hotbarData.SubtrackItemFromStack(itemIndex, InventoryManager.instance.hotbarInventoryUI);
-                
                 break;
             case ItemCategory.Placeable:
                 selectedItem.Use(inventory.itemUser, stack);
-                inventory.hotbarData.SubtrackItemFromStack(itemIndex, InventoryManager.instance.hotbarInventoryUI);
+                
                 break;
             default:
                 Debug.Log($"Item {selectedItem.name} not usable from hot-bar");
@@ -68,6 +66,18 @@ public class Hotbar : MonoBehaviour
 
     public void UpdateSelected(InventoryData inventoryData)
     {
-        selectedItem = inventoryData.inventoryData.GetValueOrDefault(itemIndex).item;
+        ItemData data = inventoryData.inventoryData.GetValueOrDefault(itemIndex).item;
+        selectedItem = data;
+        if (data is BuildableItem buildable)
+        {
+            BuildingPlacer.instance.selectedBuilding = buildable.buildingPrefab;
+            BuildingPlacer.instance.UpdateGhostObject();
+        }
+        else
+        {
+            BuildingPlacer.instance.selectedBuilding = null;
+            BuildingPlacer.instance.DestroyGhostBuilding();
+
+        }
     }
 }

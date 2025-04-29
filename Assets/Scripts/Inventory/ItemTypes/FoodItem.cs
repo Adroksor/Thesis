@@ -9,6 +9,14 @@ public class FoodItem : ItemData
     public int hungerAmount;
     public override void Use(ItemUser user, ItemStack stack)
     {
-        user.stats.RestoreHunger(hungerAmount);
+        bool eaten = user.stats.RestoreHunger(hungerAmount);
+        if (eaten)
+        {
+            InventoryData hotbar = InventoryManager.instance.playerInventory.hotbarData;
+            int index = hotbar.GetIndexOfItem(this);
+            
+            hotbar.SubtrackItemFromStack(index, InventoryManager.instance.hotbarInventoryUI);
+            
+        }
     }
 }

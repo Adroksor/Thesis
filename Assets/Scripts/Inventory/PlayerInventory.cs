@@ -12,6 +12,7 @@ public class PlayerInventory : MonoBehaviour
     public bool inventoryOpen = false;
 
     public InventoryData hotbarData;
+    public Hotbar hotbar;
 
     private void Start()
     {
