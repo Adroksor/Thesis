@@ -29,7 +29,6 @@ public class InventoryData
     public void SubtrackItemFromStack(int slot, InventoryUI UI)
     {
         ItemStack item = GetItemAtIndex(slot);
-        Debug.Log(item.item.name + item.amount);
         
         if (item.amount - 1 == 0)
         {

@@ -33,8 +33,6 @@ public class Hotbar : MonoBehaviour
                 UpdateSelected(inventory.hotbarData);
             }
 
-
-        // Left-mouse → use selected
         if (Input.GetMouseButtonDown(0))
         {
             TryUseSelected();
@@ -77,7 +75,6 @@ public class Hotbar : MonoBehaviour
         {
             BuildingPlacer.instance.selectedBuilding = null;
             BuildingPlacer.instance.DestroyGhostBuilding();
-
         }
     }
 }

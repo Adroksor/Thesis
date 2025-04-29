@@ -12,10 +12,11 @@ public class FoodItem : ItemData
         bool eaten = user.stats.RestoreHunger(hungerAmount);
         if (eaten)
         {
-            InventoryData hotbar = InventoryManager.instance.playerInventory.hotbarData;
-            int index = hotbar.GetIndexOfItem(this);
+            Hotbar hotbar = InventoryManager.instance.playerInventory.hotbar;
+            InventoryData hotbarData = InventoryManager.instance.playerInventory.hotbarData;
+            int index = hotbar.itemIndex;
             
-            hotbar.SubtrackItemFromStack(index, InventoryManager.instance.hotbarInventoryUI);
+            hotbarData.SubtrackItemFromStack(index, InventoryManager.instance.hotbarInventoryUI);
             
         }
     }
