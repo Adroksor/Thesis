@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class WorkbenchUI : MonoBehaviour
 {
@@ -61,6 +62,10 @@ public class WorkbenchUI : MonoBehaviour
             outputItemUI.itemCount = recipe.Output.amount;
             outputItemUI.itemIcon = recipe.Output.item.ItemImage;
             outputItemUI.UpdateItemUI();
+            
+            
+            LayoutRebuilder.ForceRebuildLayoutImmediate(
+                recipeUI.GetComponent<RectTransform>());
         }
     }
 

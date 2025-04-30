@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7730077693069537157}
   - component: {fileID: 1255534173843921204}
   - component: {fileID: 1977123349485030131}
+  - component: {fileID: -723888851890337693}
   m_Layer: 0
   m_Name: SnowyTree
   m_TagString: Untagged
@@ -112,6 +113,21 @@ MonoBehaviour:
   isGhost: 1
   internalInventory:
     inventorySize: 0
+  stats: {fileID: -723888851890337693}
+--- !u!114 &-723888851890337693
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3683089129427188936}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 147cbcc1ea6de704eb9da06ce39f440f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 100
+  maxHealth: 100
 --- !u!1001 &6480145115601867478
 PrefabInstance:
   m_ObjectHideFlags: 0

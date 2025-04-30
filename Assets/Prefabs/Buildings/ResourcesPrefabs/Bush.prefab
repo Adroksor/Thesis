@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3901716823445291883}
   - component: {fileID: 7234338860691358794}
   - component: {fileID: 4834836378141154562}
+  - component: {fileID: 1771167638687819170}
   m_Layer: 0
   m_Name: Bush
   m_TagString: Untagged
@@ -114,6 +115,7 @@ MonoBehaviour:
   isGhost: 0
   internalInventory:
     inventorySize: 0
+  stats: {fileID: 1771167638687819170}
 --- !u!61 &4834836378141154562
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -160,6 +162,20 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.5212889, y: 0.36956596}
   m_EdgeRadius: 0
+--- !u!114 &1771167638687819170
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6222434865182514260}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 147cbcc1ea6de704eb9da06ce39f440f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 100
+  maxHealth: 100
 --- !u!1001 &2098340147688773806
 PrefabInstance:
   m_ObjectHideFlags: 0

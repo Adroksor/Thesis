@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using Random = UnityEngine.Random;
@@ -19,11 +20,21 @@ public class Building : MonoBehaviour
 
     public InventoryData internalInventory;
 
+    public  BuildingStats stats;
     public Action<Building> gettingRemoved;
+
+
+    private void OnEnable()
+    {
+        stats = GetComponent<BuildingStats>();
+
+        stats.destroyMe += Remove;
+    }
 
     void Start()
     {
         itemPrefab = InventoryManager.instance.droppedItem;
+        
     }
 
 

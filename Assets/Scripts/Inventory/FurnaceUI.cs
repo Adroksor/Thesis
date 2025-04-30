@@ -81,6 +81,9 @@ public class FurnaceUI : MonoBehaviour
             outputItemUI.itemCount = recipe.Output.amount;
             outputItemUI.itemIcon = recipe.Output.item.ItemImage;
             outputItemUI.UpdateItemUI();
+            
+            LayoutRebuilder.ForceRebuildLayoutImmediate(
+                recipeUI.GetComponent<RectTransform>());
         }
     }
     

@@ -5,6 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "InventorySystem/ItemData/Pickaxe")]
 public class PickaxeItem : EquipmentItem
 {
+    
     public override bool Use(ItemUser user ,ItemStack stack)
     {
         SwingPickaxe(user);
@@ -28,7 +29,7 @@ public class PickaxeItem : EquipmentItem
             var building = hit.collider.GetComponentInParent<Building>();
             if (building != null && !building.isGhost)
             {
-                building.Remove();
+                building.stats.TakeDamage(damage);
             }
         }
     }

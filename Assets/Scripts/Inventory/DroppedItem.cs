@@ -39,7 +39,7 @@ public class DroppedItem : MonoBehaviour
                     transform.position = Vector3.MoveTowards(
                          transform.position,
                          target.position,
-                         5f * Time.deltaTime // speed
+                         10f * Time.deltaTime // speed
                     );
 
                     // Close enough to collect?

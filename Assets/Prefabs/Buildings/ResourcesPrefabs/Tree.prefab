@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5683614186876713548}
   - component: {fileID: 2957787076373834987}
   - component: {fileID: 1525543995632619781}
+  - component: {fileID: 4428372465334732716}
   m_Layer: 0
   m_Name: Tree
   m_TagString: Untagged
@@ -108,11 +109,12 @@ MonoBehaviour:
   allowedTiles: []
   drop:
   - item: {fileID: 11400000, guid: d0ba7440c7fbbfb47ada2503a4fe0b99, type: 2}
-    amount: 5
+    amount: 2
   itemPrefab: {fileID: 0}
   isGhost: 0
   internalInventory:
     inventorySize: 0
+  stats: {fileID: 4428372465334732716}
 --- !u!114 &2957787076373834987
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -172,6 +174,20 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 0.4080715, y: 0.3361161}
   m_EdgeRadius: 0
+--- !u!114 &4428372465334732716
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6838876024778313406}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 147cbcc1ea6de704eb9da06ce39f440f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 100
+  maxHealth: 100
 --- !u!1001 &6006844325389687177
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -12,14 +12,16 @@ public class PlayerInventory : MonoBehaviour
     public bool inventoryOpen = false;
 
     public InventoryData hotbarData;
-    public Hotbar hotbar;
 
     private void Start()
     {
         inventoryData = new InventoryData(27);
         
         hotbarData = new InventoryData(9);
-        PopulateInventoryWithRandomItems(20);
+        hotbarData.SetData(0, new ItemStack{item = ItemDatabaseInstance.instance.GetItemByname("WoodPickaxe"), amount = 1});
+        hotbarData.SetData(1, new ItemStack{item = ItemDatabaseInstance.instance.GetItemByname("Workbench"), amount = 1});
+        InventoryManager.instance.LoadData(hotbarData, InventoryManager.instance.hotbarInventoryUI);
+        //PopulateInventoryWithRandomItems(20);
     }
 
     private void Update()

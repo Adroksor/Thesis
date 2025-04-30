@@ -7,6 +7,8 @@ public class TopDownPlayerMovement : MonoBehaviour
     public float walkSpeed = 5f; // Speed of the player movement
     public float sprintSpeed = 20f;
     
+    public Animator animator;
+    
     
     public Rigidbody2D rb; // Reference to the Rigidbody2D component
     public WorldGenerator worldGenerator; // Reference to the WorldGenerator script
@@ -17,8 +19,14 @@ public class TopDownPlayerMovement : MonoBehaviour
     {
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
+        
+        
 
         movement = movement.normalized;
+
+
+        bool isMoving = movement.sqrMagnitude > 0.01f;
+        animator.SetBool("isMoving", isMoving);
 
         GameManager.instance.playerPosition = transform.position;
         
