@@ -13,6 +13,7 @@ public class BuildingStats : MonoBehaviour
     public void TakeDamage(int damage)
     {
         health -= damage;
+        
         if (health <= 0)
         {
             destroyMe?.Invoke();

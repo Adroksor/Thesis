@@ -282,6 +282,7 @@ GameObject:
   - component: {fileID: 2248738307588850206}
   - component: {fileID: 6756575648240625282}
   - component: {fileID: 1154303405282213998}
+  - component: {fileID: 3973567304029597200}
   m_Layer: 0
   m_Name: Furnace
   m_TagString: Untagged
@@ -405,6 +406,7 @@ MonoBehaviour:
   isGhost: 0
   internalInventory:
     inventorySize: 0
+  stats: {fileID: 0}
 --- !u!95 &6756575648240625282
 Animator:
   serializedVersion: 7
@@ -473,6 +475,20 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 0.5849838}
   m_EdgeRadius: 0
+--- !u!114 &3973567304029597200
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4888030565546613888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 147cbcc1ea6de704eb9da06ce39f440f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 100
+  maxHealth: 100
 --- !u!1001 &6220506828679219641
 PrefabInstance:
   m_ObjectHideFlags: 0

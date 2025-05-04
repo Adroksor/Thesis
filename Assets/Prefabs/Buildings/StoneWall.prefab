@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 2279383823513043513}
   - component: {fileID: 8009803034662134146}
   - component: {fileID: 8072181693930386813}
+  - component: {fileID: 4505963434837185988}
+  - component: {fileID: 9024532424231530187}
   m_Layer: 0
   m_Name: StoneWall
   m_TagString: Untagged
@@ -113,6 +115,7 @@ MonoBehaviour:
   isGhost: 0
   internalInventory:
     inventorySize: 0
+  stats: {fileID: 0}
 --- !u!61 &8009803034662134146
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -172,6 +175,34 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   building: {fileID: 0}
+--- !u!114 &4505963434837185988
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2459083480883987986}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 147cbcc1ea6de704eb9da06ce39f440f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 0
+  maxHealth: 0
+--- !u!114 &9024532424231530187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2459083480883987986}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 147cbcc1ea6de704eb9da06ce39f440f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 100
+  maxHealth: 100
 --- !u!1001 &4598815419955634208
 PrefabInstance:
   m_ObjectHideFlags: 0

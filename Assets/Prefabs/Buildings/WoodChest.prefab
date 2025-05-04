@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3861639711404712990}
   - component: {fileID: 4673896120694306179}
   - component: {fileID: -4264518147133637583}
+  - component: {fileID: 90726431225839035}
   m_Layer: 0
   m_Name: WoodChest
   m_TagString: Untagged
@@ -178,6 +179,21 @@ MonoBehaviour:
   isGhost: 0
   internalInventory:
     inventorySize: 0
+  stats: {fileID: 0}
+--- !u!114 &90726431225839035
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4314607683826619954}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 147cbcc1ea6de704eb9da06ce39f440f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 100
+  maxHealth: 100
 --- !u!1001 &637807792936466877
 PrefabInstance:
   m_ObjectHideFlags: 0
