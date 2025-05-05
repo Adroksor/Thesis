@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "InventorySystem/ItemData/Pickaxe")]
@@ -7,21 +5,18 @@ public class PickaxeItem : EquipmentItem
 {
     public float attackSpeed = 0.45f;    // seconds between swings
 
+    [System.NonSerialized]
     private float _nextUseTime;          // item‑side timer
 
     public override bool Use(ItemUser user, ItemStack stack)
     {
-        Debug.Log($"(Time={Time.time}, next={_nextUseTime})");
-        if (_nextUseTime < attackSpeed)
+        if (Time.time < _nextUseTime) // still cooling
         {
-            _nextUseTime += Time.deltaTime;
             return false;
         }
-        _nextUseTime = 0;
+        _nextUseTime = Time.time + attackSpeed; // set next ready moment
         SwingPickaxe(user);
-        return true;            
-        
-
+        return true;        
     }
 
     public void SwingPickaxe(ItemUser user)

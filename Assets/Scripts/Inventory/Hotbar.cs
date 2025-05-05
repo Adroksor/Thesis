@@ -46,12 +46,15 @@ public class Hotbar : MonoBehaviour
             TryUseSelected();
         }
         
+        if (Input.GetMouseButtonUp(0))
+            TweenHelper.StopEatBounce(itemIcon.transform);
+        
         float scroll = Input.mouseScrollDelta.y;
         if (Mathf.Abs(scroll) > 0.01f && !inventory.inventoryOpen)
         {
             int oldIndex = itemIndex;
 
-            if (scroll > 0)    // wheel up  → next slot
+            if (scroll < 0)    // wheel up  → next slot
                 itemIndex = (itemIndex + 1) % 9;
             else               // wheel down → previous slot (wrap around)
                 itemIndex = (itemIndex + 8) % 9;   // +8 instead of -1 then %9
@@ -86,22 +89,32 @@ public class Hotbar : MonoBehaviour
         {
             case ItemCategory.Tool:
                 used = selectedItem.Use(inventory.itemUser, stack);
-                if(used)
+                if (used)
+                {
                     TweenHelper.SwingOnce(itemIcon.transform);
+                }
 
                 break;
+            
             case ItemCategory.Weapon:
+                break;
+            
             case ItemCategory.Consumable:
                 used = selectedItem.Use(inventory.itemUser, stack);
-                TweenHelper.SwingOnce(itemIcon.transform);
-                if(used)
+                if (used)
+                {
+                    TweenHelper.StartEatBounce(itemIcon.transform);
                     inventory.hotbarData.SubtrackItemFromStack(itemIndex, InventoryManager.instance.hotbarInventoryUI);
+                }
                 break;
+            
             case ItemCategory.Placeable:
                 used = selectedItem.Use(inventory.itemUser, stack);
-                TweenHelper.SwingOnce(itemIcon.transform);
-                if(used)
+                if (used)
+                {
+                    TweenHelper.SwingOnce(itemIcon.transform);
                     inventory.hotbarData.SubtrackItemFromStack(itemIndex, InventoryManager.instance.hotbarInventoryUI);
+                }
 
                 break;
             default:
