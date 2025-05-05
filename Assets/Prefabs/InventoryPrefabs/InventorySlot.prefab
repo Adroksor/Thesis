@@ -63,6 +63,7 @@ MonoBehaviour:
   itemData: {fileID: 0}
   itemCount: 20
   itemUI: {fileID: 2674741473831512484}
+  parentPage: {fileID: 0}
 --- !u!114 &-4284132741056835025
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -141,7 +142,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 5599581311581726231, guid: 043ba4b2a339ba44cbbb02735f544ebd, type: 3}
+  m_Sprite: {fileID: -6971426256284284639, guid: b1efc69dbe809e748b16611ea2109eb6, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

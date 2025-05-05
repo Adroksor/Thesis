@@ -45,6 +45,25 @@ public class Hotbar : MonoBehaviour
         {
             TryUseSelected();
         }
+        
+        float scroll = Input.mouseScrollDelta.y;
+        if (Mathf.Abs(scroll) > 0.01f && !inventory.inventoryOpen)
+        {
+            int oldIndex = itemIndex;
+
+            if (scroll > 0)    // wheel up  → next slot
+                itemIndex = (itemIndex + 1) % 9;
+            else               // wheel down → previous slot (wrap around)
+                itemIndex = (itemIndex + 8) % 9;   // +8 instead of -1 then %9
+
+            if (itemIndex != oldIndex)
+            {
+                selectedItem = inventory.hotbarData.inventoryData
+                    .GetValueOrDefault(itemIndex).item;
+                UpdateSelected(inventory.hotbarData);
+                onSlotChange?.Invoke();
+            }
+        }
     }
 
     public void UpdateItemIcon()

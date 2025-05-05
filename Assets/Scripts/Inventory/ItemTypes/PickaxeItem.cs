@@ -11,11 +11,17 @@ public class PickaxeItem : EquipmentItem
 
     public override bool Use(ItemUser user, ItemStack stack)
     {
-        if (Time.time < _nextUseTime) return false;   // still cooling
-
-        _nextUseTime = Time.time + attackSpeed;       // set next ready time
+        Debug.Log($"(Time={Time.time}, next={_nextUseTime})");
+        if (_nextUseTime < attackSpeed)
+        {
+            _nextUseTime += Time.deltaTime;
+            return false;
+        }
+        _nextUseTime = 0;
         SwingPickaxe(user);
-        return true;
+        return true;            
+        
+
     }
 
     public void SwingPickaxe(ItemUser user)

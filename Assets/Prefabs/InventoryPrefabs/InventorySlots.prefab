@@ -97,8 +97,8 @@ MonoBehaviour:
   m_ChildAlignment: 0
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 36, y: 36}
-  m_Spacing: {x: 0, y: 0}
+  m_CellSize: {x: 40, y: 40}
+  m_Spacing: {x: 4, y: 4}
   m_Constraint: 0
   m_ConstraintCount: 2
 --- !u!114 &4642905377825711576
@@ -113,6 +113,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d143b7dd6e046a46969d7119d22884d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  selfInitialize: 1
   inventorySize: 9
   slotPrefab: {fileID: 4399546100486756089, guid: 4bbddf933d3d9bc49ae8e827f566f922, type: 3}
   slots:

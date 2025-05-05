@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4263578330468023445}
   - component: {fileID: 3741897505414339591}
   - component: {fileID: 5602821054767864041}
+  - component: {fileID: 3628321976008842939}
   m_Layer: 0
   m_Name: PlayerInventory
   m_TagString: Untagged
@@ -66,7 +67,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 1308698567049769106, guid: 5c18de11cb6eda94eb669c2ff21bdb15, type: 3}
+  m_Sprite: {fileID: -4917625390145700553, guid: 0343657fcd11bba4e9eba8202d9b20e9, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -76,6 +77,52 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!61 &3628321976008842939
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 889898151130560497}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 175, y: -150}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 350, y: 300}
+  m_EdgeRadius: 0
 --- !u!1001 &4021955824192947539
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -84,6 +131,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4263578330468023445}
     m_Modifications:
+    - target: {fileID: 1498601287744543044, guid: e0257eea56b46b6448ada5109c7da1ee, type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2196345315201980395, guid: e0257eea56b46b6448ada5109c7da1ee, type: 3}
       propertyPath: m_Name
       value: InventorySlots
@@ -126,11 +177,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6086039231084508658, guid: e0257eea56b46b6448ada5109c7da1ee, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 324
+      value: 392
       objectReference: {fileID: 0}
     - target: {fileID: 6086039231084508658, guid: e0257eea56b46b6448ada5109c7da1ee, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 108
+      value: 128
       objectReference: {fileID: 0}
     - target: {fileID: 6086039231084508658, guid: e0257eea56b46b6448ada5109c7da1ee, type: 3}
       propertyPath: m_LocalPosition.x
