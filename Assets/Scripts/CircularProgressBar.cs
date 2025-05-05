@@ -9,6 +9,7 @@ public class CircularProgressBar : MonoBehaviour
     private float timer = 0f;
     private bool isRunning = false;
     private Action currentCompletionCallback;
+    
     public Action onTimeout;
 
     // Removed Start() as it was empty

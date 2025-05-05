@@ -19,7 +19,9 @@ public class PlayerInventory : MonoBehaviour
         
         hotbarData = new InventoryData(9);
         hotbarData.SetData(0, new ItemStack{item = ItemDatabaseInstance.instance.GetItemByname("WoodPickaxe"), amount = 1});
-        hotbarData.SetData(1, new ItemStack{item = ItemDatabaseInstance.instance.GetItemByname("Workbench"), amount = 1});
+        hotbarData.SetData(1, new ItemStack{item = ItemDatabaseInstance.instance.GetItemByname("StonePickaxe"), amount = 1});
+        hotbarData.SetData(2, new ItemStack{item = ItemDatabaseInstance.instance.GetItemByname("IronPickaxe"), amount = 1});
+        hotbarData.SetData(3, new ItemStack{item = ItemDatabaseInstance.instance.GetItemByname("Workbench"), amount = 1});
         InventoryManager.instance.LoadData(hotbarData, InventoryManager.instance.hotbarInventoryUI);
         //PopulateInventoryWithRandomItems(20);
     }

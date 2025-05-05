@@ -5,9 +5,15 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "InventorySystem/ItemData/Pickaxe")]
 public class PickaxeItem : EquipmentItem
 {
-    
-    public override bool Use(ItemUser user ,ItemStack stack)
+    public float attackSpeed = 0.45f;    // seconds between swings
+
+    private float _nextUseTime;          // item‑side timer
+
+    public override bool Use(ItemUser user, ItemStack stack)
     {
+        if (Time.time < _nextUseTime) return false;   // still cooling
+
+        _nextUseTime = Time.time + attackSpeed;       // set next ready time
         SwingPickaxe(user);
         return true;
     }

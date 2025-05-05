@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b3c46697d40164b4b88f43bf492afc26, type: 3}
-  m_Name: IronPickaxeRecipe
+  m_Name: StonePickaxeRecipe 1
   m_EditorClassIdentifier: 
   <recipeName>k__BackingField: Iron pickaxe
   <Output>k__BackingField:
@@ -19,7 +19,7 @@ MonoBehaviour:
   <Input>k__BackingField:
   - item: {fileID: 11400000, guid: d0ba7440c7fbbfb47ada2503a4fe0b99, type: 2}
     amount: 1
-  - item: {fileID: 11400000, guid: 7245055f1cb6b9b408b3a226a6eb1cb7, type: 2}
+  - item: {fileID: 11400000, guid: 2850ed79c8edd564da0bd2f738074b9a, type: 2}
     amount: 5
-  - item: {fileID: 11400000, guid: af97ef925880ae94e835f4247ad4deae, type: 2}
+  - item: {fileID: 11400000, guid: 890566bc141379448bb82003a754371e, type: 2}
     amount: 1

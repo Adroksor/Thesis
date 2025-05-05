@@ -19,3 +19,4 @@ MonoBehaviour:
   <Description>k__BackingField: 
   miningLevel: 1
   damage: 20
+  attackSpeed: 0.5

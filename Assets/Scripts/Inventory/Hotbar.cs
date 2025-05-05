@@ -41,7 +41,7 @@ public class Hotbar : MonoBehaviour
                 onSlotChange?.Invoke();
             }
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButton(0) && !inventory.inventoryOpen)
         {
             TryUseSelected();
         }
@@ -67,7 +67,8 @@ public class Hotbar : MonoBehaviour
         {
             case ItemCategory.Tool:
                 used = selectedItem.Use(inventory.itemUser, stack);
-                TweenHelper.SwingOnce(itemIcon.transform);
+                if(used)
+                    TweenHelper.SwingOnce(itemIcon.transform);
 
                 break;
             case ItemCategory.Weapon:
