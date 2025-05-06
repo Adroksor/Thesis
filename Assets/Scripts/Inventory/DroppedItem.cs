@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class DroppedItem : MonoBehaviour
 {
@@ -20,6 +21,8 @@ public class DroppedItem : MonoBehaviour
 
      private float despawnTimer = 300;
      private Transform target;
+
+     public GameObject floatingTextPrefab;
 
 
      private void Start()
@@ -70,20 +73,35 @@ public class DroppedItem : MonoBehaviour
 
      private void TryPickup()
      {
+          ItemData item = ItemDatabaseInstance.instance.GetItemByname(itemName);
           int remaining = InventoryManager.instance.TryAddItemToInventoryData(
-               ItemDatabaseInstance.instance.GetItemByname(itemName),
+               item,
                amount,
                InventoryManager.instance.playerInventoryScript.inventoryData
           );
-
           if (remaining <= 0)
           {
+               SpawnPickupText(item.Name, amount);
                Destroy(gameObject);
           }
           else
           {
                amount = remaining;
           }
+     }
+     
+     void SpawnPickupText(string itemName, int amount)
+     {
+          Canvas canvas = GameObject.Find("Canvas").GetComponent<Canvas>();
+
+          GameObject go = Instantiate(floatingTextPrefab, canvas.transform);
+          RectTransform rt = (RectTransform)go.transform;
+          Vector2 spawn = Random.insideUnitCircle * 40;
+          rt.localPosition    = spawn;       // screen‑space position
+          rt.localScale  = Vector3.one;
+
+          var fx = go.GetComponent<PickupFloatingText>();
+          fx.Init($"+{amount} {itemName}");
      }
 
 

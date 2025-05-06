@@ -428,7 +428,7 @@ public class WorldGenerator : MonoBehaviour
         chunk.chunkOBJ.SetActive(true);
         chunk.isLoaded = true;
         if (!chunk.tilesSpawned)
-        {
+        {   
             for (int x = 0; x < chunkSize; x++)
             {
                 for (int y = 0; y < chunkSize; y++)

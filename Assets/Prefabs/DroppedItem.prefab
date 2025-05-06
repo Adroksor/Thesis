@@ -86,10 +86,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: 
   amount: 0
+  canPickup: 1
   animator: {fileID: 4796647983070479568}
   spriteRenderer: {fileID: 6517496533775930958}
   isBeingCollected: 0
-  pickUpCooldown: 0.25
+  floatingTextPrefab: {fileID: 435070099643492048, guid: 554eb3266291ee446b2f63bbc409c8bc, type: 3}
 --- !u!95 &4796647983070479568
 Animator:
   serializedVersion: 7

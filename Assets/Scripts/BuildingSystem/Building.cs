@@ -31,6 +31,11 @@ public class Building : MonoBehaviour
         stats.destroyMe += Remove;
     }
 
+    private void OnDisable()
+    {
+        stats.destroyMe -= Remove;
+    }
+
     void Start()
     {
         itemPrefab = InventoryManager.instance.droppedItem;
