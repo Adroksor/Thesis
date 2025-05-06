@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using System.Collections.Generic;
+using UnityEngine.Serialization;
 
 public class WorldGenerator : MonoBehaviour
 {
@@ -8,7 +9,8 @@ public class WorldGenerator : MonoBehaviour
     public int chunkSize = 16; // Size of each chunk (e.g., 16x16 tiles)
     public GameObject chunkList;
     public int renderDistance = 3; // Number of chunks to load around the player
-    public Tilemap tilemap; // Reference to the Tilemap component
+    public Tilemap groundLevel;
+    public Tilemap waterLevel;
     public TileBase waterTile; // Tile for water
 
     public List<BiomeData> biomeList;
@@ -20,6 +22,8 @@ public class WorldGenerator : MonoBehaviour
     public float persistence = 0.5f; // Amplitude multiplier for each octave
     public float lacunarity = 2f; // Frequency multiplier for each octave
     public Vector2 noiseOffset;
+    public int safeRadius = 256;
+    public float maxUplift = 1;
 
     public Dictionary<Vector2Int, Chunk> chunks = new Dictionary<Vector2Int, Chunk>(); // Dictionary to store all chunks
     [SerializeField]
@@ -215,6 +219,15 @@ public class WorldGenerator : MonoBehaviour
                 // Generate multi-octave Perlin noise for altitude
                 float altitude = CalculateMultiOctaveNoise(new Vector2(worldX, worldY), biome, noiseOffset);
                 
+                float dist = Vector2.Distance(new Vector2(worldX, worldY),
+                    Vector2.zero);
+                if (dist < safeRadius)
+                {
+                    // 0 → 1 fall‑off curve (1 at centre, 0 at edge)
+                    float t = 1f - (dist / safeRadius);
+                    float uplift = maxUplift * Mathf.SmoothStep(0f, 1f, t);   // smooth fade
+                    altitude += uplift;
+                }
                 
                 // Determine biome based on altitude, temperature, and moisture
                 TileBase tile = GetTileForBiome(altitude, biome);
@@ -439,7 +452,10 @@ public class WorldGenerator : MonoBehaviour
 
                     // Set the tile in the tilemap
                     Vector3Int tilePosition = new Vector3Int(worldX, worldY, 0);
-                    tilemap.SetTile(tilePosition, chunk.tiles[x, y]);
+                    if (chunk.tiles[x, y].name == "WaterTile")
+                        waterLevel.SetTile(tilePosition, chunk.tiles[x, y]);
+                    else
+                        groundLevel.SetTile(tilePosition, chunk.tiles[x, y]);
                 }
             }        
             chunk.tilesSpawned = true;
