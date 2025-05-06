@@ -13,7 +13,6 @@ public class FoodItem : ItemData
 
     public override bool Use(ItemUser user, ItemStack stack)
     {
-        Debug.Log($"PickaxeItem.Use Time.time:{Time.time} _nextUseTime:{_nextEatTime}");
         if (Time.time < _nextEatTime)
             return false;
 

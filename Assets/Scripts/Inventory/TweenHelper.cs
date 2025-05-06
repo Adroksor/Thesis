@@ -50,9 +50,7 @@ public static class TweenHelper
     public static void StopEatBounce(Transform t)
     {
         DOTween.Kill(t, "EatBounce");
-        // ensure we return exactly to original localPosition
-        // (comment this line if you prefer to leave it wherever it stopped)
-        t.DOLocalMoveY(0f, 0.05f).SetRelative(false);
+        t.DOLocalMoveY(0f, 0.1f).SetRelative(false);
     }
     
 }

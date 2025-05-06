@@ -1,3 +1,4 @@
+using UnityEditor;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "InventorySystem/ItemData/Pickaxe")]
@@ -37,6 +38,11 @@ public class PickaxeItem : EquipmentItem
             if (building != null && !building.isGhost)
             {
                 building.stats.TakeDamage(damage);
+            }
+            var entity = hit.collider.GetComponent<EntityStatus>();
+            if (entity != null)
+            {
+                entity.TakeDamage(damage);
             }
         }
     }
