@@ -17,7 +17,9 @@ public class PlayerInventory : MonoBehaviour
     {
         inventoryData = new InventoryData(27);
         
+        
         hotbarData = new InventoryData(9);
+
         hotbarData.SetData(0, new ItemStack{item = ItemDatabaseInstance.instance.GetItemByname("WoodPickaxe"), amount = 1});
         hotbarData.SetData(1, new ItemStack{item = ItemDatabaseInstance.instance.GetItemByname("StonePickaxe"), amount = 1});
         hotbarData.SetData(2, new ItemStack{item = ItemDatabaseInstance.instance.GetItemByname("IronPickaxe"), amount = 1});
@@ -26,6 +28,8 @@ public class PlayerInventory : MonoBehaviour
         hotbarData.SetData(5, new ItemStack{item = ItemDatabaseInstance.instance.GetItemByname("IronChest"), amount = 1});
         hotbarData.SetData(6, new ItemStack{item = ItemDatabaseInstance.instance.GetItemByname("GoldChest"), amount = 1});
         hotbarData.SetData(7, new ItemStack{item = ItemDatabaseInstance.instance.GetItemByname("Berries"), amount = 20});
+        
+        
         InventoryManager.instance.LoadData(hotbarData, InventoryManager.instance.hotbarInventoryUI);
         //PopulateInventoryWithRandomItems(20);
     }

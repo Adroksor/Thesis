@@ -9,6 +9,7 @@ public class InventoryUI : MonoBehaviour
     public int inventorySize = 9;
     public GameObject slotPrefab;
     public List<InventorySlotUI> slots = new List<InventorySlotUI>();
+    public List<GameObject> slotObjects;
     public ItemData missingItem;
     private void Awake()
     {
@@ -37,6 +38,7 @@ public class InventoryUI : MonoBehaviour
         {
             GameObject slot = Instantiate(slotPrefab, transform);
             slots.Add(slot.GetComponent<InventorySlotUI>());
+            slotObjects.Add(slot);
         }
     }
     

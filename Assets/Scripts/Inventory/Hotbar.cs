@@ -7,11 +7,14 @@ using UnityEngine;
 public class Hotbar : MonoBehaviour
 {
     public PlayerInventory inventory;
-
+    public InventoryUI hotbarUI;
     public int itemIndex;
     public ItemData selectedItem;
 
     public SpriteRenderer itemIcon;
+
+    public Sprite selectedIcon;
+    public Sprite unselectedIcon;
 
     public Action onSlotChange;
 
@@ -28,6 +31,13 @@ public class Hotbar : MonoBehaviour
 
     }
 
+    private void Start()
+    {
+        hotbarUI = InventoryManager.instance.hotbarInventoryUI;
+        
+        hotbarUI.slotObjects[itemIndex].GetComponent<InventorySlotUI>().backgroundImage.sprite = selectedIcon;
+    }
+
     void Update()
     {
         
@@ -35,8 +45,12 @@ public class Hotbar : MonoBehaviour
         for (int i = 0; i < 9; i++)
             if (Input.GetKeyDown(KeyCode.Alpha1 + i))
             {
+                hotbarUI.slotObjects[itemIndex].GetComponent<InventorySlotUI>().backgroundImage.sprite = unselectedIcon;
                 itemIndex = i;
                 selectedItem = inventory.hotbarData.inventoryData.GetValueOrDefault(itemIndex).item;
+                hotbarUI.slotObjects[itemIndex].GetComponent<InventorySlotUI>().backgroundImage.sprite = selectedIcon;
+
+
                 UpdateSelected(inventory.hotbarData);
                 onSlotChange?.Invoke();
             }

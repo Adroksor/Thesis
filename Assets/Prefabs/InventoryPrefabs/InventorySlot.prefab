@@ -64,6 +64,7 @@ MonoBehaviour:
   itemCount: 20
   itemUI: {fileID: 2674741473831512484}
   parentPage: {fileID: 0}
+  backgroundImage: {fileID: 720560169505307827}
 --- !u!114 &-4284132741056835025
 MonoBehaviour:
   m_ObjectHideFlags: 0

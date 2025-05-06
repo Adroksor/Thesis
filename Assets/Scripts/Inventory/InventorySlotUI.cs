@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class InventorySlotUI : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDropHandler, IPointerClickHandler,IPointerEnterHandler, IPointerExitHandler
 {
@@ -11,6 +12,7 @@ public class InventorySlotUI : MonoBehaviour, IBeginDragHandler, IEndDragHandler
     public ItemUI itemUI;
     public InventoryUI parentPage;
     private bool isHovered;
+    public Image backgroundImage;
 
     public Action<InventorySlotUI, InventoryUI> onBeginDragLeft, onBeginDragRight, onEndDrag, onDropRight, onDropLeft, onClick;
 

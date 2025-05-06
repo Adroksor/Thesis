@@ -6,7 +6,7 @@ public class WalkTween : MonoBehaviour
 {
     [Header("Tween Settings")]
     [Tooltip("How far up/right the pig stretches")]
-    public Vector2 stretchOffset = new Vector2(0.08f, 0.08f);
+    public Vector2 stretchOffset = new Vector2(0.1f, 0.1f);
 
     [Tooltip("How much to squash at the bottom point ( < 1 = thinner )")]
     [Range(0.7f, 1f)] public float squashScale = 0.85f;
@@ -53,7 +53,7 @@ public class WalkTween : MonoBehaviour
         seq.Append(transform.DOLocalMove(basePos, legTime).SetEase(Ease.InSine));
         seq.Join  (transform.DOScale(baseScale,  legTime).SetEase(Ease.InSine));
 
-        seq.SetLoops(-1).SetLink(gameObject);
+        seq.SetLoops(-1).SetLink(gameObject).SetLink(gameObject);
     }
 
 
