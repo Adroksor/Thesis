@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -8,6 +9,8 @@ public class EntityStatus : MonoBehaviour
     
     public int health;
     public int maxHealth;
+    public SpriteRenderer sr;
+    public float flashDuration = 0.12f;
     
     public List<ItemStack> drops;
     
@@ -22,6 +25,15 @@ public class EntityStatus : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
+        TweenHelper.PlayBounce(transform);
+        
+        sr.DOKill();
+        sr.DOColor(Color.red, flashDuration / 2f)
+            .SetEase(Ease.OutQuad)
+            .OnComplete(() =>
+                sr.DOColor(Color.white, flashDuration / 2f)
+                    .SetEase(Ease.InQuad));
+        
         health -= damage;
         if(health <= 0)
             onDeath?.Invoke();

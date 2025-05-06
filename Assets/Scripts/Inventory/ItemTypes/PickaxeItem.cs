@@ -30,7 +30,7 @@ public class PickaxeItem : EquipmentItem
             origin: GameManager.instance.playerPosition,
             direction: dir,
             distance: user.stats.range,
-            layerMask: LayerMask.GetMask("Interactable"));
+            layerMask: LayerMask.GetMask("Interactable", "Entity"));
 
         if (hit.collider != null)
         {

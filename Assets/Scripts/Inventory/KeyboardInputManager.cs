@@ -58,6 +58,8 @@ public class KeyboardInputManager : MonoBehaviour
             }
         }
     }
+    
+    
 
     private void QuitApplication()
     {

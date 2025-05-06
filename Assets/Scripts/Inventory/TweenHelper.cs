@@ -11,7 +11,7 @@ public static class TweenHelper
         float angle      = 45f,
         float forwardDur = 0.1f,
         float returnDur  = 0.13f,
-        Ease  ease       = Ease.OutQuad)
+        Ease  swingEase       = Ease.OutQuad)
     {
         DOTween.Kill(t);
 
@@ -23,7 +23,7 @@ public static class TweenHelper
             .Append(t.DOLocalRotate(
                 Vector3.zero,
                 returnDur))
-            .SetEase(ease)
+            .SetEase(swingEase)
             .SetTarget(t);
     }
     
@@ -51,6 +51,20 @@ public static class TweenHelper
     {
         DOTween.Kill(t, "EatBounce");
         t.DOLocalMoveY(0f, 0.1f).SetRelative(false);
+    }
+    
+    
+    private const float squashFactor = 0.85f;   // 1 = no squash, 0.85 = 15 % smaller
+    private const float squashTime   = 0.06f;   // seconds to reach the squash
+    private const float reboundTime  = 0.12f;   // seconds to pop back
+    private const Ease  bounceEase         = Ease.OutQuad;
+    public static void PlayBounce(Transform t)
+    {
+        DOTween.Kill(t);
+
+        Sequence seq = DOTween.Sequence().SetTarget(t);
+        seq.Append(t.DOScale(t.localScale * squashFactor, squashTime).SetEase(bounceEase));
+        seq.Append(t.DOScale(t.localScale, reboundTime).SetEase(Ease.OutBack)).SetLink(t.gameObject);
     }
     
 }
