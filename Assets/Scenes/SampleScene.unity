@@ -2372,6 +2372,9 @@ MonoBehaviour:
   range: 1
   healthBar: {fileID: 419799981}
   hungerBar: {fileID: 1419781945}
+  tickInterval: 2
+  hungerPerTick: 1
+  starvationDps: 2
 --- !u!114 &1274033432
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2971,6 +2974,7 @@ GameObject:
   - component: {fileID: 1979668319}
   - component: {fileID: 1979668318}
   - component: {fileID: 1979668320}
+  - component: {fileID: 1979668321}
   m_Layer: 0
   m_Name: WorldGeneration
   m_TagString: Untagged
@@ -3011,6 +3015,7 @@ MonoBehaviour:
   noiseOffset: {x: 0, y: 0}
   safeRadius: 64
   maxUplift: 1
+  LoadedChunks: []
   playerChunkPosition: {x: 0, y: 0}
   spawnResources: 0
 --- !u!4 &1979668319
@@ -3044,6 +3049,22 @@ MonoBehaviour:
   - 0.2
   - 0.05
   - 0.005
+--- !u!114 &1979668321
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1979668317}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d1b8a11a5f17c74b96e041b926a1a64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pigPrefab: {fileID: 7203144281514012202, guid: 45f90fb269fe4b14f9be129e9fbc2239, type: 3}
+  worldGen: {fileID: 1979668318}
+  spawnInterval: 5
+  maxPigs: 40
 --- !u!1 &2130804543
 GameObject:
   m_ObjectHideFlags: 0

@@ -33,4 +33,15 @@ public class Chunk
             Debug.LogWarning("ChunkList not found");
         }
     }
+
+    public TileBase GetRandomTile(out int x, out int y)
+    {
+        int width  = tiles.GetLength(0);   // chunkSize in X
+        int height = tiles.GetLength(1);   // chunkSize in Y
+
+        x = UnityEngine.Random.Range(0, width);
+        y = UnityEngine.Random.Range(0, height);
+
+        return tiles[x, y];
+    }
 }

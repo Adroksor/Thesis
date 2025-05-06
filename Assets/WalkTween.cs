@@ -39,7 +39,7 @@ public class WalkTween : MonoBehaviour
             baseScale.y / squashScale,
             baseScale.z);
 
-        Sequence seq = DOTween.Sequence().SetId("WalkTween").SetTarget(transform).SetLink(gameObject);
+        Sequence seq = DOTween.Sequence().SetId("WalkTween").SetTarget(transform);
 
         seq.Append(transform.DOLocalMove(stretchRight, legTime).SetEase(Ease.OutSine));
         seq.Join  (transform.DOScale(squashVec,        legTime).SetEase(Ease.OutSine));
@@ -53,7 +53,7 @@ public class WalkTween : MonoBehaviour
         seq.Append(transform.DOLocalMove(basePos, legTime).SetEase(Ease.InSine));
         seq.Join  (transform.DOScale(baseScale,  legTime).SetEase(Ease.InSine));
 
-        seq.SetLoops(-1);
+        seq.SetLoops(-1).SetLink(gameObject);
     }
 
 

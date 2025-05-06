@@ -116,7 +116,7 @@ GameObject:
   - component: {fileID: 2733146896092401782}
   - component: {fileID: 986042468193523684}
   m_Layer: 9
-  m_Name: PigSleeping
+  m_Name: Pig
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -26,6 +26,7 @@ public class WorldGenerator : MonoBehaviour
     public float maxUplift = 1;
 
     public Dictionary<Vector2Int, Chunk> chunks = new Dictionary<Vector2Int, Chunk>(); // Dictionary to store all chunks
+    public List<Chunk> LoadedChunks = new List<Chunk>();
     [SerializeField]
     private Vector2Int playerChunkPosition; // Current chunk position of the player
 
@@ -240,6 +241,8 @@ public class WorldGenerator : MonoBehaviour
         // Post-process the chunk to fill in single isolated cells
         PostProcessChunk(chunk);
         chunk.isLoaded = true;
+        if(!LoadedChunks.Contains(chunk))
+            LoadedChunks.Add(chunk);
         return chunk;
     }
 
@@ -436,9 +439,17 @@ public class WorldGenerator : MonoBehaviour
         return biomeData.biomeTiles[0];
     }
 
+    TileBase GetTileAtPosition(Vector2Int position)
+    {
+        return groundLevel.GetTile(new Vector3Int(position.x, position.y, 0));
+    }
+    
+
     void LoadChunk(Chunk chunk)
     {
         chunk.chunkOBJ.SetActive(true);
+        if(!LoadedChunks.Contains(chunk))
+            LoadedChunks.Add(chunk);
         chunk.isLoaded = true;
         if (!chunk.tilesSpawned)
         {   
@@ -466,6 +477,7 @@ public class WorldGenerator : MonoBehaviour
     {
         chunk.chunkOBJ.SetActive(false);
         chunk.isLoaded = false;
+        LoadedChunks.Remove(chunk);
     }
 
     Vector2Int GetChunkPosition(Vector3 worldPosition)

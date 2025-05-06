@@ -15,7 +15,7 @@ public class PigSpawner : MonoBehaviour
 
     private void Start()
     {
-        SpawnTenPigs();
+        //SpawnTenPigs();
     }
 
     [ContextMenu("Spawn 10 Pigs Around Player")]
