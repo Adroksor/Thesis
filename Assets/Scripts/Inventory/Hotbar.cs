@@ -36,6 +36,9 @@ public class Hotbar : MonoBehaviour
         hotbarUI = InventoryManager.instance.hotbarInventoryUI;
         
         hotbarUI.slotObjects[itemIndex].GetComponent<InventorySlotUI>().backgroundImage.sprite = selectedIcon;
+        hotbarUI.slotObjects[itemIndex].transform.localScale = new Vector3(1.3f, 1.3f, 1.3f);
+
+
     }
 
     void Update()
@@ -46,9 +49,12 @@ public class Hotbar : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Alpha1 + i))
             {
                 hotbarUI.slotObjects[itemIndex].GetComponent<InventorySlotUI>().backgroundImage.sprite = unselectedIcon;
+                hotbarUI.slotObjects[itemIndex].transform.localScale = new Vector3(1, 1, 1);
+
                 itemIndex = i;
                 selectedItem = inventory.hotbarData.inventoryData.GetValueOrDefault(itemIndex).item;
                 hotbarUI.slotObjects[itemIndex].GetComponent<InventorySlotUI>().backgroundImage.sprite = selectedIcon;
+                hotbarUI.slotObjects[itemIndex].transform.localScale = new Vector3(1.3f, 1.3f, 1.3f);
 
 
                 UpdateSelected(inventory.hotbarData);
@@ -75,8 +81,15 @@ public class Hotbar : MonoBehaviour
 
             if (itemIndex != oldIndex)
             {
+                hotbarUI.slotObjects[oldIndex].GetComponent<InventorySlotUI>().backgroundImage.sprite = unselectedIcon;
+                hotbarUI.slotObjects[oldIndex].transform.localScale = new Vector3(1, 1, 1);
+
                 selectedItem = inventory.hotbarData.inventoryData
                     .GetValueOrDefault(itemIndex).item;
+                
+                hotbarUI.slotObjects[itemIndex].GetComponent<InventorySlotUI>().backgroundImage.sprite = selectedIcon;
+                hotbarUI.slotObjects[itemIndex].transform.localScale = new Vector3(1.3f, 1.3f, 1.3f);
+
                 UpdateSelected(inventory.hotbarData);
                 onSlotChange?.Invoke();
             }

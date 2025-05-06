@@ -16,7 +16,8 @@ public class PlayerInventory : MonoBehaviour
     private void Start()
     {
         inventoryData = new InventoryData(27);
-        
+        inventoryData.SetData(0, new ItemStack{item = ItemDatabaseInstance.instance.GetItemByname("Furnace"), amount = 1});
+
         
         hotbarData = new InventoryData(9);
 
