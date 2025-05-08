@@ -74,4 +74,16 @@ public class EntityStatus : MonoBehaviour
             }
         }
     }
+    
+    public void Save(ref EntityData data)
+    {
+        data.position = transform.position;
+        data.entityName = transform.name;
+
+    }
+
+    public void Load(EntityData data)
+    {
+        transform.position = data.position;
+    }
 }

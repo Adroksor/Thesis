@@ -2649,7 +2649,6 @@ GameObject:
   - component: {fileID: 1677620993}
   - component: {fileID: 1677620994}
   - component: {fileID: 1677620995}
-  - component: {fileID: 1677620996}
   m_Layer: 0
   m_Name: SaveLoadManager
   m_TagString: Untagged
@@ -2704,6 +2703,7 @@ MonoBehaviour:
   objects: []
   chests: []
   furnaces: []
+  entitiesPigs: []
   buildingPrefabs:
   - {fileID: 4888030565546613888, guid: 4791962ddb677c348ace567f983bfb80, type: 3}
   - {fileID: 4888030565546613888, guid: d662aa422753ad14994eef3dffe61a57, type: 3}
@@ -2712,21 +2712,8 @@ MonoBehaviour:
   - {fileID: 5093319215209900071, guid: da1dd2d8260ce774d9cefd141584fb4f, type: 3}
   - {fileID: 2459083480883987986, guid: 8d5dcfdc0a8b0df4a85829c9d7468283, type: 3}
   - {fileID: 6838876024778313406, guid: ed5687c9eef2f56449de9a2d100c53a7, type: 3}
---- !u!114 &1677620996
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1677620991}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb0da0abdb955c6469014a63f74d6df3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pigPrefab: {fileID: 7203144281514012202, guid: 45f90fb269fe4b14f9be129e9fbc2239, type: 3}
-  radius: 5
-  positionNoise: 0.4
+  entityPrefabs:
+  - {fileID: 7203144281514012202, guid: 45f90fb269fe4b14f9be129e9fbc2239, type: 3}
 --- !u!1 &1703726171 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8392079306826435358, guid: 93ea60472d50be04fb6e77bb8bfc2ecf, type: 3}

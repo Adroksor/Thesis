@@ -14,6 +14,7 @@ public class SaveSystem
         public List<StaticObjectData> buildings;
         public List<ChestData> chests;
         public List<FurnaceData> furnaces;
+        public List<EntityData> entities;
     }
     
     public static string SaveFileName()
@@ -75,6 +76,17 @@ public class SaveSystem
                 _saveData.furnaces.Add(posData);
             }
         }
+        // Entities
+        _saveData.entities = new List<EntityData>();
+        foreach (var obj in GameManager.instance.entitiesPigs)
+        {
+            if (obj.TryGetComponent(out EntityStatus entity))
+            {
+                EntityData posData = new EntityData();
+                entity.Save(ref posData);
+                _saveData.entities.Add(posData);
+            }
+        }
     }
 
     public static void Load()
@@ -121,11 +133,11 @@ public class SaveSystem
         // Chests
         foreach (var chestData in _saveData.chests)
         {
-            GameObject prefab = GameManager.instance.GetObjectByName(chestData.buildingName.ToString());
+            GameObject prefab = GameManager.instance.GetObjectByName(chestData.buildingName);
             if(prefab == null)
                 continue;
             GameObject obj = GameObject.Instantiate(prefab, chestData.position, Quaternion.identity);
-            obj.name = chestData.buildingName.ToString();
+            obj.name = chestData.buildingName;
 
             if (obj.TryGetComponent(out Chest building))
             {
@@ -137,16 +149,31 @@ public class SaveSystem
         // Furnaces
         foreach (var furnaceData in _saveData.furnaces)
         {
-            GameObject prefab = GameManager.instance.GetObjectByName(furnaceData.buildingName.ToString());
+            GameObject prefab = GameManager.instance.GetObjectByName(furnaceData.buildingName);
             if(prefab == null)
                 continue;
             GameObject obj = GameObject.Instantiate(prefab, furnaceData.position, Quaternion.identity);
-            obj.name = furnaceData.buildingName.ToString();
+            obj.name = furnaceData.buildingName;
 
             if (obj.TryGetComponent(out Furnace building))
             {
                 building.Load(furnaceData);
                 GameManager.instance.furnaces.Add(obj);
+            }
+        }
+        
+        // Entities
+        foreach (var entityData in _saveData.entities)
+        {
+            GameObject prefab = GameManager.instance.GetEntitytByName(entityData.entityName);
+            if(prefab == null)
+                continue;
+            GameObject obj = GameObject.Instantiate(prefab, entityData.position, Quaternion.identity);
+            obj.name = entityData.entityName;
+            if (obj.TryGetComponent(out EntityStatus entity))
+            {
+                entity.Load(entityData);
+                GameManager.instance.entitiesPigs.Add(obj);
             }
         }
     }
@@ -176,7 +203,7 @@ public struct BuildingSaveData
 }
 
 [System.Serializable]
-public struct ChestData             // chest = building + inventory
+public struct ChestData
 {
     public Vector2 position;
     public string buildingName;
@@ -184,16 +211,23 @@ public struct ChestData             // chest = building + inventory
 }
 
 [System.Serializable]
-public struct SlotSaveData          // <-- only used for persistence
+public struct SlotSaveData
 {
-    public int    slotIndex;        // key in the dictionary
+    public int    slotIndex;
     public string itemName;
     public int    amount;
 }
 
 [System.Serializable]
-public struct FurnaceData             // chest = building + inventory
+public struct FurnaceData
 {
     public Vector2 position;
     public string buildingName;
+}
+
+[System.Serializable]
+public struct EntityData
+{
+    public Vector2 position;
+    public string entityName;
 }

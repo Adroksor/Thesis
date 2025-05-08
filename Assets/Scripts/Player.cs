@@ -11,7 +11,6 @@ public class Player : MonoBehaviour
     public void Save(ref PlayerData data)
     {
         data.position = transform.position;
-        Debug.Log(data.position);
         
         List<SlotSaveData> inventory = inventoryData.inventoryData.ToSaveList();
         data.inventory = inventory;
@@ -22,8 +21,6 @@ public class Player : MonoBehaviour
 
     public void Load(PlayerData data)
     {
-        Debug.Log(data.position);
-
         gameObject.transform.position = data.position;
         
         inventoryData.inventoryData.FromSaveList(data.inventory);

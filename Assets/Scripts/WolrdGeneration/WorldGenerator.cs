@@ -37,6 +37,7 @@ public class WorldGenerator : MonoBehaviour
 
     void Awake()
     {
+        Debug.Log(Application.persistentDataPath);
         if (instance == null)
         {
             instance = this;
@@ -68,13 +69,7 @@ public class WorldGenerator : MonoBehaviour
         {
             playerChunkPosition = currentPlayerChunkPosition;
             UpdateChunks();
-
-            //foreach (var chunk in chunks)
-            //{
-            //    Debug.Log(chunk.Key);
-            //}
         }
-
     }
 
     void UpdateChunks()

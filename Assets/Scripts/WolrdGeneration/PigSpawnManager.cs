@@ -11,8 +11,6 @@ public class PigSpawnManager : MonoBehaviour
     public float spawnInterval = 30f;        // seconds between spawns
     public int   maxPigs       = 50;         // cap to avoid runaway
 
-    readonly List<GameObject> livePigs = new();
-
     void Awake()
     {
         if (Instance != null) { Destroy(gameObject); return; }
@@ -29,10 +27,10 @@ public class PigSpawnManager : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(spawnInterval);
-
+            
             // skip if population full
-            livePigs.RemoveAll(p => p == null);
-            if (livePigs.Count >= maxPigs) continue;
+            GameManager.instance.entitiesPigs.RemoveAll(p => p == null);
+            if (GameManager.instance.entitiesPigs.Count >= maxPigs) continue;
 
             TrySpawnPig();
         }
@@ -53,7 +51,8 @@ public class PigSpawnManager : MonoBehaviour
             Vector3 world  = new Vector3(x + 0.5f, y + 0.5f, 0);
 
             GameObject pig = Instantiate(pigPrefab, world, Quaternion.identity);
-            livePigs.Add(pig);
+            pig.name = "Pig";
+            GameManager.instance.entitiesPigs.Add(pig);
             return;
         }
     }
