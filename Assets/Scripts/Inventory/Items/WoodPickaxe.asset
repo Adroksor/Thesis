@@ -18,5 +18,5 @@ MonoBehaviour:
   <ItemImage>k__BackingField: {fileID: 21300000, guid: 4f6fb102fbf4fa641be1231473c3d9f9, type: 3}
   <Description>k__BackingField: 
   miningLevel: 1
-  damage: 20
+  damage: 10
   attackSpeed: 0.5

@@ -973,7 +973,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 30, y: 30}
+  m_AnchoredPosition: {x: 29.999939, y: 30}
   m_SizeDelta: {x: 200, y: 20}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &529549564
@@ -2391,12 +2391,12 @@ MonoBehaviour:
   maxStamina: 0
   speed: 0
   sprintSpeed: 0
-  hunger: 50
-  maxHunger: 100
+  hunger: 400
+  maxHunger: 500
   range: 1
   healthBar: {fileID: 419799981}
   hungerBar: {fileID: 1419781945}
-  tickInterval: 2
+  tickInterval: 1
   hungerPerTick: 1
   starvationDps: 2
 --- !u!114 &1274033432
@@ -2936,9 +2936,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: bf2b2e249ead63a4faa6322901b65b4e, type: 2}
   - {fileID: 11400000, guid: 720a79022e35ca041869f0b0165abed0, type: 2}
   - {fileID: 11400000, guid: 10211c9672e1d2d479e282d3c52a3b95, type: 2}
+  - {fileID: 11400000, guid: 83845e9bcd48e8d4dbf0d0b97a5f3944, type: 2}
+  - {fileID: 11400000, guid: fe584e1dcd8fa7d45b5f5748fd8187c7, type: 2}
+  - {fileID: 11400000, guid: 59477c684c65388448872ef0f22f492e, type: 2}
   - {fileID: 11400000, guid: c69ca23b23159c346aceb72bde1e914d, type: 2}
   - {fileID: 11400000, guid: efd776614ae57914888e7669efa1e26b, type: 2}
-  - {fileID: 11400000, guid: fe584e1dcd8fa7d45b5f5748fd8187c7, type: 2}
   playerInventoryScript: {fileID: 1274033428}
   initialSlot: {fileID: 0}
   draggedItem: {fileID: 0}
@@ -3099,7 +3101,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 30, y: 76}
+  m_AnchoredPosition: {x: 29.999939, y: 76}
   m_SizeDelta: {x: 200, y: 20}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &2130804545
