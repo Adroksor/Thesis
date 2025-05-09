@@ -18,7 +18,6 @@ public class PlayerInventory : MonoBehaviour
         if (inventoryData.inventoryData == null)
         {
             inventoryData = new InventoryData(27);
-            Debug.Log(inventoryData);
         }
         inventoryData.SetData(0, new ItemStack{item = ItemDatabaseInstance.instance.GetItemByname("Furnace"), amount = 1});
 

@@ -70,6 +70,7 @@ public class SaveSystem
         
         // Chests
         _saveData.chests = new List<ChestData>();
+
         foreach (var obj in GameManager.instance.chests)
         {
             if (obj.TryGetComponent(out Chest building))
@@ -79,6 +80,7 @@ public class SaveSystem
                 _saveData.chests.Add(posData);
             }
         }
+
         // Furnaces
         _saveData.furnaces = new List<FurnaceData>();
         foreach (var obj in GameManager.instance.furnaces)
@@ -152,13 +154,14 @@ public class SaveSystem
         foreach (var posData in _saveData.buildings)
         {
             GameObject prefab = GameManager.instance.GetObjectByName(posData.buildingName);
-            GameObject obj = GameObject.Instantiate(prefab, posData.position, Quaternion.identity);
+            if(prefab == null)
+                continue;
+            GameObject obj = BuildingPlacer.instance.PlaceBuildingFromSave(prefab, Vector2Int.RoundToInt(posData.position));
             obj.name = posData.buildingName;
 
             if (obj.TryGetComponent(out StaticObject building))
             {
                 building.Load(posData);
-                GameManager.instance.objects.Add(obj);
             }
         }
 
@@ -168,13 +171,12 @@ public class SaveSystem
             GameObject prefab = GameManager.instance.GetObjectByName(chestData.buildingName);
             if(prefab == null)
                 continue;
-            GameObject obj = GameObject.Instantiate(prefab, chestData.position, Quaternion.identity);
+            GameObject obj = BuildingPlacer.instance.PlaceBuildingFromSave(prefab, Vector2Int.RoundToInt(chestData.position));
             obj.name = chestData.buildingName;
 
             if (obj.TryGetComponent(out Chest building))
             {
                 building.Load(chestData);
-                GameManager.instance.chests.Add(obj);
             }
         }
         
@@ -184,13 +186,12 @@ public class SaveSystem
             GameObject prefab = GameManager.instance.GetObjectByName(furnaceData.buildingName);
             if(prefab == null)
                 continue;
-            GameObject obj = GameObject.Instantiate(prefab, furnaceData.position, Quaternion.identity);
+            GameObject obj = BuildingPlacer.instance.PlaceBuildingFromSave(prefab, Vector2Int.RoundToInt(furnaceData.position));
             obj.name = furnaceData.buildingName;
 
             if (obj.TryGetComponent(out Furnace building))
             {
                 building.Load(furnaceData);
-                GameManager.instance.furnaces.Add(obj);
             }
         }
         

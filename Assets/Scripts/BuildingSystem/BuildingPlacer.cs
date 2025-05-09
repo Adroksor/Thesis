@@ -98,9 +98,6 @@ public class BuildingPlacer : MonoBehaviour
 
     public bool PlaceBuilding(GameObject buildingPrefab)
     {
-        Vector2Int currentChunkPosition = BuildingGrid.instance.WorldToChunkPosition(mouseGridPosition);
-        currentChunk = WorldGenerator.instance.TryGetChunk(currentChunkPosition);
-        
         Building buildingB = buildingPrefab.GetComponent<Building>();
         
         if (BuildingGrid.instance.CanPlace(mouseGridPosition, buildingB))
@@ -114,7 +111,17 @@ public class BuildingPlacer : MonoBehaviour
         }
         Debug.Log("Cannot place building here!");
         return false;
-        
+    }
+    
+    
+    public GameObject PlaceBuildingFromSave(GameObject buildingPrefab, Vector2Int gridPosition)
+    {
+        GameObject buildingOBJ = Instantiate(buildingPrefab, buildingsList.transform);
+        buildingOBJ.name = buildingPrefab.name;
+        Building building = buildingOBJ.GetComponent<Building>();
+        building.isGhost = false;
+        building.Place(gridPosition);
+        return buildingOBJ;
     }
 
     public void UpdateGhostPosition()
