@@ -22,21 +22,20 @@ public class GameBootstrap : MonoBehaviour
 
     void OnDestroy() => SceneManager.sceneLoaded -= OnSceneLoaded;
 
-    /* ----------------------------------------------------------------- */
     void OnSceneLoaded(Scene scene, LoadSceneMode lsm)
     {
-        if (scene.name != "Game") return;          // ignore Menu scene loads
+        if (scene.name != "Game") return;
 
 
         switch (mode)
         {
             case LaunchMode.NewGame:
-                WorldGenerator.instance.SetSeed(Random.Range(100000, 999999)); // or from menu
-                WorldGenerator.instance.GenerateInitialChunks();                           // your Start()
+                WorldGenerator.instance.SetSeed(Random.Range(100000, 999999));
+                WorldGenerator.instance.GenerateInitialChunks();
                 break;
 
             case LaunchMode.LoadGame:
-                WorldGenerator.instance.GenerateInitialChunks();                           // your Start()
+                WorldGenerator.instance.GenerateInitialChunks();
                 SaveSystem.Load(); // builds pristine world
                 break;
         }

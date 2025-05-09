@@ -57,7 +57,7 @@ public class Hotbar : MonoBehaviour
                 hotbarUI.slotObjects[itemIndex].transform.localScale = new Vector3(1.3f, 1.3f, 1.3f);
 
 
-                UpdateSelected(inventory.hotbarData);
+                UpdateSelected();
                 onSlotChange?.Invoke();
             }
 
@@ -90,7 +90,7 @@ public class Hotbar : MonoBehaviour
                 hotbarUI.slotObjects[itemIndex].GetComponent<InventorySlotUI>().backgroundImage.sprite = selectedIcon;
                 hotbarUI.slotObjects[itemIndex].transform.localScale = new Vector3(1.3f, 1.3f, 1.3f);
 
-                UpdateSelected(inventory.hotbarData);
+                UpdateSelected();
                 onSlotChange?.Invoke();
             }
         }
@@ -148,13 +148,13 @@ public class Hotbar : MonoBehaviour
                 Debug.Log($"Item {selectedItem.name} not usable from hot-bar");
                 break;
         }
-        UpdateSelected(inventory.hotbarData);
+        UpdateSelected();
         UpdateItemIcon();
     }
 
-    public void UpdateSelected(InventoryData inventoryData)
+    public void UpdateSelected()
     {
-        ItemData data = inventoryData.inventoryData.GetValueOrDefault(itemIndex).item;
+        ItemData data = inventory.hotbarData.inventoryData.GetValueOrDefault(itemIndex).item;
         selectedItem = data;
         if (data is BuildableItem buildable)
         {

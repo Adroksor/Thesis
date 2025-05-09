@@ -121,7 +121,6 @@ public class Building : MonoBehaviour
                     DroppedItem droppedScript = dropped.GetComponent<DroppedItem>();
                     if (droppedScript != null)
                     {
-
                         droppedScript.SetItem(value);
                     }
                 }
@@ -148,6 +147,4 @@ public class Building : MonoBehaviour
             }
         }
     }
-    
-    
 }
