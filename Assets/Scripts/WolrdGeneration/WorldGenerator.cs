@@ -178,6 +178,7 @@ public class WorldGenerator : MonoBehaviour
                             Building resBuilding = resource.GetComponent<Building>();
                             resBuilding.Place(new Vector2Int(worldX, worldY));
                             resource.transform.parent = chunk.chunkOBJ.transform;
+                            GameManager.instance.resources.Add(resource);
                         }
                     }
                 }
@@ -431,7 +432,8 @@ public class WorldGenerator : MonoBehaviour
         {
             return waterTile;
         }
-        return biomeData.biomeTiles[0];
+        int index = Random.Range(0, biomeData.biomeTiles.Count);
+        return biomeData.biomeTiles[index];
     }
 
     TileBase GetTileAtPosition(Vector2Int position)

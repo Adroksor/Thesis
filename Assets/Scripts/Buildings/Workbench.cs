@@ -6,6 +6,13 @@ public class Workbench : MonoBehaviour
 {
     public Building building;
 
+    private void Start()
+    {
+        if (!building.isGhost)
+        {
+            GameManager.instance.objects.Add(gameObject);
+        }
+    }
     
     public void OpenWorkbench()
     {

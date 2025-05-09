@@ -3,12 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class staticObject : MonoBehaviour
+public class StaticObject : MonoBehaviour
 {
     public Building building;
     private void Start()
     {
-        GameManager.instance.objects.Add(gameObject);
         building = gameObject.GetComponent<Building>();
     }
     

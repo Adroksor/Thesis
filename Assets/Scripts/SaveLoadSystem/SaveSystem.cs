@@ -15,6 +15,7 @@ public class SaveSystem
         public List<ChestData> chests;
         public List<FurnaceData> furnaces;
         public List<EntityData> entities;
+        public List<FilledChunksData> chunks;
     }
     
     public static string SaveFileName()
@@ -46,7 +47,7 @@ public class SaveSystem
         _saveData.buildings = new List<StaticObjectData>();
         foreach (var obj in GameManager.instance.objects)
         {
-            if (obj.TryGetComponent(out staticObject building))
+            if (obj.TryGetComponent(out StaticObject building))
             {
                 StaticObjectData posData = new StaticObjectData();
                 building.Save(ref posData);
@@ -123,7 +124,7 @@ public class SaveSystem
             GameObject obj = GameObject.Instantiate(prefab, posData.position, Quaternion.identity);
             obj.name = posData.buildingName;
 
-            if (obj.TryGetComponent(out staticObject building))
+            if (obj.TryGetComponent(out StaticObject building))
             {
                 building.Load(posData);
                 GameManager.instance.objects.Add(obj);
@@ -197,12 +198,6 @@ public struct StaticObjectData
 }
 
 [System.Serializable]
-public struct BuildingSaveData
-{
-    public List<StaticObjectData> buildingPositions;
-}
-
-[System.Serializable]
 public struct ChestData
 {
     public Vector2 position;
@@ -231,3 +226,17 @@ public struct EntityData
     public Vector2 position;
     public string entityName;
 }
+
+[System.Serializable]
+public struct ResourceData
+{
+    public Vector2 position;
+    public string reseurceName;
+}
+
+[System.Serializable]
+public struct FilledChunksData
+{
+    public Vector2Int position;
+}
+
