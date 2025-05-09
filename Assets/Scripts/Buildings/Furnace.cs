@@ -164,7 +164,7 @@ public class Furnace : MonoBehaviour
     {
         foreach (ItemStack input in recipe.Input)
         {
-            InventoryManager.instance.TryRemoveItemsFromInventoryData(input.item, input.amount * amount, InventoryManager.instance.playerInventory.inventoryData );
+            InventoryManager.instance.TryRemoveItemsFromPlayerData(input.item, input.amount * amount);
         }
     }
     

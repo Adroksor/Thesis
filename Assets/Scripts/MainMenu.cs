@@ -1,11 +1,25 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
     [Header("Scene names")]
     [SerializeField] string newGameScene = "Game";   // gameplay scene name
 
+    [SerializeField] Button newBtn, loadBtn, quitBtn;
+    [SerializeField] string gameScene = "Game";
+
+    void Awake()
+    {
+        newBtn .onClick.AddListener(OnNewGame);
+
+        loadBtn.onClick.AddListener(OnLoadGame);
+
+        quitBtn.onClick.AddListener(OnQuit);
+    }
+    
+    
     public void OnNewGame()
     {
         // optional: clear save data here

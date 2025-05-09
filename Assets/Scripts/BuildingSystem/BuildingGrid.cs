@@ -104,8 +104,10 @@ public class BuildingGrid : MonoBehaviour
             {
                 Vector2Int chunkPosition = WorldToChunkPosition(new Vector2Int(x, y));
                 Chunk chunk = WorldGenerator.instance.TryGetChunk(chunkPosition);
-
-                chunk.occupiedTiles.Add(new Vector2Int(x, y), building.gameObject); // Mark tile as occupied
+                if (chunk != null)
+                {
+                    chunk.occupiedTiles.Add(new Vector2Int(x, y), building.gameObject); // Mark tile as occupied
+                }
             }
         }
     }

@@ -134,7 +134,6 @@ public class SaveSystem
         
         // World
         WorldGenerator wg = WorldGenerator.instance;
-        Debug.Log(_saveData.worldSeed);
         wg.SetSeed(_saveData.worldSeed);
         
         if (_saveData.modifiedChunks != null && _saveData.modifiedChunks.Count > 0)

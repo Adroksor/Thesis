@@ -74,10 +74,9 @@ public class DroppedItem : MonoBehaviour
      private void TryPickup()
      {
           ItemData item = ItemDatabaseInstance.instance.GetItemByname(itemName);
-          int remaining = InventoryManager.instance.TryAddItemToInventoryData(
+          int remaining = InventoryManager.instance.TryAddItemsToPlayerData(
                item,
-               amount,
-               InventoryManager.instance.playerInventoryScript.inventoryData
+               amount
           );
           if (remaining <= 0)
           {

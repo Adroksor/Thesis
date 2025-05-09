@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -355,6 +356,62 @@ public class InventoryManager : MonoBehaviour
         return amount;
     }
     
+    public int TryAddItemsToPlayerData(ItemData itemData, int amount)
+    {
+        if (itemData == null || amount <= 0) return amount;
+
+        int remaining = amount;
+
+        /* 1 ── hot-bar first */
+        remaining = TryAddItemToInventoryData(itemData,
+            remaining,
+            playerInventoryScript.hotbarData);
+
+        /* 2 ── then backpack inventory */
+        if (remaining > 0)
+        {
+            remaining = TryAddItemToInventoryData(itemData,
+                remaining,
+                playerInventoryScript.inventoryData);
+        }
+
+        if (hotbarInventoryUI.isActiveAndEnabled)
+            LoadData(playerInventoryScript.hotbarData, hotbarInventoryUI);
+
+        if (playerInventoryUI.isActiveAndEnabled)
+            LoadData(playerInventoryScript.inventoryData, playerInventoryUI);
+
+        return remaining;
+    }
+    
+    public bool TryRemoveItemsFromPlayerData(ItemData itemData, int amount)
+    {
+        if (itemData == null || amount <= 0) return false;
+
+        int remaining = amount;
+        remaining -= RemoveFromInventoryList(itemData, remaining,
+            playerInventoryScript.hotbarData);
+
+        if (remaining > 0)
+            remaining -= RemoveFromInventoryList(itemData, remaining,
+                playerInventoryScript.inventoryData);
+
+        if (hotbarInventoryUI.isActiveAndEnabled)
+            LoadData(playerInventoryScript.hotbarData, hotbarInventoryUI);
+
+        if (playerInventoryUI.isActiveAndEnabled)
+            LoadData(playerInventoryScript.inventoryData, playerInventoryUI);
+
+        return remaining == 0;
+    }
+
+    int RemoveFromInventoryList(ItemData data, int request, InventoryData inv)
+    {
+        int before = request;
+        TryRemoveItemsFromInventoryData(data, request, inv);
+        return before - request;   // removed count
+    }
+    
     public bool TryRemoveItemsFromInventoryData(ItemData itemData, int amount, InventoryData targetInventoryData)
     {
         int remaining = amount;
@@ -443,6 +500,7 @@ public class InventoryManager : MonoBehaviour
     public bool DoesInventoryHaveItems(InventoryData inventoryData, List<ItemStack> itemStackss)
     {
         Dictionary<ItemData, int> combinedItems = GetCombinedInventory(inventoryData);
+
         foreach (var input in itemStackss)
         {
             ItemData item = input.item;
@@ -456,6 +514,38 @@ public class InventoryManager : MonoBehaviour
 
                 return false;
             }
+        }
+        return true;
+    }
+    
+    public bool DoesPlayerHaveItems(List<ItemStack> required)
+    {
+        // Combine main inventory and hot-bar into one tally
+        Dictionary<ItemData, int> combined = new Dictionary<ItemData, int>();
+
+        void AddToCombined(Dictionary<ItemData, int> src)
+        {
+            foreach (var kv in src)
+            {
+                if (kv.Key == null) continue;
+
+                if (combined.ContainsKey(kv.Key))
+                    combined[kv.Key] += kv.Value;
+                else
+                    combined[kv.Key]  = kv.Value;
+            }
+        }
+
+        AddToCombined(GetCombinedInventory(playerInventory.inventoryData));
+        AddToCombined(GetCombinedInventory(playerInventory.hotbarData));
+
+        // Check every required stack against the combined tally
+        foreach (var need in required)
+        {
+            if (need.item == null || need.amount <= 0) continue;
+
+            if (!combined.TryGetValue(need.item, out int have) || have < need.amount)
+                return false;                       // missing or not enough
         }
         return true;
     }

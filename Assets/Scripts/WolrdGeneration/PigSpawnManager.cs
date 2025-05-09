@@ -15,7 +15,6 @@ public class PigSpawnManager : MonoBehaviour
     {
         if (Instance != null) { Destroy(gameObject); return; }
         Instance = this;
-        DontDestroyOnLoad(this);
     }
     public static PigSpawnManager Instance { get; private set; }
 

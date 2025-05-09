@@ -69,8 +69,7 @@ public class FurnaceUI : MonoBehaviour
                 items.Add(itemData);
             }
             bool canSmelt =
-                InventoryManager.instance.DoesInventoryHaveItems(
-                    InventoryManager.instance.playerInventory.inventoryData, items);
+                InventoryManager.instance.DoesPlayerHaveItems(items);
             
             recipeButton.button.interactable = canSmelt;
             smeltButton.interactable = canSmelt;
@@ -134,8 +133,7 @@ public class FurnaceUI : MonoBehaviour
             amount = input.amount * selectedAmount
         }).ToList();
 
-        bool canSmelt = InventoryManager.instance.DoesInventoryHaveItems(
-            InventoryManager.instance.playerInventory.inventoryData, requiredItems);
+        bool canSmelt = InventoryManager.instance.DoesPlayerHaveItems(requiredItems);
 
         recipeButton.button.interactable = canSmelt;
     }
@@ -165,8 +163,7 @@ public class FurnaceUI : MonoBehaviour
             });
         }
 
-        bool canSmelt = InventoryManager.instance.DoesInventoryHaveItems(
-            InventoryManager.instance.playerInventory.inventoryData,
+        bool canSmelt = InventoryManager.instance.DoesPlayerHaveItems(
             totalNeededItems
         );
 

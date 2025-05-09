@@ -1063,6 +1063,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 957222326}
   m_CullTransparentMesh: 1
+--- !u!1 &1112800113
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1112800115}
+  - component: {fileID: 1112800114}
+  m_Layer: 0
+  m_Name: Bootstrap
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1112800114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1112800113}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb7ce413fbd185747b55e0e764afc72f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mode: 0
+--- !u!4 &1112800115
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1112800113}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1401444731
 GameObject:
   m_ObjectHideFlags: 0
@@ -1272,7 +1317,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1824192688}
   - component: {fileID: 1824192687}
-  - component: {fileID: 1824192689}
   m_Layer: 0
   m_Name: MenuManager
   m_TagString: Untagged
@@ -1293,6 +1337,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   newGameScene: Game
+  newBtn: {fileID: 628551394}
+  loadBtn: {fileID: 957222328}
+  quitBtn: {fileID: 570692441}
+  gameScene: Game
 --- !u!4 &1824192688
 Transform:
   m_ObjectHideFlags: 0
@@ -1308,30 +1356,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1824192689
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1824192686}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb7ce413fbd185747b55e0e764afc72f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mode: 0
-  pendingSave:
-    worldSeed: 0
-    playerSaveData:
-      position: {x: 0, y: 0}
-      inventory: []
-      hotbar: []
-    buildings: []
-    chests: []
-    furnaces: []
-    entities: []
-    modifiedChunks: []
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -1340,3 +1364,4 @@ SceneRoots:
   - {fileID: 1401444736}
   - {fileID: 1777104866}
   - {fileID: 1824192688}
+  - {fileID: 1112800115}

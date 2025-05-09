@@ -52,8 +52,7 @@ public class WorkbenchUI : MonoBehaviour
             }
 
             bool canCraft =
-                InventoryManager.instance.DoesInventoryHaveItems(
-                    InventoryManager.instance.playerInventory.inventoryData, items);
+                InventoryManager.instance.DoesPlayerHaveItems(items);
 
             recipeButton.button.interactable = canCraft;
 
@@ -103,8 +102,7 @@ public class WorkbenchUI : MonoBehaviour
                 amount = input.amount
             }).ToList();
 
-            bool canSmelt = InventoryManager.instance.DoesInventoryHaveItems(
-                InventoryManager.instance.playerInventory.inventoryData, requiredItems);
+            bool canSmelt = InventoryManager.instance.DoesPlayerHaveItems(requiredItems);
 
             recipeButton.button.interactable = canSmelt;
         }
@@ -117,9 +115,9 @@ public class WorkbenchUI : MonoBehaviour
         {
             foreach (ItemStack slot in recipe.Input)
             {
-                InventoryManager.instance.TryRemoveItemsFromInventoryData(slot.item, slot.amount, InventoryManager.instance.playerInventory.inventoryData );
+                InventoryManager.instance.TryRemoveItemsFromPlayerData(slot.item, slot.amount);
             }
-            InventoryManager.instance.TryAddItemToInventoryData(recipe.Output.item, recipe.Output.amount, InventoryManager.instance.playerInventory.inventoryData);
+            InventoryManager.instance.TryAddItemsToPlayerData(recipe.Output.item, recipe.Output.amount);
 
             UpdateAllRecipeUIs();
         }

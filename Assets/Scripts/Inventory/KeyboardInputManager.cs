@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class KeyboardInputManager : MonoBehaviour
 {
+    public ExitMenu exitMenu;
     void Update()
     {
         // Reload current scene
@@ -56,6 +57,11 @@ public class KeyboardInputManager : MonoBehaviour
                     }
                 }
             }
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            exitMenu.gameObject.SetActive(true);
         }
     }
     
