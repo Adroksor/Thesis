@@ -50,6 +50,48 @@ public class ResourceSpawner : MonoBehaviour
 
         return GetRandomResourceFromList(chosenList);
     }
+    
+    public GameObject GetDeterministicResource(
+        List<BiomeResource> resources,
+        int worldX, int worldY, int seed,
+        float epicChance, float rareChance)
+    {
+        if (resources == null || resources.Count == 0)
+            return null;
+
+        // Split by rarity once (could cache per-biome)
+        var common = new List<BiomeResource>();
+        var rare   = new List<BiomeResource>();
+        var epic   = new List<BiomeResource>();
+        foreach (var r in resources)
+            (r.rarity switch
+            { ResourceRarity.Epic   => epic,
+                ResourceRarity.Rare   => rare,
+                _                     => common }).Add(r);
+
+        float roll = Hash01(worldX, worldY, seed);
+
+        List<BiomeResource> chosen;
+        if (roll < epicChance && epic.Count > 0)           chosen = epic;
+        else if (roll < epicChance + rareChance && rare.Count > 0) chosen = rare;
+        else                                                 chosen = common;
+
+        if (chosen.Count == 0)
+            return null;
+        
+        // weighted pick, but deterministic
+        int total = 0;
+        foreach (var r in chosen) total += r.weight;
+        int pick = Hash(worldX ^ 17, worldY ^ 31, seed) % total;   // second hash
+
+        foreach (var r in chosen)
+        {
+            if (pick < r.weight) return r.prefab;
+            pick -= r.weight;
+        }
+        return null;
+    }
+
 
     private GameObject GetRandomResourceFromList(List<BiomeResource> list)
     {
@@ -74,6 +116,21 @@ public class ResourceSpawner : MonoBehaviour
 
         return null;
     }
+    
+    // Helpers you can paste in ResourceSpawner (or a Utility class)
+    static int Hash(int x, int y, int seed)
+    {
+        unchecked
+        {
+            int h = x * 73856093 ^ y * 19349663 ^ seed;
+            h = (h ^ 0x27d4eb2d) * 0x165667b1;
+            h ^= h >> 15;
+            return h & 0x7fffffff;              // keep it positive
+        }
+    }
+
+    static float Hash01(int x, int y, int seed) =>
+        Hash(x, y, seed) / 2147483647f;         // map to [0,1]
 }
 
 public enum ResourceRarity { Common, Rare, Epic }
@@ -85,3 +142,4 @@ public class BiomeResource
     public ResourceRarity rarity;
     public int weight;
 }
+

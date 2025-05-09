@@ -162,7 +162,11 @@ public class WorldGenerator : MonoBehaviour
                 if (biome == null)
                     continue;
 
-                GameObject resourcePrefab = resourceSpawner.GetRandomResource(biome.resources);
+                GameObject resourcePrefab = resourceSpawner.GetDeterministicResource(
+                    biome.resources,
+                    worldX, worldY, seed,
+                    resourceSpawner.spawnRate[2],   // epicChance
+                    resourceSpawner.spawnRate[1]);  // rareChance
                 if (resourcePrefab == null)
                     continue;
 
@@ -227,7 +231,7 @@ public class WorldGenerator : MonoBehaviour
                 }
                 
                 // Determine biome based on altitude, temperature, and moisture
-                TileBase tile = GetTileForBiome(altitude, biome);
+                TileBase tile = GetTileForBiome(altitude, biome, x, y, seed);
 
                 // Store the tile in the chunk
                 chunk.tiles[x, y] = tile;
@@ -426,14 +430,12 @@ public class WorldGenerator : MonoBehaviour
     
 
 
-    TileBase GetTileForBiome(float altitude, BiomeData biomeData)
+    TileBase GetTileForBiome(float altitude, BiomeData biomeData, int x, int y, int seed)
     {
-        if (altitude < biomeData.waterLevel)
-        {
-            return waterTile;
-        }
-        int index = Random.Range(0, biomeData.biomeTiles.Count);
-        return biomeData.biomeTiles[index];
+        if (altitude < biomeData.waterLevel) return waterTile;
+
+        int idx = Hash(x, y, seed) % biomeData.biomeTiles.Count;
+        return biomeData.biomeTiles[idx];
     }
 
     TileBase GetTileAtPosition(Vector2Int position)
@@ -541,4 +543,19 @@ public class WorldGenerator : MonoBehaviour
             Gizmos.DrawLine(chunkEndY, chunkEndXY); // Right edge
         }
     }
+    
+    // Helpers you can paste in ResourceSpawner (or a Utility class)
+    static int Hash(int x, int y, int seed)
+    {
+        unchecked
+        {
+            int h = x * 73856093 ^ y * 19349663 ^ seed;
+            h = (h ^ 0x27d4eb2d) * 0x165667b1;
+            h ^= h >> 15;
+            return h & 0x7fffffff;              // keep it positive
+        }
+    }
+
+    static float Hash01(int x, int y, int seed) =>
+        Hash(x, y, seed) / 2147483647f;         // map to [0,1]
 }

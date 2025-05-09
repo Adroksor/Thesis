@@ -56,22 +56,6 @@ public class Chest : MonoBehaviour
         }
     }
 
-    public void PopulateChestWithRandomItems(int amount)
-    {
-        string[] itemNames = {"Coal", "Iron ore", "Iron ingot", "Steel ingot" };
-        int randomIndex;
-        for (int i = 0; i < amount; i++)
-        {
-            randomIndex = Random.Range(0, itemNames.Length);
-            ItemStack stack = new ItemStack
-            {
-                item = ItemDatabaseInstance.instance.GetItemByname(itemNames[randomIndex]),
-                amount = Random.Range(0, 8)
-            };
-            inventoryData.SetData(Random.Range(0, chestSize), stack);
-        }
-    }
-
     public void OpenInventory()
     {
         if (!building.isGhost)
