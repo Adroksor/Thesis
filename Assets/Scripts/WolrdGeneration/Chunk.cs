@@ -9,6 +9,7 @@ public class Chunk
     public Vector2Int position; // Chunk position in chunk coordinates
     public TileBase[,] tiles; // 2D array of tiles in the chunk
     public Dictionary<Vector2Int, GameObject> occupiedTiles; // Dictionary to track occupied tiles in this chunk
+    public readonly List<ResourceChange> changes;
     public bool isLoaded; // Whether the chunk is currently loaded
     public bool isModified;
     public bool tilesSpawned;
@@ -17,6 +18,7 @@ public class Chunk
 
     public Chunk(Vector2Int position, int size, GameObject chunkList)
     {
+        changes = new List<ResourceChange>();
         this.position = position;
         occupiedTiles = new Dictionary<Vector2Int, GameObject>();            
         tiles = new TileBase[size, size];
@@ -43,6 +45,11 @@ public class Chunk
         y = UnityEngine.Random.Range(0, height);
 
         return tiles[x, y];
+    }
+    
+    public void RegisterRemoval(Vector2Int tile)
+    {
+        changes.Add(new ResourceChange { tile = tile, type = ChangeType.Removed });
     }
     
     

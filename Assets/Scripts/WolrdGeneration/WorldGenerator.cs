@@ -51,19 +51,10 @@ public class WorldGenerator : MonoBehaviour
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform; // Find the player object
-
-        // Generate a random offset for the noise
-        seed = GameManager.instance.seed;
-        int randomX = seed;
-        int randomY = seed / 2;
-        noiseOffset = new Vector2(randomX, randomY);
-
-        UpdateChunks();
     }
 
     void Update()
     {
-        
         Vector2Int currentPlayerChunkPosition = GetChunkPosition(player.position);
         if (currentPlayerChunkPosition != playerChunkPosition)
         {
@@ -71,6 +62,19 @@ public class WorldGenerator : MonoBehaviour
             UpdateChunks();
         }
     }
+    
+    public void SetSeed(int s)
+    {
+        seed = s;
+        noiseOffset = new Vector2(seed, (float)seed / 2);
+    }
+
+    public void GenerateInitialChunks()
+    {
+        chunks.Clear();
+        UpdateChunks();       // your existing Start() call
+    }
+
 
     void UpdateChunks()
     {
@@ -141,7 +145,7 @@ public class WorldGenerator : MonoBehaviour
         }
     }
     
-    void SpawnResourcesForChunk(Chunk chunk)
+    public void SpawnResourcesForChunk(Chunk chunk)
     {
         Vector2Int chunkPosition = chunk.position;
 
@@ -195,7 +199,7 @@ public class WorldGenerator : MonoBehaviour
     }
 
 
-    Chunk GenerateChunk(Vector2Int chunkPosition)
+    public Chunk GenerateChunk(Vector2Int chunkPosition)
     {
         Chunk chunk = new Chunk(chunkPosition, chunkSize, chunkList);
         chunks.Add(chunkPosition, chunk);
@@ -444,7 +448,7 @@ public class WorldGenerator : MonoBehaviour
     }
     
 
-    void LoadChunk(Chunk chunk)
+    public void LoadChunk(Chunk chunk)
     {
         chunk.chunkOBJ.SetActive(true);
         if(!LoadedChunks.Contains(chunk))
@@ -472,18 +476,26 @@ public class WorldGenerator : MonoBehaviour
         }
     }
 
-    void UnloadChunk(Chunk chunk)
+    public void UnloadChunk(Chunk chunk)
     {
         chunk.chunkOBJ.SetActive(false);
         chunk.isLoaded = false;
         LoadedChunks.Remove(chunk);
     }
 
-    Vector2Int GetChunkPosition(Vector3 worldPosition)
+    public Vector2Int GetChunkPosition(Vector3 worldPosition)
     {
         // Convert world position to chunk position
         int chunkX = Mathf.FloorToInt(worldPosition.x / chunkSize);
         int chunkY = Mathf.FloorToInt(worldPosition.y / chunkSize);
+        return new Vector2Int(chunkX, chunkY);
+    }
+    
+    public Vector2Int GetChunkPosition(Vector2Int worldPosition)
+    {
+        // Convert world position to chunk position
+        int chunkX = Mathf.FloorToInt((float)worldPosition.x / chunkSize);
+        int chunkY = Mathf.FloorToInt((float)worldPosition.y / chunkSize);
         return new Vector2Int(chunkX, chunkY);
     }
     
@@ -497,7 +509,6 @@ public class WorldGenerator : MonoBehaviour
         }
         chunks.Clear();
         
-        seed = GameManager.instance.seed;
         int randomX = seed;
         int randomY = seed / 2;
         noiseOffset = new Vector2(randomX, randomY);
@@ -511,6 +522,34 @@ public class WorldGenerator : MonoBehaviour
     {
         chunks.TryGetValue(chunkPosition, out var chunk);
         return chunk;
+    }
+    
+    public void ApplyChangesToChunk(Chunk chunk)
+    {
+        if (chunk == null || chunk.changes == null || chunk.changes.Count == 0)
+            return;                               // nothing to do
+
+        foreach (var change in chunk.changes)
+        {
+            switch (change.type)
+            {
+                case ChangeType.Removed:
+                    RemoveResourceAt(chunk, change.tile);
+                    break;
+            }
+        }
+    }
+    
+    void RemoveResourceAt(Chunk chunk, Vector2Int worldTile)
+    {
+        foreach (Transform child in chunk.chunkOBJ.transform)
+        {
+            if (child.TryGetComponent(out Building b) && b.gridPosition == worldTile)
+            {
+                Destroy(child.gameObject);
+                return;
+            }
+        }
     }
 
     

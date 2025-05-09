@@ -9,11 +9,13 @@ public class MainMenu : MonoBehaviour
     public void OnNewGame()
     {
         // optional: clear save data here
+        GameBootstrap.Instance.mode = LaunchMode.NewGame;
         SceneManager.LoadScene(newGameScene);
     }
 
     public void OnLoadGame()
     {
+        GameBootstrap.Instance.mode = LaunchMode.LoadGame;
         SceneManager.LoadScene(newGameScene);
     }
 

@@ -15,11 +15,15 @@ public class PlayerInventory : MonoBehaviour
 
     private void Start()
     {
-        inventoryData = new InventoryData(27);
+        if (inventoryData.inventoryData == null)
+        {
+            inventoryData = new InventoryData(27);
+            Debug.Log(inventoryData);
+        }
         inventoryData.SetData(0, new ItemStack{item = ItemDatabaseInstance.instance.GetItemByname("Furnace"), amount = 1});
 
-        
-        hotbarData = new InventoryData(9);
+        if(hotbarData.inventoryData == null)  
+            hotbarData = new InventoryData(9);
 
         hotbarData.SetData(0, new ItemStack{item = ItemDatabaseInstance.instance.GetItemByname("WoodPickaxe"), amount = 1});
         hotbarData.SetData(1, new ItemStack{item = ItemDatabaseInstance.instance.GetItemByname("StonePickaxe"), amount = 1});

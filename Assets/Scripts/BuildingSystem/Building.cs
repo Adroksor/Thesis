@@ -16,7 +16,7 @@ public class Building : MonoBehaviour
     public GameObject itemPrefab;
     public bool isGhost = true;
     
-    private Vector2Int gridPosition; // Position of the building on the grid
+    public Vector2Int gridPosition; // Position of the building on the grid
 
     public InventoryData internalInventory;
 
@@ -58,7 +58,14 @@ public class Building : MonoBehaviour
         BuildingGrid.instance.FreeArea(gridPosition, size);
         DropItems(drop);
         DropInternalItems();
+
+        Resource resource = GetComponent<Resource>();
+        if (resource != null)
+            resource.parentChunk.RegisterRemoval(gridPosition);
+
+        
         Destroy(gameObject);
+        
     }
 
     public void DropItems(List<ItemStack> itemsToDrop)

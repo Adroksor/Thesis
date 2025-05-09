@@ -15,7 +15,7 @@ public class SaveSystem
         public List<ChestData> chests;
         public List<FurnaceData> furnaces;
         public List<EntityData> entities;
-        public List<FilledChunksData> chunks;
+        public List<ChunkSave> modifiedChunks;
     }
     
     public static string SaveFileName()
@@ -41,7 +41,20 @@ public class SaveSystem
         _saveData.playerSaveData = playerData;
         
         // World
-        _saveData.worldSeed = GameManager.instance.seed;
+        _saveData.worldSeed = WorldGenerator.instance.seed;
+        
+        _saveData.modifiedChunks = new List<ChunkSave>();
+        foreach (var cs in WorldGenerator.instance.chunks)
+        {
+            Chunk c = cs.Value;
+            if (c.changes.Count == 0) continue;
+
+            _saveData.modifiedChunks.Add(new ChunkSave {
+                coord   = c.position,
+                changes = new List<ResourceChange>(c.changes)
+            });
+        }
+
         
         // Static Buildings
         _saveData.buildings = new List<StaticObjectData>();
@@ -112,10 +125,28 @@ public class SaveSystem
         GameManager.instance.player.TryGetComponent(out Player player);
         player.Load(_saveData.playerSaveData);
         
-        
         // World
-        GameManager.instance.seed = _saveData.worldSeed;
-        WorldGenerator.instance.ResetWorld();
+        WorldGenerator wg = WorldGenerator.instance;
+        wg.seed = _saveData.worldSeed;
+        
+        if (_saveData.modifiedChunks != null && _saveData.modifiedChunks.Count > 0)
+        {
+            foreach (ChunkSave cs in _saveData.modifiedChunks)
+            {
+                Chunk chunk = wg.TryGetChunk(cs.coord);
+                if (chunk == null)
+                {
+                    chunk = wg.GenerateChunk(cs.coord);
+                    wg.LoadChunk(chunk);
+                    wg.SpawnResourcesForChunk(chunk);
+                }
+                chunk.changes.Clear();
+                chunk.changes.AddRange(cs.changes);
+                wg.ApplyChangesToChunk(chunk);
+                
+                wg.UnloadChunk(chunk);
+            }
+        }
         
         // Static Buildings
         foreach (var posData in _saveData.buildings)
@@ -228,15 +259,26 @@ public struct EntityData
 }
 
 [System.Serializable]
-public struct ResourceData
-{
-    public Vector2 position;
-    public string reseurceName;
-}
-
-[System.Serializable]
 public struct FilledChunksData
 {
     public Vector2Int position;
 }
+
+[System.Serializable]
+public struct ResourceChange
+{
+    public Vector2Int tile;         // world tile coordinate
+    public ChangeType type;         // Removed, HealthDelta, RegrowTimer …
+    public float      value;        // hp left, time remaining, etc.
+}
+
+public enum ChangeType { Removed, HealthDelta, RegrowTimer }
+
+[System.Serializable]
+public struct ChunkSave
+{
+    public Vector2Int            coord;    // chunk grid coord
+    public List<ResourceChange>  changes;  // per-tile deltas
+}
+
 

@@ -17,8 +17,6 @@ public class GameManager : MonoBehaviour
     
     public BuildingPlacer buildingPlacer;
     
-    [Header("Seed")]
-    public int seed;
     [Header("Lists of objects")]
     public List<GameObject> objects = new List<GameObject>();
     public List<GameObject> chests = new List<GameObject>();
@@ -40,11 +38,6 @@ public class GameManager : MonoBehaviour
         instance = this;
     }
 
-    private void Start()
-    {
-        seed = Random.Range(100_000, 999_999);
-    }
-    
     
     public GameObject GetObjectByName(string name)
     {

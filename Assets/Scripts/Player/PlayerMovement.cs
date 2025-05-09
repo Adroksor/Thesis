@@ -32,16 +32,6 @@ public class TopDownPlayerMovement : MonoBehaviour
         {
             ResetWorld();
         }
-
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            LoadWorldFromSeed();
-        }
-        
-        if(Input.GetKeyDown(KeyCode.Slash))
-        {
-            SaveManager.instance.SaveChunks();
-        }
         
         if(Input.GetKeyDown(KeyCode.Keypad7))
         {
@@ -56,10 +46,13 @@ public class TopDownPlayerMovement : MonoBehaviour
         if (Input.GetKey(KeyCode.LeftShift))
         {
             moveSpeed = sprintSpeed;
+            GetComponent<CircleCollider2D>().enabled = false;
         }
         else
         {
             moveSpeed = walkSpeed;
+            GetComponent<CircleCollider2D>().enabled = true;
+
         }
     }
     
@@ -74,22 +67,7 @@ public class TopDownPlayerMovement : MonoBehaviour
         if (worldGenerator != null)
         {
             // Reset the world by clearing existing chunks and regenerating
-            GameManager.instance.seed = Random.Range(100000, 999999);
-            
-            worldGenerator.ResetWorld();
-            Debug.Log("World has been reset!");
-        }
-        else
-        {
-            Debug.LogWarning("WorldGenerator reference is missing!");
-        }
-    }
-
-    void LoadWorldFromSeed()
-    {
-        if (worldGenerator != null)
-        {
-            // Reset the world by clearing existing chunks and regenerating
+            WorldGenerator.instance.seed = Random.Range(100000, 999999);
             
             worldGenerator.ResetWorld();
             Debug.Log("World has been reset!");

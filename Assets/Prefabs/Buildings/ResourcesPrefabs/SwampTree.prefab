@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2957787076373834987}
   - component: {fileID: 1525543995632619781}
   - component: {fileID: 4428372465334732716}
+  - component: {fileID: 3428270140577467353}
   m_Layer: 0
   m_Name: SwampTree
   m_TagString: Untagged
@@ -112,6 +113,7 @@ MonoBehaviour:
     amount: 2
   itemPrefab: {fileID: 0}
   isGhost: 0
+  gridPosition: {x: 0, y: 0}
   internalInventory:
     inventorySize: 0
   stats: {fileID: 4428372465334732716}
@@ -165,7 +167,7 @@ BoxCollider2D:
   m_Offset: {x: 0.0016534775, y: 0.15309604}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
+    pivot: {x: 0.5, y: 0.116941124}
     oldSize: {x: 1, y: 1.53125}
     newSize: {x: 1, y: 2.9375}
     adaptiveTilingThreshold: 0.5
@@ -188,6 +190,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 100
   maxHealth: 100
+--- !u!114 &3428270140577467353
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6838876024778313406}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f16894c5735e4a4bb965f5cfc6d803b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &6006844325389687177
 PrefabInstance:
   m_ObjectHideFlags: 0

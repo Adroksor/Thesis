@@ -2647,7 +2647,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1677620993}
-  - component: {fileID: 1677620994}
   - component: {fileID: 1677620995}
   m_Layer: 0
   m_Name: SaveLoadManager
@@ -2671,18 +2670,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1677620994
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1677620991}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b086f8956452724c960d84993de26a6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1677620995
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2704,6 +2691,7 @@ MonoBehaviour:
   chests: []
   furnaces: []
   entitiesPigs: []
+  resources: []
   buildingPrefabs:
   - {fileID: 4888030565546613888, guid: 4791962ddb677c348ace567f983bfb80, type: 3}
   - {fileID: 4888030565546613888, guid: d662aa422753ad14994eef3dffe61a57, type: 3}

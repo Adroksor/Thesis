@@ -23,7 +23,10 @@ public class Player : MonoBehaviour
     {
         gameObject.transform.position = data.position;
         
+        inventoryData.inventoryData = new InventoryData(27);
         inventoryData.inventoryData.FromSaveList(data.inventory);
+        
+        inventoryData.hotbarData = new InventoryData(9);
         inventoryData.hotbarData.FromSaveList(data.hotbar);
         InventoryManager.instance.LoadData(inventoryData.hotbarData, InventoryManager.instance.hotbarInventoryUI);
         

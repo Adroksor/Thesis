@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: -8134729982789106679}
   - component: {fileID: 5014723985207274091}
   - component: {fileID: 4948559816049839125}
+  - component: {fileID: -6295502823190524}
   m_Layer: 0
   m_Name: Stone
   m_TagString: Untagged
@@ -111,6 +112,7 @@ MonoBehaviour:
     amount: 5
   itemPrefab: {fileID: 0}
   isGhost: 0
+  gridPosition: {x: 0, y: 0}
   internalInventory:
     inventorySize: 0
   stats: {fileID: 4948559816049839125}
@@ -174,6 +176,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 100
   maxHealth: 100
+--- !u!114 &-6295502823190524
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7940226109284693816}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f16894c5735e4a4bb965f5cfc6d803b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentChunk:
+    position: {x: 0, y: 0}
+    isLoaded: 0
+    isModified: 0
+    tilesSpawned: 0
+    resourcesSpawned: 0
+    chunkOBJ: {fileID: 0}
 --- !u!1001 &318412741194194115
 PrefabInstance:
   m_ObjectHideFlags: 0
