@@ -33,6 +33,8 @@ public class WorldGenerator : MonoBehaviour
     private Transform player; // Reference to the player's transform
 
     public bool spawnResources = false;
+    
+    public LaunchMode launchMode;
     public static WorldGenerator instance { get; private set; }
 
     void Awake()
@@ -51,6 +53,10 @@ public class WorldGenerator : MonoBehaviour
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform; // Find the player object
+        if (launchMode == LaunchMode.LoadGame)
+        {
+            SetSeed(SaveSystem.GetSeed());
+        }
     }
 
     void Update()
@@ -223,7 +229,6 @@ public class WorldGenerator : MonoBehaviour
                 
                 // Generate multi-octave Perlin noise for altitude
                 float altitude = CalculateMultiOctaveNoise(new Vector2(worldX, worldY), biome, noiseOffset);
-                
                 float dist = Vector2.Distance(new Vector2(worldX, worldY),
                     Vector2.zero);
                 if (dist < safeRadius)

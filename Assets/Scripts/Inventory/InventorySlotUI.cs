@@ -73,6 +73,7 @@ public class InventorySlotUI : MonoBehaviour, IBeginDragHandler, IEndDragHandler
     {
         if (eventData.button == PointerEventData.InputButton.Left)
         {
+            Debug.Log("OnBeginDrag");
             onBeginDragLeft?.Invoke(this, parentPage);
         }
 

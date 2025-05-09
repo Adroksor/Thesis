@@ -8,7 +8,6 @@ public class GameBootstrap : MonoBehaviour
     public static GameBootstrap Instance { get; private set; }
 
     public LaunchMode   mode       = LaunchMode.None; // set by MainMenu
-    public SaveSystem.SaveData    pendingSave;                  // filled for LoadGame
 
     void Awake()
     {
@@ -31,11 +30,10 @@ public class GameBootstrap : MonoBehaviour
         {
             case LaunchMode.NewGame:
                 WorldGenerator.instance.SetSeed(Random.Range(100000, 999999));
-                WorldGenerator.instance.GenerateInitialChunks();
                 break;
 
             case LaunchMode.LoadGame:
-                WorldGenerator.instance.GenerateInitialChunks();
+                WorldGenerator.instance.SetSeed(SaveSystem.GetSeed());
                 SaveSystem.Load(); // builds pristine world
                 break;
         }

@@ -24,6 +24,11 @@ public class SaveSystem
         return saveFile;
     }
 
+    public static int GetSeed()
+    {
+        return _saveData.worldSeed;
+    }
+
     public static void Save()
     {
         Debug.Log("Save called");
@@ -129,7 +134,8 @@ public class SaveSystem
         
         // World
         WorldGenerator wg = WorldGenerator.instance;
-        wg.seed = _saveData.worldSeed;
+        Debug.Log(_saveData.worldSeed);
+        wg.SetSeed(_saveData.worldSeed);
         
         if (_saveData.modifiedChunks != null && _saveData.modifiedChunks.Count > 0)
         {

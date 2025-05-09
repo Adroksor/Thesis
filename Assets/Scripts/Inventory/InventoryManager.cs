@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -47,16 +48,6 @@ public class InventoryManager : MonoBehaviour
         instance = this;
     }
     
-    private void Start()
-    {
-        //InitializePlayerInventory();
-    }
-    
-    public void InitializePlayerInventory()
-    {
-        SubscribeSlotsToEvents(playerInventoryUI.slots);
-        SubscribeSlotsToEvents(hotbarInventoryUI.slots);
-    }
 
     public void SubscribeSlotsToEvents(List<InventorySlotUI> inventory)
     {
@@ -68,7 +59,6 @@ public class InventoryManager : MonoBehaviour
             slot.onDropLeft += OnDropLeft;
             slot.onDropRight += OnDropRight;
             slot.onClick += OnClick;
-
         }
     }
 
@@ -83,7 +73,6 @@ public class InventoryManager : MonoBehaviour
             slot.onDropLeft -= OnDropLeft;
             slot.onDropRight -= OnDropRight;
             slot.onClick -= OnClick;
-            
         }
     }
     
