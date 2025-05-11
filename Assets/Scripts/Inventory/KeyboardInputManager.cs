@@ -4,7 +4,6 @@ using UnityEngine.SceneManagement;
 
 public class KeyboardInputManager : MonoBehaviour
 {
-    public ExitMenu exitMenu;
     void Update()
     {
         // Reload current scene
@@ -61,7 +60,17 @@ public class KeyboardInputManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            exitMenu.gameObject.SetActive(true);
+            GameManager.instance.exitMenu.gameObject.SetActive(!GameManager.instance.exitMenu.gameObject.activeSelf);
+        }
+
+        if (Input.GetKeyDown(KeyCode.KeypadPlus))
+        {
+            GameManager.instance.ppc.assetsPPU += 1;
+        }
+        
+        if (Input.GetKeyDown(KeyCode.KeypadMinus))
+        {
+            GameManager.instance.ppc.assetsPPU -= 1;
         }
     }
     

@@ -2,7 +2,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Cinemachine;
+using TMPro;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
@@ -27,6 +30,11 @@ public class GameManager : MonoBehaviour
     public GameObject[] buildingPrefabs;
     public GameObject[] entityPrefabs;
 
+    public GameObject exitMenu;
+    public CinemachineVirtualCamera cineCamera;
+    public PixelPerfectCamera ppc;
+
+    [Header("DebugText")] public TextMeshProUGUI cameraZoomText;
 
     private void Awake()
     {
@@ -38,7 +46,12 @@ public class GameManager : MonoBehaviour
         instance = this;
     }
 
-    
+    private void Update()
+    {
+        cameraZoomText.text = ppc.assetsPPU.ToString();
+    }
+
+
     public GameObject GetObjectByName(string name)
     {
         return buildingPrefabs.FirstOrDefault(prefab => prefab.name == name);

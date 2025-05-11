@@ -8,7 +8,6 @@ public class MainMenu : MonoBehaviour
     [SerializeField] string newGameScene = "Game";   // gameplay scene name
 
     [SerializeField] Button newBtn, loadBtn, quitBtn;
-    [SerializeField] string gameScene = "Game";
 
     void Awake()
     {
