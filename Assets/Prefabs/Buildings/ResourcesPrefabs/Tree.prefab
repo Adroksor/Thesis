@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 3248622264245208991}
   - component: {fileID: 6862423859285500483}
   - component: {fileID: 5683614186876713548}
-  - component: {fileID: 2957787076373834987}
   - component: {fileID: 1525543995632619781}
   - component: {fileID: 4428372465334732716}
   - component: {fileID: 5708756361993758948}
@@ -117,19 +116,6 @@ MonoBehaviour:
   internalInventory:
     inventorySize: 0
   stats: {fileID: 4428372465334732716}
---- !u!114 &2957787076373834987
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6838876024778313406}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5255316246fd5a1468e23e79a5b92e6e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  building: {fileID: 5683614186876713548}
 --- !u!61 &1525543995632619781
 BoxCollider2D:
   m_ObjectHideFlags: 0

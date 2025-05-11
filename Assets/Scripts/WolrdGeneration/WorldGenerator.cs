@@ -231,7 +231,7 @@ public class WorldGenerator : MonoBehaviour
                 float altitude = CalculateMultiOctaveNoise(new Vector2(worldX, worldY), biome, noiseOffset);
                 float dist = Vector2.Distance(new Vector2(worldX, worldY),
                     Vector2.zero);
-                if (dist < safeRadius)
+                if (dist < safeRadius && biome.name == "Ocean")
                 {
                     // 0 → 1 fall‑off curve (1 at centre, 0 at edge)
                     float t = 1f - (dist / safeRadius);

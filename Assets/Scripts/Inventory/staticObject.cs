@@ -9,6 +9,11 @@ public class StaticObject : MonoBehaviour
     private void Start()
     {
         building = gameObject.GetComponent<Building>();
+        
+        if (!building.isGhost)
+        {
+            GameManager.instance.objects.Add(gameObject);
+        }
     }
     
     
@@ -21,6 +26,7 @@ public class StaticObject : MonoBehaviour
     public void Load(StaticObjectData data)
     {
         transform.position = data.position;
+        building.isGhost = false;
     }
 
     private void OnDestroy()

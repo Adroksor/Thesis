@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 2248738307588850206}
   - component: {fileID: 5966244423382874335}
   - component: {fileID: 737442694971478301}
-  - component: {fileID: 2225220641138436511}
   - component: {fileID: 2410678757416599651}
+  - component: {fileID: -3128430496934687876}
   m_Layer: 0
   m_Name: Workbench
   m_TagString: Untagged
@@ -113,6 +113,7 @@ MonoBehaviour:
     amount: 1
   itemPrefab: {fileID: 0}
   isGhost: 0
+  gridPosition: {x: 0, y: 0}
   internalInventory:
     inventorySize: 0
   stats: {fileID: 0}
@@ -175,19 +176,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   building: {fileID: 2248738307588850206}
---- !u!114 &2225220641138436511
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4888030565546613888}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5255316246fd5a1468e23e79a5b92e6e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  building: {fileID: 0}
 --- !u!114 &2410678757416599651
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -202,6 +190,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 100
   maxHealth: 100
+--- !u!114 &-3128430496934687876
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4888030565546613888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5255316246fd5a1468e23e79a5b92e6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  building: {fileID: 2248738307588850206}
 --- !u!1001 &566262542189885537
 PrefabInstance:
   m_ObjectHideFlags: 0
