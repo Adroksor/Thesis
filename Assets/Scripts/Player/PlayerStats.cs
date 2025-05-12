@@ -72,7 +72,7 @@ public class PlayerStats : MonoBehaviour
 
     public bool RestoreHunger(int amount)
     {
-        if (hunger == maxHunger)
+        if (hunger == maxHunger && amount > 0)
             return false;
         
         hunger += amount;
