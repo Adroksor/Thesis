@@ -39,7 +39,6 @@ public class WorldGenerator : MonoBehaviour
 
     void Awake()
     {
-        Debug.Log(Application.persistentDataPath);
         if (instance == null)
         {
             instance = this;
@@ -49,14 +48,13 @@ public class WorldGenerator : MonoBehaviour
             Debug.LogError("Multiple WorldGenerator instances found!");
             Destroy(gameObject);
         }
+        Debug.Log(Application.persistentDataPath);
+
     }
     void Start()
     {
+        Debug.Log("2?");
         player = GameObject.FindGameObjectWithTag("Player").transform; // Find the player object
-        if (launchMode == LaunchMode.LoadGame)
-        {
-            SetSeed(SaveSystem.GetSeed());
-        }
     }
 
     void Update()
@@ -78,7 +76,7 @@ public class WorldGenerator : MonoBehaviour
     public void GenerateInitialChunks()
     {
         chunks.Clear();
-        UpdateChunks();       // your existing Start() call
+        UpdateChunks();
     }
 
 
@@ -161,8 +159,6 @@ public class WorldGenerator : MonoBehaviour
             {
                 TileBase tile = chunk.tiles[x, y];
 
-                if (tile == null || tile == waterTile)
-                    continue;
 
                 int worldX = chunkPosition.x * chunkSize + x;
                 int worldY = chunkPosition.y * chunkSize + y;
@@ -170,6 +166,10 @@ public class WorldGenerator : MonoBehaviour
                 string biomeName = DetermineBiome(worldX, worldY);
                 BiomeData biome = biomeList.Find(b => b.biomeName == biomeName);
                 if (biome == null)
+                    continue;
+                
+                
+                if (tile == null || tile == biome.waterTile)
                     continue;
 
                 GameObject resourcePrefab = resourceSpawner.GetDeterministicResource(
@@ -180,25 +180,18 @@ public class WorldGenerator : MonoBehaviour
                 if (resourcePrefab == null)
                     continue;
 
-                try
+                Building building = resourcePrefab.GetComponent<Building>();
+                if (building != null)
                 {
-                    Building building = resourcePrefab.GetComponent<Building>();
-                    if (building != null)
+                    if (BuildingGrid.instance.CanPlace(new Vector2Int(worldX, worldY), building))
                     {
-                        if (BuildingGrid.instance.CanPlace(new Vector2Int(worldX, worldY), building))
-                        {
-                            GameObject resource = Instantiate(resourcePrefab, new Vector3(worldX, worldY, 0), Quaternion.identity);
-                            resource.name = resourcePrefab.name;
-                            Building resBuilding = resource.GetComponent<Building>();
-                            resBuilding.Place(new Vector2Int(worldX, worldY));
-                            resource.transform.parent = chunk.chunkOBJ.transform;
-                            GameManager.instance.resources.Add(resource);
-                        }
+                        GameObject resource = Instantiate(resourcePrefab, new Vector3(worldX, worldY, 0), Quaternion.identity);
+                        resource.name = resourcePrefab.name;
+                        Building resBuilding = resource.GetComponent<Building>();
+                        resBuilding.Place(new Vector2Int(worldX, worldY));
+                        resource.transform.parent = chunk.chunkOBJ.transform;
+                        GameManager.instance.resources.Add(resource);
                     }
-                }
-                catch (System.Exception)
-                {
-                    // Silently skip any errors during placement
                 }
             }
         }
@@ -441,7 +434,7 @@ public class WorldGenerator : MonoBehaviour
 
     TileBase GetTileForBiome(float altitude, BiomeData biomeData, int x, int y, int seed)
     {
-        if (altitude < biomeData.waterLevel) return waterTile;
+        if (altitude < biomeData.waterLevel) return biomeData.waterTile;
 
         int idx = Hash(x, y, seed) % biomeData.biomeTiles.Count;
         return biomeData.biomeTiles[idx];
@@ -471,12 +464,12 @@ public class WorldGenerator : MonoBehaviour
 
                     // Set the tile in the tilemap
                     Vector3Int tilePosition = new Vector3Int(worldX, worldY, 0);
-                    if (chunk.tiles[x, y].name == "WaterTile")
+                    if (chunk.tiles[x, y].name == "WaterTileOcean" || chunk.tiles[x, y].name == "WaterTileSwamp")
                         waterLevel.SetTile(tilePosition, chunk.tiles[x, y]);
                     else
                         groundLevel.SetTile(tilePosition, chunk.tiles[x, y]);
                 }
-            }        
+            }
             chunk.tilesSpawned = true;
         }
     }
@@ -531,29 +524,32 @@ public class WorldGenerator : MonoBehaviour
     
     public void ApplyChangesToChunk(Chunk chunk)
     {
-        if (chunk == null || chunk.changes == null || chunk.changes.Count == 0)
-            return;                               // nothing to do
+        if (chunk == null || chunk.changes == null || chunk.changes.Count == 0 || chunk.occupiedTiles == null)
+            return;
 
         foreach (var change in chunk.changes)
         {
             switch (change.type)
             {
                 case ChangeType.Removed:
-                    RemoveResourceAt(chunk, change.tile);
+                    RemoveResourceAt(change.tile);
                     break;
             }
         }
     }
     
-    void RemoveResourceAt(Chunk chunk, Vector2Int worldTile)
+    void RemoveResourceAt(Vector2Int worldTile)
     {
-        foreach (Transform child in chunk.chunkOBJ.transform)
+        GameObject resource = BuildingGrid.instance.GetObjectAtPosition(worldTile);
+
+        if (resource == null) return;
+        Debug.Log(resource.gameObject.transform.position);
+
+        if (resource.TryGetComponent(out Building b) && b.gridPosition == worldTile)
         {
-            if (child.TryGetComponent(out Building b) && b.gridPosition == worldTile)
-            {
-                Destroy(child.gameObject);
-                return;
-            }
+            BuildingGrid.instance.FreeArea(worldTile, b.size);
+            Debug.Log(resource.gameObject.transform.localPosition);
+            Destroy(resource);
         }
     }
 

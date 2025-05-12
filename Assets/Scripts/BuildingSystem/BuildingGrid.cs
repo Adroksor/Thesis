@@ -148,11 +148,13 @@ public class BuildingGrid : MonoBehaviour
         return null;
     }
 
-
     public GameObject GetObjectAtPosition(Vector2Int worldPosition)
     {
         Vector2Int chunkPosition = WorldToChunkPosition(worldPosition);
         Chunk chunk = WorldGenerator.instance.TryGetChunk(chunkPosition);
+        Vector2Int localPos = new Vector2Int(
+            worldPosition.x - chunk.position.x * chunkSize,
+            worldPosition.y - chunk.position.y * chunkSize);
         if (chunk.occupiedTiles.TryGetValue(worldPosition, out GameObject obj))
             return obj;
         return null;

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <recipeName>k__BackingField: Gold pickaxe
   <Output>k__BackingField:
-    item: {fileID: 11400000, guid: 70d2adc6b851f694fbe9debcf5e448e3, type: 2}
+    item: {fileID: 11400000, guid: 6d6f3d2979a45b941829768e3d61cfa1, type: 2}
     amount: 1
   <Input>k__BackingField:
   - item: {fileID: 11400000, guid: 0033807537a6fb84b94061d9e2a8ec80, type: 2}

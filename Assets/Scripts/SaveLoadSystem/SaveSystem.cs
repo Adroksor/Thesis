@@ -135,6 +135,7 @@ public class SaveSystem
         // World
         WorldGenerator wg = WorldGenerator.instance;
         wg.SetSeed(_saveData.worldSeed);
+        wg.GenerateInitialChunks();
         
         if (_saveData.modifiedChunks != null && _saveData.modifiedChunks.Count > 0)
         {
@@ -143,15 +144,19 @@ public class SaveSystem
                 Chunk chunk = wg.TryGetChunk(cs.coord);
                 if (chunk == null)
                 {
+                    Debug.LogWarning("Could not find chunk " + cs.coord);
                     chunk = wg.GenerateChunk(cs.coord);
-                    wg.LoadChunk(chunk);
-                    wg.SpawnResourcesForChunk(chunk);
+                    WorldGenerator.instance.chunks[cs.coord] = chunk;
                 }
+                wg.SpawnResourcesForChunk(chunk);
+                chunk.resourcesSpawned = true;
+
+                wg.LoadChunk(chunk);
                 chunk.changes.Clear();
                 chunk.changes.AddRange(cs.changes);
                 wg.ApplyChangesToChunk(chunk);
-                
                 wg.UnloadChunk(chunk);
+
             }
         }
         
