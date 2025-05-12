@@ -149,7 +149,6 @@ public class SaveSystem
                     WorldGenerator.instance.chunks[cs.coord] = chunk;
                 }
                 wg.SpawnResourcesForChunk(chunk);
-                chunk.resourcesSpawned = true;
 
                 wg.LoadChunk(chunk);
                 chunk.changes.Clear();

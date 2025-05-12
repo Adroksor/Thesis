@@ -53,7 +53,6 @@ public class WorldGenerator : MonoBehaviour
     }
     void Start()
     {
-        Debug.Log("2?");
         player = GameObject.FindGameObjectWithTag("Player").transform; // Find the player object
     }
 
@@ -112,7 +111,6 @@ public class WorldGenerator : MonoBehaviour
                 if (chunks.TryGetValue(chunkPosition, out var chunk) && !chunk.resourcesSpawned)
                 {
                     SpawnResourcesForChunk(chunk);
-                    chunk.resourcesSpawned = true;
                 }
             }
         }
@@ -195,6 +193,8 @@ public class WorldGenerator : MonoBehaviour
                 }
             }
         }
+        chunk.resourcesSpawned = true;
+
     }
 
 
@@ -543,12 +543,10 @@ public class WorldGenerator : MonoBehaviour
         GameObject resource = BuildingGrid.instance.GetObjectAtPosition(worldTile);
 
         if (resource == null) return;
-        Debug.Log(resource.gameObject.transform.position);
 
         if (resource.TryGetComponent(out Building b) && b.gridPosition == worldTile)
         {
             BuildingGrid.instance.FreeArea(worldTile, b.size);
-            Debug.Log(resource.gameObject.transform.localPosition);
             Destroy(resource);
         }
     }
