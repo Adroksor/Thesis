@@ -31,3 +31,4 @@ MonoBehaviour:
     weight: 10
   biomeTiles:
   - {fileID: 11400000, guid: 1d04363c6ee1f474183dab2eeb712aec, type: 2}
+  waterTile: {fileID: 11400000, guid: ad2c894b893ee264398e658f1c3b678f, type: 2}

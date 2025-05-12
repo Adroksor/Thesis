@@ -27,7 +27,7 @@ public class Furnace : MonoBehaviour
         furnaceInventory = new FurnaceInventory(5, 3);
         building.internalInventory = null;
         building.gettingRemoved += RemovingFurnace;
-
+        
         if (!building.isGhost)
         {
             GameManager.instance.furnaces.Add(gameObject);

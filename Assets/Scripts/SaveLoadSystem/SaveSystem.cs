@@ -125,7 +125,7 @@ public class SaveSystem
         GameManager.instance.chests.Clear();
         GameManager.instance.furnaces.Clear();
         GameManager.instance.objects.Clear();
-
+        GameManager.instance.resources.Clear();
         
         
         // Player

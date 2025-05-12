@@ -33,11 +33,4 @@ public class StaticObject : MonoBehaviour
     {
         GameManager.instance.objects.Remove(gameObject);
     }
-
-    public void Remove()
-    {
-        Vector2Int position = new Vector2Int((int)transform.position.x, (int)transform.position.y);
-        BuildingGrid.instance.FreeArea(position, building.size);
-        Destroy(gameObject);
-    }
 }

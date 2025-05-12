@@ -24,4 +24,8 @@ MonoBehaviour:
     rarity: 2
     weight: 10
   biomeTiles:
-  - {fileID: 11400000, guid: 896ed7b983861ef47b6ae81888f020a8, type: 2}
+  - {fileID: 11400000, guid: 5824780a04dcfea4fbe2a203fb6566f8, type: 2}
+  - {fileID: 11400000, guid: c80a393625fa1b344896805abf640d8e, type: 2}
+  - {fileID: 11400000, guid: 8e429ca376765854e981613faaf93ac4, type: 2}
+  - {fileID: 11400000, guid: 42e7b35550875fb40bbbd347e467e12e, type: 2}
+  waterTile: {fileID: 11400000, guid: ad2c894b893ee264398e658f1c3b678f, type: 2}

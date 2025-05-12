@@ -19,7 +19,6 @@ public class Chest : MonoBehaviour
     private void Awake()
     {
         inventoryData = new InventoryData(chestSize);
-        //PopulateChestWithRandomItems(chestSize / 2);
 
         SetChestUI();
         

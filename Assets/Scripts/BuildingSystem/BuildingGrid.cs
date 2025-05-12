@@ -75,7 +75,6 @@ public class BuildingGrid : MonoBehaviour
     {
         Vector2Int chunkPosition = WorldToChunkPosition(worldPosition);
         Chunk chunk = WorldGenerator.instance.TryGetChunk(chunkPosition);
-
         return chunk.occupiedTiles.ContainsKey(worldPosition);
     }
 
@@ -121,7 +120,7 @@ public class BuildingGrid : MonoBehaviour
             {
                 Vector2Int chunkPosition = WorldToChunkPosition(new Vector2Int(x, y));
                 Chunk chunk = WorldGenerator.instance.TryGetChunk(chunkPosition);
-                
+
                 chunk.occupiedTiles.Remove(new Vector2Int(x, y)); // Free the tile
             }
         }

@@ -23,5 +23,5 @@ public class BiomeData : ScriptableObject
     public float resourceSpawnRate;
     public List<BiomeResource> resources; // List of resources for this biome
     public List<TileBase> biomeTiles;
-    
+    public TileBase waterTile;
 }
