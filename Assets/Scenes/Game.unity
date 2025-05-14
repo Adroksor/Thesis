@@ -2726,7 +2726,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6dbddb5ae1e0a1448a67ecadc8921867, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
+  health: 50
   maxHealth: 100
   stamina: 0
   maxStamina: 0
@@ -3782,6 +3782,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 45dede1ea6c227d4a8715a72f4898fcf, type: 2}
   workbenchRecipes:
   - {fileID: 11400000, guid: e89f8142a4bd1104ab6b56f71b66fddd, type: 2}
+  - {fileID: 11400000, guid: d2e12e7e85523814cb750f087125a62f, type: 2}
+  - {fileID: 11400000, guid: e94d9ec0c1b5489499cf178d7fe248b0, type: 2}
   - {fileID: 11400000, guid: 8785c960597a02643978bf1d1e970159, type: 2}
   - {fileID: 11400000, guid: c26366c89c199904c8da564891a0122d, type: 2}
   - {fileID: 11400000, guid: bf2b2e249ead63a4faa6322901b65b4e, type: 2}
@@ -3792,6 +3794,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 59477c684c65388448872ef0f22f492e, type: 2}
   - {fileID: 11400000, guid: c69ca23b23159c346aceb72bde1e914d, type: 2}
   - {fileID: 11400000, guid: efd776614ae57914888e7669efa1e26b, type: 2}
+  - {fileID: 11400000, guid: 0f9ffe0f12b33d44e893771dd6a2ac66, type: 2}
+  - {fileID: 11400000, guid: e3798d2f87a19b542ab3ed1f233cdb7d, type: 2}
   playerInventoryScript: {fileID: 1274033428}
   initialSlot: {fileID: 0}
   draggedItem: {fileID: 0}

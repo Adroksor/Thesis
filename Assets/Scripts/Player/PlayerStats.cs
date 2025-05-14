@@ -57,10 +57,22 @@ public class PlayerStats : MonoBehaviour
     }
     
 
-    public void Heal(int amount)
+    public bool Heal(int amount)
     {
+        if (amount > 0 && health == maxHealth)
+            return false;
+
+        if (amount < 0 && health == 0)
+            return false;
+
         health += amount;
+
         if (health > maxHealth) health = maxHealth;
+        if (health < 0)         health = 0;
+
+        UpdateHealthBar();
+
+        return true;
     }
 
     public void TakeDamage(int amount)

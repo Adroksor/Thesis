@@ -4,8 +4,10 @@ using UnityEngine;
 public class FoodItem : ItemData
 {
     [Header("Food variables")]
-    public int   hungerAmount = 5;
+    public int hungerAmount = 0;
 
+    public int healthAmount = 0;
+    
     public float eatCooldown  = 1.0f;
 
     [System.NonSerialized]
@@ -21,7 +23,15 @@ public class FoodItem : ItemData
         if (Time.time < _nextEatTime)
             return false;
 
-        if (!user.stats.RestoreHunger(hungerAmount))
+        bool changed = false;
+
+        if (hungerAmount > 0)
+            changed |= user.stats.RestoreHunger(hungerAmount);
+
+        if (healthAmount > 0)
+            changed |= user.stats.Heal(healthAmount); 
+
+        if (!changed)
             return false;
 
         _nextEatTime = Time.time + eatCooldown;

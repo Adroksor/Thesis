@@ -10,14 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b3c46697d40164b4b88f43bf492afc26, type: 3}
-  m_Name: WoodPickaxeRecipe
+  m_Name: StickRecipe
   m_EditorClassIdentifier: 
-  <recipeName>k__BackingField: Iron pickaxe
+  <recipeName>k__BackingField: Stick
   <Output>k__BackingField:
-    item: {fileID: 11400000, guid: 890566bc141379448bb82003a754371e, type: 2}
-    amount: 1
+    item: {fileID: 11400000, guid: 5d99aa360a52394469f01818b1f48586, type: 2}
+    amount: 2
   <Input>k__BackingField:
-  - item: {fileID: 11400000, guid: 5d99aa360a52394469f01818b1f48586, type: 2}
-    amount: 1
   - item: {fileID: 11400000, guid: 0aa891e2378988640a8c88c7dc6182a1, type: 2}
-    amount: 3
+    amount: 1
