@@ -18,7 +18,6 @@ MonoBehaviour:
   persistence: 0.5
   lacunarity: 2
   waterLevel: 0.15
-  resourceSpawnRate: 0.02
   resources:
   - prefab: {fileID: 2922914110254860002, guid: 6cfc66fc1405f2244a952c242f8e4749, type: 3}
     rarity: 2

@@ -174,9 +174,17 @@ public class WorldGenerator : MonoBehaviour
                     biome.resources,
                     worldX, worldY, seed,
                     resourceSpawner.spawnRate[2],   // epicChance
-                    resourceSpawner.spawnRate[1]);  // rareChance
+                    resourceSpawner.spawnRate[1],   // epicChance
+                    resourceSpawner.spawnRate[0]);  // rareChance
                 if (resourcePrefab == null)
                     continue;
+
+                if (resourcePrefab.name == "Reeds")
+                    if(!resourceSpawner.IsTileNearWater(new Vector2(worldX, worldY), 2))
+                    {
+                        Debug.Log($"failed to place {resourcePrefab.name} at location{worldX}, {worldY}");
+                        continue;
+                    }
 
                 Building building = resourcePrefab.GetComponent<Building>();
                 if (building != null)

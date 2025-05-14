@@ -1,90 +1,58 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class ResourceSpawner : MonoBehaviour
 {
 
     [Range(0, 1)]
     public List<float> spawnRate;
-
-    // Get a random resource based on weight
-    public GameObject GetRandomResource(List<BiomeResource> resources)
-    {
-        if (resources == null || resources.Count == 0)
-        {
-            return null;
-        }
-
-        // Separate resources by rarity
-        var common = new List<BiomeResource>();
-        var rare = new List<BiomeResource>();
-        var epic = new List<BiomeResource>();
-
-        foreach (var res in resources)
-        {
-            switch (res.rarity)
-            {
-                case ResourceRarity.Common:
-                    common.Add(res);
-                    break;
-                case ResourceRarity.Rare:
-                    rare.Add(res);
-                    break;
-                case ResourceRarity.Epic:
-                    epic.Add(res);
-                    break;
-            }
-        }
-
-        // Set probabilities for each tier (adjust as needed)
-        //float commonChance = spawnRate[0];
-        float rareChance = spawnRate[1];
-        float epicChance = spawnRate[2];
-
-        float roll = Random.value;
-
-        List<BiomeResource> chosenList;
-        if (roll < epicChance && epic.Count > 0) chosenList = epic;
-        else if (roll < epicChance + rareChance && rare.Count > 0) chosenList = rare;
-        else chosenList = common;
-
-        return GetRandomResourceFromList(chosenList);
-    }
+    
     
     public GameObject GetDeterministicResource(
         List<BiomeResource> resources,
         int worldX, int worldY, int seed,
-        float epicChance, float rareChance)
+        float epicChance, float rareChance, float commonChance)  // <-- dodany parametr
     {
         if (resources == null || resources.Count == 0)
             return null;
 
-        // Split by rarity once (could cache per-biome)
         var common = new List<BiomeResource>();
         var rare   = new List<BiomeResource>();
         var epic   = new List<BiomeResource>();
+
         foreach (var r in resources)
             (r.rarity switch
-            { ResourceRarity.Epic   => epic,
-                ResourceRarity.Rare   => rare,
-                _                     => common }).Add(r);
+            { ResourceRarity.Epic => epic,
+                ResourceRarity.Rare => rare,
+                _                   => common }).Add(r);
 
-        float roll = Hash01(worldX, worldY, seed);
+        float roll = Hash01(worldX, worldY, seed);  // 0-1
 
-        List<BiomeResource> chosen;
-        if (roll < epicChance && epic.Count > 0)           chosen = epic;
-        else if (roll < epicChance + rareChance && rare.Count > 0) chosen = rare;
-        else                                                 chosen = common;
+        if (roll < epicChance && epic.Count > 0)
+            return WeightedPick(epic, worldX, worldY, seed);
 
-        if (chosen.Count == 0)
-            return null;
-        
-        // weighted pick, but deterministic
+        roll -= epicChance;
+        if (roll < rareChance && rare.Count > 0)
+            return WeightedPick(rare, worldX, worldY, seed ^ 1337);
+
+        roll -= rareChance;
+        if (roll < commonChance && common.Count > 0)
+            return WeightedPick(common, worldX, worldY, seed ^ 4242);
+
+        return null;
+    }
+
+    
+    GameObject WeightedPick(List<BiomeResource> list, int x, int y, int seed)
+    {
         int total = 0;
-        foreach (var r in chosen) total += r.weight;
-        int pick = Hash(worldX ^ 17, worldY ^ 31, seed) % total;   // second hash
+        foreach (var r in list) total += r.weight;
 
-        foreach (var r in chosen)
+        if (total == 0) return null;
+
+        int pick = Hash(x ^ 17, y ^ 31, seed) % total;
+        foreach (var r in list)
         {
             if (pick < r.weight) return r.prefab;
             pick -= r.weight;
@@ -93,28 +61,31 @@ public class ResourceSpawner : MonoBehaviour
     }
 
 
-    private GameObject GetRandomResourceFromList(List<BiomeResource> list)
+    public bool IsTileNearWater(Vector2 position, int distance)
     {
-        if (list == null || list.Count == 0) return null;
+        Tilemap waterMap   = WorldGenerator.instance.waterLevel;
 
-        int totalWeight = 0;
-        foreach (var res in list)
+        int baseX = Mathf.FloorToInt(position.x);
+        int baseY = Mathf.FloorToInt(position.y);
+
+        for (int dx = -distance; dx <= distance; ++dx)
         {
-            totalWeight += res.weight;
-        }
-
-        int randomValue = Random.Range(0, totalWeight);
-
-        foreach (var res in list)
-        {
-            if (randomValue < res.weight)
+            for (int dy = -distance; dy <= distance; ++dy)
             {
-                return res.prefab;
+                if (dx == 0 && dy == 0) continue;
+
+                Vector3Int checkPos = new Vector3Int(baseX + dx, baseY + dy, 0);
+
+                TileBase tile = waterMap.GetTile(checkPos);
+                if (tile != null)
+                {
+                    return true;
+                }
             }
-            randomValue -= res.weight;
         }
 
-        return null;
+        // w promieniu ‹distance› nie znaleziono wody
+        return false;
     }
     
     // Helpers you can paste in ResourceSpawner (or a Utility class)
@@ -133,7 +104,7 @@ public class ResourceSpawner : MonoBehaviour
         Hash(x, y, seed) / 2147483647f;         // map to [0,1]
 }
 
-public enum ResourceRarity { Common, Rare, Epic }
+public enum ResourceRarity { Common, Uncommon, Rare, Epic }
 
 [System.Serializable]
 public class BiomeResource

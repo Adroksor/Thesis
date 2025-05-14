@@ -19,8 +19,6 @@ public class BiomeData : ScriptableObject
     public float waterLevel;
     
     [Header("Resources Settings")]
-    [Range(0f, 1f)]
-    public float resourceSpawnRate;
     public List<BiomeResource> resources; // List of resources for this biome
     public List<TileBase> biomeTiles;
     public TileBase waterTile;
