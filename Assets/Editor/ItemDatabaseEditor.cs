@@ -22,6 +22,7 @@ public class ItemDatabaseEditor : Editor
         if (GUILayout.Button($"Load Items"))
         {
             database.LoadItemsFromFolder(_itemFolderPath);
+            database.LoadRecipesFromFolder();
         }
 
         EditorGUILayout.Space(10);

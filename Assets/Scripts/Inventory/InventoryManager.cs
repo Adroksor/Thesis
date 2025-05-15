@@ -20,8 +20,6 @@ public class InventoryManager : MonoBehaviour
     public GameObject FurnaceUI;
     public GameObject WorkbenchUI;
     [Header("Buildings Recipes")]
-    public List<RecipeData> furnaceRecipes;
-    public List<RecipeData> workbenchRecipes;
 
 
     public PlayerInventory playerInventoryScript;

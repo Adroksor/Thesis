@@ -41,7 +41,7 @@ public class FurnaceUI : MonoBehaviour
             Destroy(child.gameObject);
         }
 
-        foreach (RecipeData recipe in InventoryManager.instance.furnaceRecipes)
+        foreach (RecipeData recipe in ItemDatabaseInstance.instance.furnaceRecipes)
         {
             List<ItemStack> items = new List<ItemStack>();
             
@@ -96,7 +96,7 @@ public class FurnaceUI : MonoBehaviour
         RecipeButton recipeButton = recipeUI.GetComponent<RecipeButton>();
         if (recipeButton == null || string.IsNullOrEmpty(recipeButton.recipeName)) continue;
 
-        RecipeData recipe = InventoryManager.instance.furnaceRecipes.Find(r => r.name == recipeButton.recipeName);
+        RecipeData recipe = ItemDatabaseInstance.instance.GetFurnaceRecipeByname(recipeButton.name);
         if (recipe == null) continue;
 
         // Update inputs
@@ -174,7 +174,7 @@ public class FurnaceUI : MonoBehaviour
     
     public void OnRecipeClicked(string recipeName)
     {
-        RecipeData recipe = InventoryManager.instance.furnaceRecipes.Find(r => r.name == recipeName);
+        RecipeData recipe = ItemDatabaseInstance.instance.GetFurnaceRecipeByname(recipeName);
         if (recipe != null)
         {
             Debug.Log("Clicked recipe: " + recipe.Output.item.Name);

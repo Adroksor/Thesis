@@ -23,7 +23,7 @@ public class WorkbenchUI : MonoBehaviour
             Destroy(child.gameObject);
         }
 
-        foreach (RecipeData recipe in InventoryManager.instance.workbenchRecipes)
+        foreach (RecipeData recipe in ItemDatabaseInstance.instance.workbenchRecipes)
         {
             List<ItemStack> items = new List<ItemStack>();
 
@@ -77,7 +77,7 @@ public class WorkbenchUI : MonoBehaviour
             RecipeButton recipeButton = recipeUI.GetComponent<RecipeButton>();
             if (recipeButton == null || string.IsNullOrEmpty(recipeButton.recipeName)) continue;
 
-            RecipeData recipe = InventoryManager.instance.workbenchRecipes.Find(r => r.name == recipeButton.recipeName);
+            RecipeData recipe = ItemDatabaseInstance.instance.GetWorkbenchByname(recipeButton.name);
             if (recipe == null) continue;
 
             // Update inputs
@@ -110,7 +110,7 @@ public class WorkbenchUI : MonoBehaviour
 
     public void OnRecipeClicked(string recipeName)
     {
-        RecipeData recipe = InventoryManager.instance.workbenchRecipes.Find(r => r.name == recipeName);
+        RecipeData recipe = ItemDatabaseInstance.instance.GetWorkbenchByname(recipeName);
         if (recipe != null)
         {
             foreach (ItemStack slot in recipe.Input)
