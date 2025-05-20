@@ -6,12 +6,11 @@ using UnityEngine.Tilemaps;
 [Serializable]
 public class Chunk
 {
-    public Vector2Int position; // Chunk position in chunk coordinates
-    public TileBase[,] tiles; // 2D array of tiles in the chunk
-    public Dictionary<Vector2Int, GameObject> occupiedTiles; // Dictionary to track occupied tiles in this chunk
+    public Vector2Int position;
+    public TileBase[,] tiles;
+    public Dictionary<Vector2Int, GameObject> occupiedTiles;
     public readonly List<ResourceChange> changes;
-    public bool isLoaded; // Whether the chunk is currently loaded
-    public bool isModified;
+    public bool isLoaded;
     public bool tilesSpawned;
     public bool resourcesSpawned = false;
     public GameObject chunkOBJ;
@@ -51,6 +50,4 @@ public class Chunk
     {
         changes.Add(new ResourceChange { tile = tile, type = ChangeType.Removed });
     }
-    
-    
 }

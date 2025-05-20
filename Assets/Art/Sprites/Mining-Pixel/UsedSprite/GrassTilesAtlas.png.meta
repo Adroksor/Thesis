@@ -100,7 +100,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: TestGrass4_0
+      name: GrassTiles_0
       rect:
         serializedVersion: 2
         x: 0
@@ -108,7 +108,7 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -121,7 +121,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TestGrass4_1
+      name: GrassTiles_1
       rect:
         serializedVersion: 2
         x: 32
@@ -129,7 +129,7 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -142,7 +142,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TestGrass4_2
+      name: GrassTiles_2
       rect:
         serializedVersion: 2
         x: 0
@@ -150,7 +150,7 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -163,7 +163,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TestGrass4_3
+      name: GrassTiles_3
       rect:
         serializedVersion: 2
         x: 32
@@ -171,7 +171,7 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -194,10 +194,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      TestGrass4_0: 5860154318107055129
-      TestGrass4_1: 1740250859
-      TestGrass4_2: -1657081311
-      TestGrass4_3: 1679759163
+      GrassTiles_0: 5860154318107055129
+      GrassTiles_1: 1740250859
+      GrassTiles_2: -1657081311
+      GrassTiles_3: 1679759163
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

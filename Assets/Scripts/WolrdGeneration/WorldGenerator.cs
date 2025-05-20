@@ -110,13 +110,13 @@ public class WorldGenerator : MonoBehaviour
                 Vector2Int chunkPosition = new Vector2Int(x, y);
                 if (chunks.TryGetValue(chunkPosition, out var chunk) && !chunk.resourcesSpawned)
                 {
-                    SpawnResourcesForChunk(chunk);
+                    if (spawnResources)
+                    {
+                        SpawnResourcesForChunk(chunk);
+                    }
                 }
             }
         }
-
-        
-        
         UnloadDistantChunks();
     }
     
@@ -507,6 +507,8 @@ public class WorldGenerator : MonoBehaviour
     
     public void ResetWorld()
     {
+        groundLevel.ClearAllTiles();
+        waterLevel.ClearAllTiles();
         // Clear all loaded chunks
         foreach (var chunk in chunks.Values)
         {
