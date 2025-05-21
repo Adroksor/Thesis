@@ -11,7 +11,7 @@ public class TopDownPlayerMovement : MonoBehaviour
     
     
     public Rigidbody2D rb; // Reference to the Rigidbody2D component
-    public WorldGenerator worldGenerator; // Reference to the WorldGenerator script
+    public WorldGeneratorThesis worldGenerator; // Reference to the WorldGenerator script
 
     private Vector2 movement; // Stores the player's movement input
 
@@ -26,7 +26,8 @@ public class TopDownPlayerMovement : MonoBehaviour
         bool isMoving = movement.sqrMagnitude > 0.01f;
         animator.SetBool("isMoving", isMoving);
 
-        GameManager.instance.playerPosition = transform.position;
+        if(GameManager.instance)
+            GameManager.instance.playerPosition = transform.position;
         
         if (Input.GetKeyDown(KeyCode.R))
         {
@@ -67,7 +68,7 @@ public class TopDownPlayerMovement : MonoBehaviour
         if (worldGenerator != null)
         {
             // Reset the world by clearing existing chunks and regenerating
-            WorldGenerator.instance.seed = Random.Range(100000, 999999);
+            WorldGeneratorThesis.instance.seed = Random.Range(100000, 999999);
             
             worldGenerator.ResetWorld();
             Debug.Log("World has been reset!");

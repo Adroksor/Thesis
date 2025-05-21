@@ -160,6 +160,7 @@ GameObject:
   m_Component:
   - component: {fileID: 440689624}
   - component: {fileID: 440689625}
+  - component: {fileID: 440689626}
   m_Layer: 0
   m_Name: WorldGeneration
   m_TagString: Untagged
@@ -189,7 +190,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 440689623}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4001dacede3766f47a93e2ef56d5f2ba, type: 3}
   m_Name: 
@@ -209,7 +210,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 285bc6810fbdc034dac110c8b3441983, type: 2}
   resourceSpawner: {fileID: 0}
   scale: 200
-  octaves: 4
+  octaves: 5
   persistence: 0.5
   lacunarity: 2
   noiseOffset: {x: 0, y: 0}
@@ -219,6 +220,45 @@ MonoBehaviour:
   playerChunkPosition: {x: 0, y: 0}
   spawnResources: 0
   launchMode: 0
+--- !u!114 &440689626
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 440689623}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 447dd7fdb74544b4d8f6a074ebe453fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  seed: 546345
+  chunkSize: 16
+  chunkList: {fileID: 282892532}
+  renderDistance: 6
+  groundLevel: {fileID: 1594873947}
+  waterLevel: {fileID: 1310711038}
+  biomeList:
+  - {fileID: 11400000, guid: 52d4b0ae341ced04b97b58d72b56e0ad, type: 2}
+  - {fileID: 11400000, guid: 313bc74ea228ac34086cfd4bb227d5d3, type: 2}
+  - {fileID: 11400000, guid: 285bc6810fbdc034dac110c8b3441983, type: 2}
+  - {fileID: 11400000, guid: 2e6cf1352e7455b41a26dbe60711a08a, type: 2}
+  - {fileID: 11400000, guid: 3b67d31ebb50656409e84a200005b8d5, type: 2}
+  resourceSpawner: {fileID: 0}
+  scale: 100
+  octaves: 5
+  persistence: 0.5
+  lacunarity: 2
+  noiseOffset: {x: 51251, y: 425256}
+  safeRadius: 64
+  maxUplift: 1
+  LoadedChunks: []
+  playerChunkPosition: {x: 0, y: 0}
+  spawnResources: 0
+  launchMode: 0
+  grassTile: {fileID: 11400000, guid: 7ed86d780f0d0634c82c430c432ddfe7, type: 2}
+  waterTile: {fileID: 11400000, guid: ad2c894b893ee264398e658f1c3b678f, type: 2}
+  waterAltitude: 0.4
 --- !u!1 &811383912
 GameObject:
   m_ObjectHideFlags: 0
@@ -1160,7 +1200,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1773736600}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6193c6b5dd9059148a78b41e1eea691d, type: 3}
   m_Name: 
@@ -1173,7 +1213,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1773736600}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4f10913fe842b1349ae7da3d00acea75, type: 3}
   m_Name: 
@@ -1186,7 +1226,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1773736600}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6dbddb5ae1e0a1448a67ecadc8921867, type: 3}
   m_Name: 
@@ -1212,7 +1252,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1773736600}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 16b9b82e75b27044cb6698065a3e03d7, type: 3}
   m_Name: 
@@ -1231,7 +1271,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1773736600}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a75c98c100ecaa64f80e0834c42ffdcc, type: 3}
   m_Name: 
@@ -1317,7 +1357,7 @@ MonoBehaviour:
   sprintSpeed: 20
   animator: {fileID: 1490317216}
   rb: {fileID: 1773736607}
-  worldGenerator: {fileID: 440689625}
+  worldGenerator: {fileID: 440689626}
 --- !u!4 &1773736609
 Transform:
   m_ObjectHideFlags: 0

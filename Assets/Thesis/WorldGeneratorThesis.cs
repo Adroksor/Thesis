@@ -1,9 +1,10 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using System.Collections.Generic;
-using UnityEngine.Serialization;
+using UnityEditor;
 
-public class WorldGenerator : MonoBehaviour
+
+public class WorldGeneratorThesis : MonoBehaviour
 {
     public int seed;
     public int chunkSize = 16; // Size of each chunk (e.g., 16x16 tiles)
@@ -11,7 +12,6 @@ public class WorldGenerator : MonoBehaviour
     public int renderDistance = 3; // Number of chunks to load around the player
     public Tilemap groundLevel;
     public Tilemap waterLevel;
-    public TileBase waterTile; // Tile for water
 
     public List<BiomeData> biomeList;
     public ResourceSpawner resourceSpawner;
@@ -35,8 +35,14 @@ public class WorldGenerator : MonoBehaviour
     public bool spawnResources = false;
     
     public LaunchMode launchMode;
-    public static WorldGenerator instance { get; private set; }
+    public static WorldGeneratorThesis instance { get; private set; }
 
+
+    public TileBase grassTile;
+    public TileBase waterTile;
+    public float waterAltitude;
+    
+    
     void Awake()
     {
         if (instance == null)
@@ -54,6 +60,7 @@ public class WorldGenerator : MonoBehaviour
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform; // Find the player object
+        GenerateInitialChunks();
     }
 
     void Update()
@@ -99,28 +106,11 @@ public class WorldGenerator : MonoBehaviour
                 }
             }
         }
-        for (int x = playerChunkPosition.x - (renderDistance - 1); x <= playerChunkPosition.x + (renderDistance - 1); x++)
-        {
-            for (int y = playerChunkPosition.y - (renderDistance - 1); y <= playerChunkPosition.y + (renderDistance - 1); y++)
-            {
-                Vector2Int chunkPosition = new Vector2Int(x, y);
-                if (chunks.TryGetValue(chunkPosition, out var chunk) && !chunk.resourcesSpawned)
-                {
-                    if (spawnResources)
-                    {
-                        SpawnResourcesForChunk(chunk);
-                    }
-                }
-            }
-        }
         UnloadDistantChunks();
     }
     
     void UnloadDistantChunks()
     {
-        List<Vector2Int> chunksToUnload = new List<Vector2Int>();
-
-        // Find chunks that are outside the render distance and add them to the unload list
         foreach (var chunk in chunks)
         {
             if(!chunk.Value.isLoaded)
@@ -128,7 +118,6 @@ public class WorldGenerator : MonoBehaviour
             Vector2Int chunkPosition = chunk.Key;
             int distance = Mathf.Abs(chunkPosition.x - playerChunkPosition.x) + Mathf.Abs(chunkPosition.y - playerChunkPosition.y);
         
-            // If chunk is too far, mark it for unloading
             if (distance > renderDistance)
             {
                 UnloadChunk(chunk.Value);
@@ -149,8 +138,10 @@ public class WorldGenerator : MonoBehaviour
 
                 int worldX = chunkPosition.x * chunkSize + x;
                 int worldY = chunkPosition.y * chunkSize + y;
+                
+                Vector2 position = new Vector2(worldX, worldY);
 
-                string biomeName = DetermineBiome(worldX, worldY);
+                string biomeName = DetermineBiome(position);
                 BiomeData biome = biomeList.Find(b => b.biomeName == biomeName);
                 if (biome == null)
                     continue;
@@ -195,53 +186,45 @@ public class WorldGenerator : MonoBehaviour
     }
 
 
-    public Chunk GenerateChunk(Vector2Int chunkPosition)
+    public Chunk GenerateChunk(Vector2Int chunkPos)
     {
-        Chunk chunk = new Chunk(chunkPosition, chunkSize, chunkList);
-        chunks.Add(chunkPosition, chunk);
-        
+        Chunk chunk = new Chunk(chunkPos, chunkSize, chunkList);
+        chunks.Add(chunkPos, chunk);
+
         for (int x = 0; x < chunkSize; x++)
         {
             for (int y = 0; y < chunkSize; y++)
             {
-                // Calculate the world position of the tile
-                int worldX = chunkPosition.x * chunkSize + x;
-                int worldY = chunkPosition.y * chunkSize + y;
-                string biomeName = DetermineBiome(worldX, worldY);
-                
-                BiomeData biome = biomeList.Find(b => b.biomeName == biomeName);
-
-                if (biome == null)
                 {
-                    Debug.Log("Biome not found: " + biomeName);
-                    return null;
-                }
+                    int worldX = chunkPos.x * chunkSize + x + (int)noiseOffset.x;
+                    int worldY = chunkPos.y * chunkSize + y + (int)noiseOffset.y;
+                    
+                    Vector2 pos = new Vector2(worldX, worldY);
+                    
+                    string biomeName = DetermineBiome(pos);
                 
-                // Generate multi-octave Perlin noise for altitude
-                float altitude = CalculateMultiOctaveNoise(new Vector2(worldX, worldY), biome, noiseOffset);
-                float dist = Vector2.Distance(new Vector2(worldX, worldY),
-                    Vector2.zero);
-                if (dist < safeRadius && biome.name == "Ocean")
-                {
-                    // 0 → 1 fall‑off curve (1 at centre, 0 at edge)
-                    float t = 1f - (dist / safeRadius);
-                    float uplift = maxUplift * Mathf.SmoothStep(0f, 1f, t);   // smooth fade
-                    altitude += uplift;
-                }
-                
-                // Determine biome based on altitude, temperature, and moisture
-                TileBase tile = GetTileForBiome(altitude, biome, x, y, seed);
+                    BiomeData biome = biomeList.Find(b => b.biomeName == biomeName);
 
-                // Store the tile in the chunk
-                chunk.tiles[x, y] = tile;
+                    if (biome == null)
+                    {
+                        Debug.Log("Biome not found: " + biomeName);
+                        return null;
+                    }
+                    
+                    float hMacro = FBM(pos, 400f, 3, 0.5f, 2f);
+                    float hMicro = DomainWarpedFBM(pos, 40f, 5, 0.45f, 2.3f, 10f);
+                    float height = Mathf.Lerp(hMacro, hMicro, 0.35f);
+                    
+                    TileBase tile = GetTileForBiome(height, biome, x, y, seed);
+
+                    chunk.tiles[x, y] = tile;
+                }
             }
         }
-
-        // Post-process the chunk to fill in single isolated cells
         PostProcessChunk(chunk);
+
         chunk.isLoaded = true;
-        if(!LoadedChunks.Contains(chunk))
-            LoadedChunks.Add(chunk);
+        if (!LoadedChunks.Contains(chunk)) LoadedChunks.Add(chunk);
         return chunk;
     }
 
@@ -261,24 +244,11 @@ public class WorldGenerator : MonoBehaviour
         }
     }
     
-    private string DetermineBiome(int worldX, int worldY)
+    private string DetermineBiome(Vector2 pos)
     {
-        float temperature = CalculateMultiOctaveNoise(
-            new Vector2(worldX + noiseOffset.x, worldY + noiseOffset.y), 
-            scale, 
-            octaves, // Number of octaves
-            persistence, // Persistence (controls amplitude drop per octave)
-            lacunarity // Lacunarity (controls frequency increase per octave)
-        );
-
-        Vector2 moistureOffset = new Vector2(noiseOffset.x + 500f, noiseOffset.y + 500f);
-        float moisture = CalculateMultiOctaveNoise(
-            new Vector2(worldX + moistureOffset.x, worldY + moistureOffset.y), 
-            scale, 
-            octaves, // Number of octaves
-            persistence, // Persistence (controls amplitude drop per octave)
-            lacunarity // Lacunarity (controls frequency increase per octave)
-        );
+        float temperature    = FBM(pos+noiseOffset, 400f, 4, 0.5f, 2f);
+        float moisture   = FBM(pos+noiseOffset*2, 400f, 4, 0.5f, 2f);
+        
 
         if (temperature < 0.3f)
         {
@@ -404,6 +374,48 @@ public class WorldGenerator : MonoBehaviour
         return total / maxValue; // Normalize to [0,1]
     }
     
+    float FBM(Vector2 pos,
+        float   scale,
+        int     octaves,
+        float   persistence,
+        float   lacunarity)
+    {
+        float value     = 0f;
+        float amplitude = 1f;
+        float frequency = 1f;
+        float norm      = 0f;
+
+        for (int i = 0; i < octaves; i++)
+        {
+            float n = Mathf.PerlinNoise(
+                (pos.x) / (scale / frequency),
+                (pos.y) / (scale / frequency));
+
+            value     += n * amplitude;
+            norm      += amplitude;
+            amplitude *= persistence;   // maleje:  1 → 0.5 → 0.25 …
+            frequency *= lacunarity;    // rośnie:  1 → 2 → 4 …
+        }
+        return value / norm;           // w przedziale 0-1
+    }
+    
+    float DomainWarpedFBM(Vector2 pos,
+        float   scale,
+        int     octaves,
+        float   persistence,
+        float   lacunarity,
+        float   warpStrength)
+    {
+        // 1) szum przesuwający (offset) – może być single-octave
+        float wx = Mathf.PerlinNoise(pos.x * 0.01f, pos.y * 0.01f);
+        float wy = Mathf.PerlinNoise((pos.x + 1234) * 0.01f, (pos.y + 5678) * 0.01f);
+        
+        Vector2 warped = pos + new Vector2(wx, wy) * warpStrength;
+
+        // 2) zasadniczy FBM na „zawiniętej” pozycji
+        return FBM(warped, scale, octaves, persistence, lacunarity);
+    }
+    
     float CalculateMultiOctaveNoise(Vector2 position, float scale, int octaves, float persistence, float lacunarity)
     {
         float total = 0f;
@@ -414,8 +426,8 @@ public class WorldGenerator : MonoBehaviour
         for (int i = 0; i < octaves; i++)
         {
             float noiseValue = Mathf.PerlinNoise(
-                (position.x + noiseOffset.x) / (scale * frequency), 
-                (position.y + noiseOffset.y) / (scale * frequency)
+                (position.x + noiseOffset.x + i * 10) / (scale * frequency), 
+                (position.y + noiseOffset.y + i * 10) / (scale * frequency)
             );
 
             total += noiseValue * amplitude;
@@ -424,7 +436,7 @@ public class WorldGenerator : MonoBehaviour
             amplitude *= persistence;
             frequency *= lacunarity;
         }
-        return total / maxValue; // Normalize to [0,1]
+        return total / maxValue; 
     }
     
 
@@ -455,16 +467,11 @@ public class WorldGenerator : MonoBehaviour
             {
                 for (int y = 0; y < chunkSize; y++)
                 {
-                    // Calculate the world position of the tile
                     int worldX = chunk.position.x * chunkSize + x;
                     int worldY = chunk.position.y * chunkSize + y;
 
-                    // Set the tile in the tilemap
                     Vector3Int tilePosition = new Vector3Int(worldX, worldY, 0);
-                    if (chunk.tiles[x, y].name == "WaterTileOcean" || chunk.tiles[x, y].name == "WaterTileSwamp")
-                        waterLevel.SetTile(tilePosition, chunk.tiles[x, y]);
-                    else
-                        groundLevel.SetTile(tilePosition, chunk.tiles[x, y]);
+                    groundLevel.SetTile(tilePosition, chunk.tiles[x, y]);
                 }
             }
             chunk.tilesSpawned = true;
@@ -595,4 +602,5 @@ public class WorldGenerator : MonoBehaviour
 
     static float Hash01(int x, int y, int seed) =>
         Hash(x, y, seed) / 2147483647f;         // map to [0,1]
+    
 }
