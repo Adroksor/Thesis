@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8cd9cddec7e80b4c8d85e34d65362a2, type: 3}
   m_Name: MissingItem
   m_EditorClassIdentifier: 
-  <MaxStackSize>k__BackingField: 20
-  <Name>k__BackingField: MissingItem
-  <Itemtype>k__BackingField: 0
-  <ItemImage>k__BackingField: {fileID: 21300000, guid: b7b0f424b702cde4ab1d1fee7aed32f1, type: 3}
-  <Description>k__BackingField: 
+  MaxStackSize: 20
+  Name: Missing item
+  Itemtype: 0
+  ItemImage: {fileID: 21300000, guid: b7b0f424b702cde4ab1d1fee7aed32f1, type: 3}
+  Description: Something went wrong

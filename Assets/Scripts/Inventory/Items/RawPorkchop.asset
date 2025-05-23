@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12e3ed2d0ae23354096cbd00b4cfcbb9, type: 3}
   m_Name: RawPorkchop
   m_EditorClassIdentifier: 
-  <MaxStackSize>k__BackingField: 20
-  <Name>k__BackingField: Raw porkchop
-  <Itemtype>k__BackingField: 5
-  <ItemImage>k__BackingField: {fileID: 21300000, guid: eec8c9f647fd5a74fba7532cae5c6a92, type: 3}
-  <Description>k__BackingField: 
-  hungerAmount: 5
+  MaxStackSize: 20
+  Name: Raw porkchop
+  Itemtype: 5
+  ItemImage: {fileID: 21300000, guid: eec8c9f647fd5a74fba7532cae5c6a92, type: 3}
+  Description: 
+  hungerAmount: 30
+  healthAmount: 0
   eatCooldown: 1

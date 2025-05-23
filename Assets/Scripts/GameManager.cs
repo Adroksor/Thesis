@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
     public List<GameObject> objects = new List<GameObject>();
     public List<GameObject> chests = new List<GameObject>();
     public List<GameObject> furnaces = new List<GameObject>();
+    public List<GameObject> workbenches = new List<GameObject>();
     public List<GameObject> entitiesPigs = new List<GameObject>();
     public List<GameObject> resources = new List<GameObject>();
 

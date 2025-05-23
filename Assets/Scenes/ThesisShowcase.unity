@@ -235,7 +235,7 @@ MonoBehaviour:
   seed: 546345
   chunkSize: 16
   chunkList: {fileID: 282892532}
-  renderDistance: 6
+  renderDistance: 8
   groundLevel: {fileID: 1594873947}
   waterLevel: {fileID: 1310711038}
   biomeList:
@@ -245,7 +245,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 2e6cf1352e7455b41a26dbe60711a08a, type: 2}
   - {fileID: 11400000, guid: 3b67d31ebb50656409e84a200005b8d5, type: 2}
   resourceSpawner: {fileID: 0}
-  scale: 100
+  scale: 300
   octaves: 5
   persistence: 0.5
   lacunarity: 2

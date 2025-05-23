@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b91b9b34bffe84468cb2417cce4ff75, type: 3}
   m_Name: WoodWall
   m_EditorClassIdentifier: 
-  <MaxStackSize>k__BackingField: 20
-  <Name>k__BackingField: WoodWall
-  <Itemtype>k__BackingField: 4
-  <ItemImage>k__BackingField: {fileID: 21300000, guid: eb92c90928a1a5948aecf0c142ce0962, type: 3}
-  <Description>k__BackingField: 
+  MaxStackSize: 20
+  Name: Wood wall
+  Itemtype: 4
+  ItemImage: {fileID: 21300000, guid: eb92c90928a1a5948aecf0c142ce0962, type: 3}
+  Description: 
   buildingPrefab: {fileID: 2459083480883987986, guid: 24b2ab926eb09e24a8a4c1400178b77a, type: 3}

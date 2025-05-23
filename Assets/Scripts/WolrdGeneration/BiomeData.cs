@@ -8,18 +8,36 @@ using UnityEngine.Tilemaps;
 [CreateAssetMenu(fileName = "NewBiomeData", menuName = "Biome Data")]
 public class BiomeData : ScriptableObject
 {
-    public string biomeName; // Name of the biome (e.g., Forest, Desert)
+    public string biomeName;
+
+    [Header("Noise Settings")]
+    [Header("Macro")]
+
+    public float macroBaseScale   = 400f;
+    public int   macroOctaves     = 3;
+    public float macroPersistence = 0.5f;
+    public float macroLacunarity  = 2.0f;
+                 
+    [Header("Micro")]
+    public float microBaseScale   = 40f;
+    public int   microOctaves     = 5;
+    public float microPersistence = 0.45f;
+    public float microLacunarity  = 2.3f;
+    public float warpStrength     = 10f;
     
-    [Header("Perlin Noise Settings")]
-    public float baseScale = 10f;   // Base zoom level
-    public int octaves = 4;         // Number of noise layers
-    public float persistence = 0.5f; // Controls amplitude decrease per octave
-    public float lacunarity = 2.0f;  // Controls frequency increase per octave
+    [Header("Lake Noise Settings")]
+    public float lakeScale       = 30f;
+    public int   lakeOctaves     = 3;
+    public float lakePersistence = 0.5f;
+    public float lakeLacunarity  = 2f;
+// Threshold decyduje, od jakiego poziomu szumu zaczyna się woda
+    [Range(0f,1f)] public float lakeThreshold = 0.65f;
+    
     [Range(0f, 1f)]
     public float waterLevel;
     
     [Header("Resources Settings")]
-    public List<BiomeResource> resources; // List of resources for this biome
+    public List<BiomeResource> resources;
     public List<TileBase> biomeTiles;
     public TileBase waterTile;
 }

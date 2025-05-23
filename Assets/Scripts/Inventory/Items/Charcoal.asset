@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8cd9cddec7e80b4c8d85e34d65362a2, type: 3}
   m_Name: Charcoal
   m_EditorClassIdentifier: 
-  <MaxStackSize>k__BackingField: 20
-  <Name>k__BackingField: Charcoal
-  <Itemtype>k__BackingField: 1
-  <ItemImage>k__BackingField: {fileID: 21300000, guid: 52d8545b54306114cb4c30d08f175fcd, type: 3}
-  <Description>k__BackingField: 
+  MaxStackSize: 20
+  Name: Charcoal
+  Itemtype: 1
+  ItemImage: {fileID: 21300000, guid: 52d8545b54306114cb4c30d08f175fcd, type: 3}
+  Description: 

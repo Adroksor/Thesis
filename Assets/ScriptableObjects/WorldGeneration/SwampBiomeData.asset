@@ -13,11 +13,21 @@ MonoBehaviour:
   m_Name: SwampBiomeData
   m_EditorClassIdentifier: 
   biomeName: Swamp
-  baseScale: 20
-  octaves: 2
-  persistence: 0.5
-  lacunarity: 2
-  waterLevel: 0.4
+  macroBaseScale: 320
+  macroOctaves: 3
+  macroPersistence: 0.55
+  macroLacunarity: 2
+  microBaseScale: 10
+  microOctaves: 5
+  microPersistence: 0.5
+  microLacunarity: 2.3
+  warpStrength: 12
+  lakeScale: 15
+  lakeOctaves: 3
+  lakePersistence: 0.5
+  lakeLacunarity: 2
+  lakeThreshold: 0.6
+  waterLevel: 0.2
   resources:
   - prefab: {fileID: 6838876024778313406, guid: 3f94ca637bbb97b43a5f2e363937b380, type: 3}
     rarity: 2

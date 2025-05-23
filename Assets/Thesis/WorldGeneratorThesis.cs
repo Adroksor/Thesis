@@ -33,6 +33,7 @@ public class WorldGeneratorThesis : MonoBehaviour
     private Transform player; // Reference to the player's transform
 
     public bool spawnResources = false;
+    private Dictionary<TileBase, BiomeData> tileToBiome;
     
     public LaunchMode launchMode;
     public static WorldGeneratorThesis instance { get; private set; }
@@ -134,21 +135,17 @@ public class WorldGeneratorThesis : MonoBehaviour
             for (int y = 0; y < chunkSize; y++)
             {
                 TileBase tile = chunk.tiles[x, y];
+                if (tile == null) continue;
 
-
+                if (!tileToBiome.TryGetValue(tile, out BiomeData biome))
+                    continue;
+                
                 int worldX = chunkPosition.x * chunkSize + x;
                 int worldY = chunkPosition.y * chunkSize + y;
                 
-                Vector2 position = new Vector2(worldX, worldY);
-
-                string biomeName = DetermineBiome(position);
-                BiomeData biome = biomeList.Find(b => b.biomeName == biomeName);
                 if (biome == null)
                     continue;
-                
-                
-                if (tile == null || tile == biome.waterTile)
-                    continue;
+                if (tile == biome.waterTile) continue;
 
                 GameObject resourcePrefab = resourceSpawner.GetDeterministicResource(
                     biome.resources,
@@ -211,11 +208,23 @@ public class WorldGeneratorThesis : MonoBehaviour
                         return null;
                     }
                     
-                    float hMacro = FBM(pos, 400f, 3, 0.5f, 2f);
-                    float hMicro = DomainWarpedFBM(pos, 40f, 5, 0.45f, 2.3f, 10f);
-                    float height = Mathf.Lerp(hMacro, hMicro, 0.35f);
+                    float heightMacro = FractalNoise(
+                        pos,
+                        biome.macroBaseScale,
+                        biome.macroOctaves,
+                        biome.macroPersistence,
+                        biome.macroLacunarity);
+
+                    float heightMicro = WarpedFBM(
+                        pos,
+                        biome.microBaseScale,
+                        biome.microOctaves,
+                        biome.microPersistence,
+                        biome.microLacunarity,
+                        biome.warpStrength);
+                    float totalHeight = Mathf.Lerp(heightMacro, heightMicro, 0.35f);
                     
-                    TileBase tile = GetTileForBiome(height, biome, x, y, seed);
+                    TileBase tile = GetTileForBiome(totalHeight, biome, worldX, worldY);
 
                     chunk.tiles[x, y] = tile;
                 }
@@ -246,15 +255,14 @@ public class WorldGeneratorThesis : MonoBehaviour
     
     private string DetermineBiome(Vector2 pos)
     {
-        float temperature    = FBM(pos+noiseOffset, 400f, 4, 0.5f, 2f);
-        float moisture   = FBM(pos+noiseOffset*2, 400f, 4, 0.5f, 2f);
-        
-
-        if (temperature < 0.3f)
+        float temperature    = FractalNoise(
+                                pos+noiseOffset, scale, octaves, persistence, lacunarity);
+        float moisture   = FractalNoise(
+                                pos+noiseOffset * 2, scale, octaves, persistence,  lacunarity);
+        if (temperature < 0.33f)
         {
             return "Snow";
         }
-        
         if (temperature < 0.6f)
         {
             if (moisture < 0.3f) 
@@ -263,34 +271,30 @@ public class WorldGeneratorThesis : MonoBehaviour
                 return "Forest";
             return "Swamp";
         }
-        
         else
         {
-            if (moisture < 0.3f) 
+            if (moisture < 0.33f) 
                 return "Desert";
-            if (moisture < 0.6f) 
-                return "Desert"; //"Savanna"
-            return "Desert"; //"Rainforest"
+            if (moisture < 0.7f) 
+                return "Desert";
+            return "Desert";
         }
     }
 
     bool IsTileIsolated(Chunk chunk, int x, int y)
     {
-        // Get the current tile
         TileBase currentTile = chunk.tiles[x, y];
 
-        // Check all 8 neighboring tiles
         int isolatedCount = 0;
         for (int dx = -1; dx <= 1; dx++)
         {
             for (int dy = -1; dy <= 1; dy++)
             {
-                if (dx == 0 && dy == 0) continue; // Skip the current tile
+                if (dx == 0 && dy == 0) continue;
 
                 int nx = x + dx;
                 int ny = y + dy;
 
-                // Check if the neighbor is within bounds
                 if (nx >= 0 && nx < chunkSize && ny >= 0 && ny < chunkSize)
                 {
                     if (chunk.tiles[nx, ny] == currentTile)
@@ -301,7 +305,6 @@ public class WorldGeneratorThesis : MonoBehaviour
             }
         }
 
-        // If the tile has no neighbors of the same type, it's isolated
         return isolatedCount == 0;
     }
 
@@ -350,31 +353,7 @@ public class WorldGeneratorThesis : MonoBehaviour
         return mostCommonTile;
     }
     
-    
-    public static float CalculateMultiOctaveNoise(Vector2 position, BiomeData biome, Vector2 offset)
-    {
-        float total = 0f;
-        float frequency = 1f;
-        float amplitude = 1f;
-        float maxValue = 0f;
-
-        for (int i = 0; i < biome.octaves; i++)
-        {
-            float noiseValue = Mathf.PerlinNoise(
-                (position.x + offset.x) / (biome.baseScale * frequency), 
-                (position.y + offset.y) / (biome.baseScale * frequency)
-            );
-
-            total += noiseValue * amplitude;
-            maxValue += amplitude;
-
-            amplitude *= biome.persistence;
-            frequency *= biome.lacunarity;
-        }
-        return total / maxValue; // Normalize to [0,1]
-    }
-    
-    float FBM(Vector2 pos,
+    float FractalNoise(Vector2 pos,
         float   scale,
         int     octaves,
         float   persistence,
@@ -393,61 +372,48 @@ public class WorldGeneratorThesis : MonoBehaviour
 
             value     += n * amplitude;
             norm      += amplitude;
-            amplitude *= persistence;   // maleje:  1 → 0.5 → 0.25 …
-            frequency *= lacunarity;    // rośnie:  1 → 2 → 4 …
+            amplitude *= persistence;
+            frequency *= lacunarity;
         }
-        return value / norm;           // w przedziale 0-1
+        return value / norm;
     }
     
-    float DomainWarpedFBM(Vector2 pos,
+    float WarpedFBM(Vector2 pos,
         float   scale,
         int     octaves,
         float   persistence,
         float   lacunarity,
         float   warpStrength)
     {
-        // 1) szum przesuwający (offset) – może być single-octave
         float wx = Mathf.PerlinNoise(pos.x * 0.01f, pos.y * 0.01f);
         float wy = Mathf.PerlinNoise((pos.x + 1234) * 0.01f, (pos.y + 5678) * 0.01f);
         
         Vector2 warped = pos + new Vector2(wx, wy) * warpStrength;
 
-        // 2) zasadniczy FBM na „zawiniętej” pozycji
-        return FBM(warped, scale, octaves, persistence, lacunarity);
-    }
-    
-    float CalculateMultiOctaveNoise(Vector2 position, float scale, int octaves, float persistence, float lacunarity)
-    {
-        float total = 0f;
-        float frequency = 1f;
-        float amplitude = 1f;
-        float maxValue = 0f;
-
-        for (int i = 0; i < octaves; i++)
-        {
-            float noiseValue = Mathf.PerlinNoise(
-                (position.x + noiseOffset.x + i * 10) / (scale * frequency), 
-                (position.y + noiseOffset.y + i * 10) / (scale * frequency)
-            );
-
-            total += noiseValue * amplitude;
-            maxValue += amplitude;
-
-            amplitude *= persistence;
-            frequency *= lacunarity;
-        }
-        return total / maxValue; 
+        return FractalNoise(warped, scale, octaves, persistence, lacunarity);
     }
     
 
 
-    TileBase GetTileForBiome(float altitude, BiomeData biomeData, int x, int y, int seed)
+    TileBase GetTileForBiome(float altitude, BiomeData biome, int worldX, int worldY)
     {
-        if (altitude < biomeData.waterLevel) return biomeData.waterTile;
+        if (altitude < biome.waterLevel)
+            return biome.waterTile;
 
-        int idx = Hash(x, y, seed) % biomeData.biomeTiles.Count;
-        return biomeData.biomeTiles[idx];
+        float lakeNoise = FractalNoise(
+            new Vector2(worldX, worldY),
+            biome.lakeScale,
+            biome.lakeOctaves,
+            biome.lakePersistence,
+            biome.lakeLacunarity);
+                  
+        if (lakeNoise > biome.lakeThreshold)
+            return biome.waterTile;
+
+        int idx = Hash(worldX, worldY, seed) % biome.biomeTiles.Count;
+        return biome.biomeTiles[idx];
     }
+
 
     TileBase GetTileAtPosition(Vector2Int position)
     {
@@ -554,6 +520,19 @@ public class WorldGeneratorThesis : MonoBehaviour
         {
             BuildingGrid.instance.FreeArea(worldTile, b.size);
             Destroy(resource);
+        }
+    }
+
+    public void GenerateTileToBiomeDictionary()
+    {
+        tileToBiome = new Dictionary<TileBase, BiomeData>();
+        foreach (var biome in biomeList)
+        {
+            // dla każdego lądowego kafelka
+            foreach (var land in biome.biomeTiles)
+                tileToBiome[land] = biome;
+            // oraz dla wodnego
+            tileToBiome[biome.waterTile] = biome;
         }
     }
 

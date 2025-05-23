@@ -4,7 +4,6 @@ using UnityEngine.Tilemaps;
 
 public class ResourceSpawner : MonoBehaviour
 {
-
     [Range(0, 1)]
     public List<float> spawnRate;
     
@@ -12,7 +11,7 @@ public class ResourceSpawner : MonoBehaviour
     public GameObject GetDeterministicResource(
         List<BiomeResource> resources,
         int worldX, int worldY, int seed,
-        float epicChance, float rareChance, float commonChance)  // <-- dodany parametr
+        float epicChance, float rareChance, float commonChance)
     {
         if (resources == null || resources.Count == 0)
             return null;
@@ -84,7 +83,6 @@ public class ResourceSpawner : MonoBehaviour
             }
         }
 
-        // w promieniu ‹distance› nie znaleziono wody
         return false;
     }
     

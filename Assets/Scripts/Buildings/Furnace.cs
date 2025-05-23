@@ -13,7 +13,7 @@ public class Furnace : MonoBehaviour
 
     public float smeltTimePerItem = 5f;
 
-    public FurnaceInventory furnaceInventory;
+    public BuildingInventory furnaceInventory;
     public Building building;
     
     private RecipeData currentRecipe;
@@ -24,7 +24,7 @@ public class Furnace : MonoBehaviour
 
     public void Start()
     {
-        furnaceInventory = new FurnaceInventory(5, 3);
+        furnaceInventory = new BuildingInventory(5, 3);
         building.internalInventory = null;
         building.gettingRemoved += RemovingFurnace;
         

@@ -73,7 +73,6 @@ public class FurnaceUI : MonoBehaviour
             
             recipeButton.button.interactable = canSmelt;
             smeltButton.interactable = canSmelt;
-            
 
             GameObject outputUI = Instantiate(item, outputs.transform);
             ItemUI outputItemUI = outputUI.GetComponent<ItemUI>();
@@ -85,61 +84,63 @@ public class FurnaceUI : MonoBehaviour
                 recipeUI.GetComponent<RectTransform>());
         }
     }
-    
+
     public void UpdateAllRecipeUIs(int selectedAmount)
     {
-    GameObject furnaceUI = InventoryManager.instance.FurnaceUI;
-    GameObject recipeListUI = furnaceUI.transform.Find("Scroll View/Viewport/RecipeList").gameObject;
+        GameObject furnaceUI = InventoryManager.instance.FurnaceUI;
+        GameObject recipeListUI = furnaceUI.transform.Find("Scroll View/Viewport/RecipeList").gameObject;
 
-    foreach (Transform recipeUI in recipeListUI.transform)
-    {
-        RecipeButton recipeButton = recipeUI.GetComponent<RecipeButton>();
-        if (recipeButton == null || string.IsNullOrEmpty(recipeButton.recipeName)) continue;
-
-        RecipeData recipe = ItemDatabaseInstance.instance.GetFurnaceRecipeByname(recipeButton.name);
-        if (recipe == null) continue;
-
-        // Update inputs
-        Transform inputs = recipeUI.Find("Inputs");
-        if (inputs != null)
+        foreach (Transform recipeUI in recipeListUI.transform)
         {
-            for (int i = 0; i < recipe.Input.Count && i < inputs.childCount; i++)
+            RecipeButton recipeButton = recipeUI.GetComponent<RecipeButton>();
+            if (recipeButton == null || string.IsNullOrEmpty(recipeButton.recipeName))
             {
-                Transform inputChild = inputs.GetChild(i);
-                if (inputChild.TryGetComponent(out ItemUI inputUI))
+                continue;
+            }
+
+            RecipeData recipe = ItemDatabaseInstance.instance.GetFurnaceRecipeByname(recipeButton.recipeName);
+            if (recipe == null) continue;
+
+            // Update inputs
+            Transform inputs = recipeUI.Find("Inputs");
+            if (inputs != null)
+            {
+                for (int i = 0; i < recipe.Input.Count && i < inputs.childCount; i++)
                 {
-                    inputUI.itemCount = recipe.Input[i].amount * selectedAmount;
-                    inputUI.UpdateItemUI();
+                    Transform inputChild = inputs.GetChild(i);
+                    if (inputChild.TryGetComponent(out ItemUI inputUI))
+                    {
+                        inputUI.itemCount = recipe.Input[i].amount * selectedAmount;
+                        inputUI.UpdateItemUI();
+                    }
                 }
             }
-        }
 
-        // Update outputs
-        Transform outputs = recipeUI.Find("Outputs");
-        if (outputs != null && outputs.childCount > 0)
-        {
-            Transform outputChild = outputs.GetChild(0);
-            if (outputChild.TryGetComponent(out ItemUI outputUI))
+            // Update outputs
+            Transform outputs = recipeUI.Find("Outputs");
+            if (outputs != null && outputs.childCount > 0)
             {
-                outputUI.itemCount = recipe.Output.amount * selectedAmount;
-                outputUI.UpdateItemUI();
+                Transform outputChild = outputs.GetChild(0);
+                if (outputChild.TryGetComponent(out ItemUI outputUI))
+                {
+                    outputUI.itemCount = recipe.Output.amount * selectedAmount;
+                    outputUI.UpdateItemUI();
+                }
             }
+
+            // Update interactability based on required input
+            List<ItemStack> requiredItems = recipe.Input.Select(input => new ItemStack
+            {
+                item = input.item,
+                amount = input.amount * selectedAmount
+            }).ToList();
+
+            bool canSmelt = InventoryManager.instance.DoesPlayerHaveItems(requiredItems);
+
+            recipeButton.button.interactable = canSmelt;
         }
-
-        // Update interactability based on required input
-        List<ItemStack> requiredItems = recipe.Input.Select(input => new ItemStack
-        {
-            item = input.item,
-            amount = input.amount * selectedAmount
-        }).ToList();
-
-        bool canSmelt = InventoryManager.instance.DoesPlayerHaveItems(requiredItems);
-
-        recipeButton.button.interactable = canSmelt;
+        UpdateSmeltButtonInteractability();
     }
-
-    UpdateSmeltButtonInteractability();
-}
     
     public void UpdateSmeltButtonInteractability()
     {
@@ -166,11 +167,8 @@ public class FurnaceUI : MonoBehaviour
         bool canSmelt = InventoryManager.instance.DoesPlayerHaveItems(
             totalNeededItems
         );
-
         smeltButton.interactable = canSmelt;
     }
-
-
     
     public void OnRecipeClicked(string recipeName)
     {

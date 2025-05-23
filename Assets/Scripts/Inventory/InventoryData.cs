@@ -16,15 +16,6 @@ public class InventoryData
             inventoryData[i] = new ItemStack { item = null, amount = 0 };
         }
     }
-    
-    public void SetData(int slot, ItemStack itemStack)
-    {
-        if (string.IsNullOrEmpty(itemStack.item.name) || itemStack.amount == 0)
-        {
-            return;
-        }
-        inventoryData[slot] = new ItemStack { item = itemStack.item, amount = itemStack.amount };
-    }
 
     public void SubtrackItemFromStack(int slot, InventoryUI UI)
     {
@@ -41,6 +32,15 @@ public class InventoryData
             inventoryData[slot] = itemStack; 
         }
         InventoryManager.instance.LoadData(this, UI);
+    }
+    
+    public void SetData(int slot, ItemStack itemStack)
+    {
+        if (string.IsNullOrEmpty(itemStack.item.name) || itemStack.amount == 0)
+        {
+            return;
+        }
+        inventoryData[slot] = new ItemStack { item = itemStack.item, amount = itemStack.amount };
     }
 
     public ItemStack GetItemAtIndex(int slot)

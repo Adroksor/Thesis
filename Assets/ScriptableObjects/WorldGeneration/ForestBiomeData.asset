@@ -13,11 +13,21 @@ MonoBehaviour:
   m_Name: ForestBiomeData
   m_EditorClassIdentifier: 
   biomeName: Forest
-  baseScale: 30
-  octaves: 3
-  persistence: 0.6
-  lacunarity: 5
-  waterLevel: 0.3
+  macroBaseScale: 400
+  macroOctaves: 3
+  macroPersistence: 0.5
+  macroLacunarity: 2
+  microBaseScale: 40
+  microOctaves: 5
+  microPersistence: 0.45
+  microLacunarity: 2.3
+  warpStrength: 10
+  lakeScale: 30
+  lakeOctaves: 2
+  lakePersistence: 0.5
+  lakeLacunarity: 2
+  lakeThreshold: 0.7
+  waterLevel: 0.4
   resources:
   - prefab: {fileID: 6838876024778313406, guid: ed5687c9eef2f56449de9a2d100c53a7, type: 3}
     rarity: 2

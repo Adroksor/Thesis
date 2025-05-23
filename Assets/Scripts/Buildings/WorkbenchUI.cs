@@ -7,17 +7,35 @@ using UnityEngine.UI;
 
 public class WorkbenchUI : MonoBehaviour
 {
-
-
+    public Workbench workbench;
     public GameObject item;
     public GameObject recipeUIp;
+    public Button craftButton;
 
+    public SelectRecipe selectRecipe;
+    
+    
+    private void Start()
+    {
+        selectRecipe = InventoryManager.instance.WorkbenchUI.GetComponent<SelectRecipe>();
+    }
 
+    private void OnEnable()
+    {
+        selectRecipe.amountSelection.onAmountChanged += UpdateAllRecipeUIs;
+    }
 
+    private void OnDisable()
+    {
+        selectRecipe.amountSelection.onAmountChanged -= UpdateAllRecipeUIs;
+    }
+    
     public void InitializeRecipes()
     {
-        GameObject recipeListUI = transform.Find("Scroll View/Viewport/RecipeList").gameObject;
+        GameObject workbenchUI = InventoryManager.instance.WorkbenchUI;
+        GameObject recipeListUI = workbenchUI.transform.Find("Scroll View/Viewport/RecipeList").gameObject;
 
+        
         foreach (Transform child in recipeListUI.transform)
         {
             Destroy(child.gameObject);
@@ -50,11 +68,11 @@ public class WorkbenchUI : MonoBehaviour
                 };
                 items.Add(itemData);
             }
-
             bool canCraft =
                 InventoryManager.instance.DoesPlayerHaveItems(items);
 
             recipeButton.button.interactable = canCraft;
+            craftButton.interactable = canCraft;
 
             GameObject outputUI = Instantiate(item, outputs.transform);
             ItemUI outputItemUI = outputUI.GetComponent<ItemUI>();
@@ -62,22 +80,22 @@ public class WorkbenchUI : MonoBehaviour
             outputItemUI.itemIcon = recipe.Output.item.ItemImage;
             outputItemUI.UpdateItemUI();
             
-            
             LayoutRebuilder.ForceRebuildLayoutImmediate(
                 recipeUI.GetComponent<RectTransform>());
         }
     }
 
-    public void UpdateAllRecipeUIs()
+    public void UpdateAllRecipeUIs(int selectedAmount)
     {
-        GameObject recipeListUI = transform.Find("Scroll View/Viewport/RecipeList").gameObject;
+        GameObject workbenchUI = InventoryManager.instance.WorkbenchUI;
+        GameObject recipeListUI = workbenchUI.transform.Find("Scroll View/Viewport/RecipeList").gameObject;
 
         foreach (Transform recipeUI in recipeListUI.transform)
         {
             RecipeButton recipeButton = recipeUI.GetComponent<RecipeButton>();
             if (recipeButton == null || string.IsNullOrEmpty(recipeButton.recipeName)) continue;
 
-            RecipeData recipe = ItemDatabaseInstance.instance.GetWorkbenchByname(recipeButton.name);
+            RecipeData recipe = ItemDatabaseInstance.instance.GetWorkbenchRecipeByname(recipeButton.recipeName);
             if (recipe == null) continue;
 
             // Update inputs
@@ -89,9 +107,21 @@ public class WorkbenchUI : MonoBehaviour
                     Transform inputChild = inputs.GetChild(i);
                     if (inputChild.TryGetComponent(out ItemUI inputUI))
                     {
-                        inputUI.itemCount = recipe.Input[i].amount;
+                        inputUI.itemCount = recipe.Input[i].amount * selectedAmount;
                         inputUI.UpdateItemUI();
                     }
+                }
+            }
+
+            // Update outputs
+            Transform outputs = recipeUI.Find("Outputs");
+            if (outputs != null && outputs.childCount > 0)
+            {
+                Transform outputChild = outputs.GetChild(0);
+                if (outputChild.TryGetComponent(out ItemUI outputUI))
+                {
+                    outputUI.itemCount = recipe.Output.amount * selectedAmount;
+                    outputUI.UpdateItemUI();
                 }
             }
             
@@ -106,20 +136,61 @@ public class WorkbenchUI : MonoBehaviour
 
             recipeButton.button.interactable = canSmelt;
         }
+        UpdateCraftButtonInteractability();
+    }
+    
+    public void UpdateCraftButtonInteractability()
+    {
+        RecipeData recipe = selectRecipe.selectedRecipe;
+        int amount = selectRecipe.amountSelection.amount;
+
+        if (recipe == null || amount <= 0)
+        {
+            craftButton.interactable = false;
+            return;
+        }
+
+        List<ItemStack> totalNeededItems = new List<ItemStack>();
+
+        foreach (ItemStack input in recipe.Input)
+        {
+            totalNeededItems.Add(new ItemStack
+            {
+                item = input.item,
+                amount = input.amount * amount
+            });
+        }
+
+        bool canCraft = InventoryManager.instance.DoesPlayerHaveItems(
+            totalNeededItems
+        );
+        craftButton.interactable = canCraft;
     }
 
     public void OnRecipeClicked(string recipeName)
     {
-        RecipeData recipe = ItemDatabaseInstance.instance.GetWorkbenchByname(recipeName);
+        RecipeData recipe = ItemDatabaseInstance.instance.GetWorkbenchRecipeByname(recipeName);
         if (recipe != null)
         {
-            foreach (ItemStack slot in recipe.Input)
-            {
-                InventoryManager.instance.TryRemoveItemsFromPlayerData(slot.item, slot.amount);
-            }
-            InventoryManager.instance.TryAddItemsToPlayerData(recipe.Output.item, recipe.Output.amount);
+            Debug.Log("Clicked recipe: " + recipe.Output.item.Name);
+            selectRecipe.selectedRecipe = recipe;
 
-            UpdateAllRecipeUIs();
+            Transform iconTransform = transform.Find("AmountSelection/ItemIcon");
+            iconTransform.gameObject.SetActive(true);
+            if (iconTransform != null)
+            {
+                Image icon = iconTransform.gameObject.GetComponent<Image>();
+                if (icon != null)
+                {
+                    icon.sprite = recipe.Output.item.ItemImage;
+                }
+                else
+                {
+                    Debug.LogError("Image component missing on ItemIcon.");
+                }
+            }
         }
+        UpdateCraftButtonInteractability();
+
     }
 }

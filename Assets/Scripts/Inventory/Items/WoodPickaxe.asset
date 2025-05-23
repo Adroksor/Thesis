@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69f74284d90492045ad6edb5f6f820da, type: 3}
   m_Name: WoodPickaxe
   m_EditorClassIdentifier: 
-  <MaxStackSize>k__BackingField: 1
-  <Name>k__BackingField: Wood pickaxe
-  <Itemtype>k__BackingField: 6
-  <ItemImage>k__BackingField: {fileID: 21300000, guid: 4f6fb102fbf4fa641be1231473c3d9f9, type: 3}
-  <Description>k__BackingField: 
+  MaxStackSize: 20
+  Name: Wood pickaxe
+  Itemtype: 6
+  ItemImage: {fileID: 21300000, guid: 4f6fb102fbf4fa641be1231473c3d9f9, type: 3}
+  Description: 
   miningLevel: 1
   damage: 10
   attackSpeed: 0.5

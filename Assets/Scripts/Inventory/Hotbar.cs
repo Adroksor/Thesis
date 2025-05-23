@@ -120,7 +120,6 @@ public class Hotbar : MonoBehaviour
                 {
                     TweenHelper.SwingOnce(itemIcon.transform);
                 }
-
                 break;
             
             case ItemCategory.Weapon:
@@ -142,7 +141,6 @@ public class Hotbar : MonoBehaviour
                     TweenHelper.SwingOnce(itemIcon.transform);
                     inventory.hotbarData.SubtrackItemFromStack(itemIndex, InventoryManager.instance.hotbarInventoryUI);
                 }
-
                 break;
             default:
                 Debug.Log($"Item {selectedItem.name} not usable from hot-bar");

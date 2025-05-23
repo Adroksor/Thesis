@@ -13,12 +13,21 @@ MonoBehaviour:
   m_Name: OceanBiomeData
   m_EditorClassIdentifier: 
   biomeName: Ocean
-  baseScale: 40
-  octaves: 2
-  persistence: 0.5
-  lacunarity: 2
-  waterLevel: 0.7
-  resourceSpawnRate: 0
+  macroBaseScale: 500
+  macroOctaves: 2
+  macroPersistence: 0.45
+  macroLacunarity: 2
+  microBaseScale: 40
+  microOctaves: 4
+  microPersistence: 0.45
+  microLacunarity: 2.1
+  warpStrength: 10
+  lakeScale: 30
+  lakeOctaves: 3
+  lakePersistence: 0.5
+  lakeLacunarity: 2
+  lakeThreshold: 0.097
+  waterLevel: 0.15
   resources:
   - prefab: {fileID: 6838876024778313406, guid: ed5687c9eef2f56449de9a2d100c53a7, type: 3}
     rarity: 2

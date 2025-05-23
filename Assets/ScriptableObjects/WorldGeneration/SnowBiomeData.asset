@@ -13,12 +13,21 @@ MonoBehaviour:
   m_Name: SnowBiomeData
   m_EditorClassIdentifier: 
   biomeName: Snow
-  baseScale: 40
-  octaves: 2
-  persistence: 0.2
-  lacunarity: 2
-  waterLevel: 0.2
-  resourceSpawnRate: 0.2
+  macroBaseScale: 400
+  macroOctaves: 3
+  macroPersistence: 0.5
+  macroLacunarity: 2
+  microBaseScale: 40
+  microOctaves: 5
+  microPersistence: 0.45
+  microLacunarity: 2.3
+  warpStrength: 10
+  lakeScale: 30
+  lakeOctaves: 3
+  lakePersistence: 0.5
+  lakeLacunarity: 2
+  lakeThreshold: 1
+  waterLevel: 0.4
   resources:
   - prefab: {fileID: 3683089129427188936, guid: 0ffeb2c68117d7243b48e480574cfd59, type: 3}
     rarity: 2

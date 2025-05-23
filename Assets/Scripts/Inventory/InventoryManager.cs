@@ -61,7 +61,6 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-
     public void UnnsubscribeSlotsToEvents(List<InventorySlotUI> inventory)
     {
         foreach (InventorySlotUI slot in inventory)
@@ -210,7 +209,6 @@ public class InventoryManager : MonoBehaviour
 
             int leftover = TryAddItemToInventory(clickedItem, clickedItemCount, destinationInventory);
 
-            // Update original slot
             if (leftover == 0)
                 slot.SetData(null, 0);
             else
@@ -332,14 +330,12 @@ public class InventoryManager : MonoBehaviour
 
             if (itemAtIndex.item == null)
             {
-                // New stack
                 int added = Mathf.Min(amount, maxStackSize);
                 targetInventoryData.inventoryData[index] = new ItemStack { item = itemData, amount = added };
                 amount -= added;
             }
             else if (itemAtIndex.item != null && itemAtIndex.amount < maxStackSize)
             {
-                // Add to existing stack
                 int spaceLeft = maxStackSize - itemAtIndex.amount;
                 int added = Mathf.Min(amount, spaceLeft);
                 targetInventoryData.inventoryData[index] = new ItemStack { item = itemData, amount = itemAtIndex.amount + added };
@@ -360,12 +356,10 @@ public class InventoryManager : MonoBehaviour
 
         int remaining = amount;
 
-        /* 1 ── hot-bar first */
         remaining = TryAddItemToInventoryData(itemData,
             remaining,
             playerInventoryScript.hotbarData);
 
-        /* 2 ── then backpack inventory */
         if (remaining > 0)
         {
             remaining = TryAddItemToInventoryData(itemData,

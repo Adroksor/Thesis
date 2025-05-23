@@ -21,8 +21,6 @@ public class BuildingPlacer : MonoBehaviour
     
     public Vector2Int mouseGridPosition;
     
-    private Vector2Int lastMouseGridPosition;
-
     
     private void Awake()
     {
@@ -57,7 +55,6 @@ public class BuildingPlacer : MonoBehaviour
         {
             selectedBuilding = null;
             Destroy(ghostBuilding);
-
         }
 
         if (Input.GetMouseButtonDown(0))
@@ -85,15 +82,6 @@ public class BuildingPlacer : MonoBehaviour
                 }
             }
         }
-
-        if (Input.GetMouseButtonDown(1))
-        {
-            Vector2Int currentChunkPosition = BuildingGrid.instance.WorldToChunkPosition(mouseGridPosition);
-            currentChunk = WorldGenerator.instance.TryGetChunk(currentChunkPosition);
-        }
-
-        
-        lastMouseGridPosition = mouseGridPosition;
     }
 
     public bool PlaceBuilding(GameObject buildingPrefab)

@@ -116,7 +116,7 @@ GameObject:
   - component: {fileID: 427668630620845235}
   - component: {fileID: 5869292529181404996}
   m_Layer: 0
-  m_Name: RecipeUI
+  m_Name: RecipeUIWorkbench
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -202,11 +202,11 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 0.5529412, g: 0.75686276, b: 0.972549, a: 1}
-    m_HighlightedColor: {r: 0.6541474, g: 0.7217634, b: 0.7924528, a: 1}
+    m_NormalColor: {r: 0.5803922, g: 0.3921569, b: 0.23529413, a: 1}
+    m_HighlightedColor: {r: 0.7019608, g: 0.5137255, b: 0.29411766, a: 1}
     m_PressedColor: {r: 0.6933962, g: 0.9969355, b: 1, a: 1}
     m_SelectedColor: {r: 0.3640206, g: 1, b: 0.25943398, a: 1}
-    m_DisabledColor: {r: 0.14413494, g: 0.25308976, b: 0.38679248, a: 1}
+    m_DisabledColor: {r: 0.41960788, g: 0.28235295, b: 0.16862746, a: 1}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -221,7 +221,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 0
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 1075904485766457300}
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []

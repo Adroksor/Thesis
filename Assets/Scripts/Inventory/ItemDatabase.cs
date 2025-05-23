@@ -28,7 +28,7 @@ public class ItemDatabase : ScriptableObject
         return furnaceRecipes.FirstOrDefault(recipe => recipe.name == name);
     }
 
-    public RecipeData GetWorkbenchByname(string name)
+    public RecipeData GetWorkbenchRecipeByname(string name)
     {
         return workbenchRecipes.FirstOrDefault(recipe => recipe.name == name);
     }
@@ -64,12 +64,6 @@ public class ItemDatabase : ScriptableObject
     }
     
 #if UNITY_EDITOR
-
-    /// <summary>Uniwersalny loader ScriptableObjectów z podanego folderu.</summary>
-    /// <typeparam name="T">Klasa zasobu (musi dziedziczyć po ScriptableObject).</typeparam>
-    /// <param name="folderPath">Ścieżka do folderu (Assets/…)</param>
-    /// <param name="targetList">Lista, do której dodajemy wczytane assety.</param>
-    /// <param name="skipNames">Opcjonalna lista nazw, które chcemy pominąć.</param>
     public static void LoadAssetsFromFolder<T>(
         string   folderPath,
         List<T>  targetList,

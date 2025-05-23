@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8cd9cddec7e80b4c8d85e34d65362a2, type: 3}
   m_Name: CopperIngot
   m_EditorClassIdentifier: 
-  <MaxStackSize>k__BackingField: 20
-  <Name>k__BackingField: Copper ingot
-  <Itemtype>k__BackingField: 1
-  <ItemImage>k__BackingField: {fileID: 21300000, guid: 2dff3406a4a014540aa7bcdade904288, type: 3}
-  <Description>k__BackingField: 
+  MaxStackSize: 20
+  Name: Copper ingot
+  Itemtype: 1
+  ItemImage: {fileID: 21300000, guid: 2dff3406a4a014540aa7bcdade904288, type: 3}
+  Description: 

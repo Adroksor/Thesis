@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b91b9b34bffe84468cb2417cce4ff75, type: 3}
   m_Name: IronChest
   m_EditorClassIdentifier: 
-  <MaxStackSize>k__BackingField: 20
-  <Name>k__BackingField: Iron chest
-  <Itemtype>k__BackingField: 4
-  <ItemImage>k__BackingField: {fileID: 21300000, guid: 92e9bd673e0134d4a8d030b23d7872cf, type: 3}
-  <Description>k__BackingField: 
+  MaxStackSize: 20
+  Name: Iron chest
+  Itemtype: 4
+  ItemImage: {fileID: 21300000, guid: 92e9bd673e0134d4a8d030b23d7872cf, type: 3}
+  Description: 
   buildingPrefab: {fileID: 2302502741258006299, guid: d5aef93eff07dc2429165205c456694b, type: 3}

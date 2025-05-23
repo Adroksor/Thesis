@@ -4,18 +4,18 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "InventorySystem/ItemData/Pickaxe")]
 public class PickaxeItem : EquipmentItem
 {
-    public float attackSpeed = 0.45f;    // seconds between swings
+    public float attackSpeed = 0.45f;
 
     [System.NonSerialized]
-    private float _nextUseTime;          // item‑side timer
+    private float _nextUseTime;
 
     public override bool Use(ItemUser user, ItemStack stack)
     {
-        if (Time.time < _nextUseTime) // still cooling
+        if (Time.time < _nextUseTime)
         {
             return false;
         }
-        _nextUseTime = Time.time + attackSpeed; // set next ready moment
+        _nextUseTime = Time.time + attackSpeed;
         SwingPickaxe(user);
         return true;        
     }
@@ -26,11 +26,8 @@ public class PickaxeItem : EquipmentItem
         Vector2 dir = (new Vector2(mouseWorld.x, mouseWorld.y) - GameManager.instance.playerPosition);
         dir = dir.normalized;
         
-        RaycastHit2D hit = Physics2D.Raycast(
-            origin: GameManager.instance.playerPosition,
-            direction: dir,
-            distance: user.stats.range,
-            layerMask: LayerMask.GetMask("Interactable", "Entity"));
+        RaycastHit2D hit = Physics2D.Raycast( GameManager.instance.playerPosition,dir, 
+                            user.stats.range, LayerMask.GetMask("Interactable", "Entity"));
 
         if (hit.collider != null)
         {

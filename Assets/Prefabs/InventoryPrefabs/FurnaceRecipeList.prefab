@@ -458,6 +458,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   furnaceUI: {fileID: 0}
+  workbenchUI: {fileID: 0}
   selectedRecipe: {fileID: 0}
   amountSelection: {fileID: 261170923162216802}
 --- !u!114 &500158399139161482
@@ -762,7 +763,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 0
+  m_text: 1
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6ba7cc54005378843ab433b4889441ba, type: 2}
   m_sharedMaterial: {fileID: -7698335837201537150, guid: 6ba7cc54005378843ab433b4889441ba, type: 2}
@@ -1179,7 +1180,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.3268512, g: 0.44957536, b: 0.6132076, a: 1}
+  m_Color: {r: 0.098967604, g: 0.10369267, b: 0.1509434, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

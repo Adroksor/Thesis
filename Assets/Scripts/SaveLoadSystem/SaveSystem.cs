@@ -14,6 +14,7 @@ public class SaveSystem
         public List<StaticObjectData> buildings;
         public List<ChestData> chests;
         public List<FurnaceData> furnaces;
+        public List<WorkbenchData> workbenches;
         public List<EntityData> entities;
         public List<ChunkSave> modifiedChunks;
     }
@@ -97,6 +98,19 @@ public class SaveSystem
                 _saveData.furnaces.Add(posData);
             }
         }
+        
+        // Workbenches
+        _saveData.workbenches = new List<WorkbenchData>();
+        foreach (var obj in GameManager.instance.workbenches)
+        {
+            if (obj.TryGetComponent(out Workbench building))
+            {
+                WorkbenchData posData = new WorkbenchData();
+                building.Save(ref posData);
+                _saveData.workbenches.Add(posData);
+            }
+        }
+        
         // Entities
         _saveData.entities = new List<EntityData>();
         foreach (var obj in GameManager.instance.entitiesPigs)
@@ -260,6 +274,14 @@ public struct FurnaceData
     public Vector2 position;
     public string buildingName;
 }
+
+[System.Serializable]
+public struct WorkbenchData
+{
+    public Vector2 position;
+    public string buildingName;
+}
+
 
 [System.Serializable]
 public struct EntityData

@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b91b9b34bffe84468cb2417cce4ff75, type: 3}
   m_Name: GoldChest
   m_EditorClassIdentifier: 
-  <MaxStackSize>k__BackingField: 20
-  <Name>k__BackingField: Gold chest
-  <Itemtype>k__BackingField: 4
-  <ItemImage>k__BackingField: {fileID: 21300000, guid: f454a9b30f6baee4e9452c72828dcb23, type: 3}
-  <Description>k__BackingField: 
+  MaxStackSize: 20
+  Name: Gold chest
+  Itemtype: 4
+  ItemImage: {fileID: 21300000, guid: f454a9b30f6baee4e9452c72828dcb23, type: 3}
+  Description: 
   buildingPrefab: {fileID: 5093319215209900071, guid: da1dd2d8260ce774d9cefd141584fb4f, type: 3}

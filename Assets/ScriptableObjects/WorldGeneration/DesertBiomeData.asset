@@ -13,11 +13,21 @@ MonoBehaviour:
   m_Name: DesertBiomeData
   m_EditorClassIdentifier: 
   biomeName: Desert
-  baseScale: 50
-  octaves: 2
-  persistence: 0.5
-  lacunarity: 2
-  waterLevel: 0.15
+  macroBaseScale: 100
+  macroOctaves: 3
+  macroPersistence: 0.5
+  macroLacunarity: 2
+  microBaseScale: 50
+  microOctaves: 4
+  microPersistence: 0.4
+  microLacunarity: 2.2
+  warpStrength: 8
+  lakeScale: 20
+  lakeOctaves: 3
+  lakePersistence: 0.5
+  lakeLacunarity: 2
+  lakeThreshold: 0.7
+  waterLevel: 0.2
   resources:
   - prefab: {fileID: 2922914110254860002, guid: 6cfc66fc1405f2244a952c242f8e4749, type: 3}
     rarity: 2

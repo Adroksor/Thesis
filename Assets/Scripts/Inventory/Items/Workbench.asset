@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b91b9b34bffe84468cb2417cce4ff75, type: 3}
   m_Name: Workbench
   m_EditorClassIdentifier: 
-  <MaxStackSize>k__BackingField: 20
-  <Name>k__BackingField: Workbench
-  <Itemtype>k__BackingField: 4
-  <ItemImage>k__BackingField: {fileID: 21300000, guid: 28d3a5e12b9d229419e607bb8bb4988f, type: 3}
-  <Description>k__BackingField: 
-  buildingPrefab: {fileID: 4888030565546613888, guid: d662aa422753ad14994eef3dffe61a57, type: 3}
+  MaxStackSize: 20
+  Name: Workbench
+  Itemtype: 4
+  ItemImage: {fileID: 21300000, guid: 28d3a5e12b9d229419e607bb8bb4988f, type: 3}
+  Description: 
+  buildingPrefab: {fileID: 4888030565546613888, guid: aa77e91e75dc6784e9584ae8d517e009, type: 3}

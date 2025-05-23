@@ -7,16 +7,16 @@ using Random = UnityEngine.Random;
 
 public class Building : MonoBehaviour
 {
-    public Vector2Int size = new Vector2Int(1, 1); // Size of the building (in tiles)
+    public Vector2Int size = new Vector2Int(1, 1);
     public bool isBiomeBased = false;
     public bool placableOnWater = false;
-    public TileBase[] allowedTiles; // Tiles the building can be placed on (e.g., water for pumps)
+    public TileBase[] allowedTiles;
 
     public List<ItemStack> drop;
     public GameObject itemPrefab;
     public bool isGhost = true;
     
-    public Vector2Int gridPosition; // Position of the building on the grid
+    public Vector2Int gridPosition;
 
     public InventoryData internalInventory;
 
@@ -43,7 +43,6 @@ public class Building : MonoBehaviour
     }
 
 
-    // Place the building at a specific position
     public void Place(Vector2Int position)
     {
         gridPosition = position;
@@ -51,7 +50,6 @@ public class Building : MonoBehaviour
         transform.position = new Vector3(position.x, position.y, 0);
     }
 
-    // Remove the building from the grid
     public void Remove()
     {
         gettingRemoved?.Invoke(this);
@@ -62,10 +60,8 @@ public class Building : MonoBehaviour
         Resource resource = GetComponent<Resource>();
         if (resource != null)
             resource.parentChunk.RegisterRemoval(gridPosition);
-
         
         Destroy(gameObject);
-        
     }
 
     public void DropItems(List<ItemStack> itemsToDrop)

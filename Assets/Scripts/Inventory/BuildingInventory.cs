@@ -4,14 +4,14 @@ using Unity.VisualScripting;
 using UnityEngine;
 
 [System.Serializable]
-public class FurnaceInventory
+public class BuildingInventory
 {
     public List<ItemStack> inputSlots;
     public List<ItemStack> outputSlots;
     public int inputSlotCount;
     public int outputSlotCount;
 
-    public FurnaceInventory(int inputCount, int outputCount)
+    public BuildingInventory(int inputCount, int outputCount)
     {
         inputSlotCount = inputCount;
         outputSlotCount = outputCount;
