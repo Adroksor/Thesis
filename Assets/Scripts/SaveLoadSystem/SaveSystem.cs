@@ -17,6 +17,7 @@ public class SaveSystem
         public List<WorkbenchData> workbenches;
         public List<EntityData> entities;
         public List<ChunkSave> modifiedChunks;
+        public List<DroppedItemData> droppedItems;
     }
     
     public static string SaveFileName()
@@ -122,6 +123,20 @@ public class SaveSystem
                 _saveData.entities.Add(posData);
             }
         }
+
+        // Dropped items
+        _saveData.droppedItems = new List<DroppedItemData>();
+        foreach (var obj in GameManager.instance.droppedItems)
+        {
+            if (obj.TryGetComponent(out DroppedItem item))
+            {
+                DroppedItemData posData = new DroppedItemData();
+                item.Save(ref posData);
+                _saveData.droppedItems.Add(posData);
+            }
+        }
+
+        
     }
 
     public static void Load()
@@ -140,6 +155,8 @@ public class SaveSystem
         GameManager.instance.furnaces.Clear();
         GameManager.instance.objects.Clear();
         GameManager.instance.resources.Clear();
+        GameManager.instance.droppedItems.Clear();
+
         
         
         // Player
@@ -162,9 +179,9 @@ public class SaveSystem
                     chunk = wg.GenerateChunk(cs.coord);
                     WorldGenerator.instance.chunks[cs.coord] = chunk;
                 }
+                wg.LoadChunk(chunk);
                 wg.SpawnResourcesForChunk(chunk);
 
-                wg.LoadChunk(chunk);
                 chunk.changes.Clear();
                 chunk.changes.AddRange(cs.changes);
                 wg.ApplyChangesToChunk(chunk);
@@ -232,6 +249,21 @@ public class SaveSystem
                 GameManager.instance.entitiesPigs.Add(obj);
             }
         }
+        
+        // Dropped items
+        foreach (var itemData in _saveData.droppedItems)
+        {
+            GameObject prefab = InventoryManager.instance.droppedItem;
+            if(prefab == null)
+                continue;
+            GameObject obj = GameObject.Instantiate(prefab, itemData.position, Quaternion.identity);
+            obj.name = itemData.itemName;
+            if (obj.TryGetComponent(out DroppedItem item))
+            {
+                item.Load(itemData);
+                GameManager.instance.droppedItems.Add(obj);
+            }
+        }
     }
 }
 
@@ -291,17 +323,10 @@ public struct EntityData
 }
 
 [System.Serializable]
-public struct FilledChunksData
-{
-    public Vector2Int position;
-}
-
-[System.Serializable]
 public struct ResourceChange
 {
-    public Vector2Int tile;         // world tile coordinate
-    public ChangeType type;         // Removed, HealthDelta, RegrowTimer …
-    public float      value;        // hp left, time remaining, etc.
+    public Vector2Int tile;
+    public ChangeType type;
 }
 
 public enum ChangeType { Removed, HealthDelta, RegrowTimer }
@@ -309,8 +334,16 @@ public enum ChangeType { Removed, HealthDelta, RegrowTimer }
 [System.Serializable]
 public struct ChunkSave
 {
-    public Vector2Int            coord;    // chunk grid coord
-    public List<ResourceChange>  changes;  // per-tile deltas
+    public Vector2Int coord;
+    public List<ResourceChange>  changes;
+}
+
+[System.Serializable]
+public struct DroppedItemData
+{
+    public Vector2 position;
+    public string itemName;
+    public int amount;
 }
 
 

@@ -51,12 +51,13 @@ public class WorldGenerator : MonoBehaviour
             Destroy(gameObject);
         }
         Debug.Log(Application.persistentDataPath);
+        GenerateTileToBiomeDictionary();
+
 
     }
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform; // Find the player object
-        GenerateTileToBiomeDictionary();
     }
 
     void Update()
@@ -593,10 +594,8 @@ public class WorldGenerator : MonoBehaviour
         tileToBiome = new Dictionary<TileBase, BiomeData>();
         foreach (var biome in biomeList)
         {
-            // dla każdego lądowego kafelka
             foreach (var land in biome.biomeTiles)
                 tileToBiome[land] = biome;
-            // oraz dla wodnego
             tileToBiome[biome.waterTile] = biome;
         }
     }

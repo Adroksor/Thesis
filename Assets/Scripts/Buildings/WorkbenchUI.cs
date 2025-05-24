@@ -19,6 +19,7 @@ public class WorkbenchUI : MonoBehaviour
     {
         selectRecipe = InventoryManager.instance.WorkbenchUI.GetComponent<SelectRecipe>();
     }
+    
 
     private void OnEnable()
     {

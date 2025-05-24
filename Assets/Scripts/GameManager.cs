@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour
     public List<GameObject> workbenches = new List<GameObject>();
     public List<GameObject> entitiesPigs = new List<GameObject>();
     public List<GameObject> resources = new List<GameObject>();
+    public List<GameObject> droppedItems = new List<GameObject>();
 
     public GameObject[] buildingPrefabs;
     public GameObject[] entityPrefabs;

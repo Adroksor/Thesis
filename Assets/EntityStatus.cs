@@ -17,6 +17,7 @@ public class EntityStatus : MonoBehaviour
     public GameObject itemPrefab;
 
     public Action onDeath;
+    public Action onDamage;
 
     private void Start()
     {
@@ -25,6 +26,7 @@ public class EntityStatus : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
+        onDamage?.Invoke();
         TweenHelper.PlayBounce(transform);
         
         sr.DOKill();

@@ -107,7 +107,27 @@ public class DroppedItem : MonoBehaviour
      public void SetItem(ItemStack itemData)
      {
           itemName = itemData.item.name;
+          gameObject.name = itemName;
           amount = itemData.amount;
           spriteRenderer.sprite = itemData.item.ItemImage;
+          
+          GameManager.instance.droppedItems.Add(gameObject);
+     }
+    
+     public void Save(ref DroppedItemData data)
+     {
+          data.position = transform.position;
+          data.itemName = transform.name;
+          data.amount = amount;
+     }
+
+     public void Load(DroppedItemData data)
+     {
+          ItemStack stack = new ItemStack
+          {
+               item = ItemDatabaseInstance.instance.GetItemByname(data.itemName),
+               amount = data.amount
+          };
+          SetItem(stack);
      }
 }

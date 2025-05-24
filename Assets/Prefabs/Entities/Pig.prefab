@@ -236,3 +236,5 @@ MonoBehaviour:
   moveSpeed: 1.5
   walkTimeRange: {x: 2, y: 3}
   idleTimeRange: {x: 1.5, y: 2}
+  fleeSpeed: 4
+  fleeDuration: 3
