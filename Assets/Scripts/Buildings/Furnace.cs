@@ -78,7 +78,7 @@ public class Furnace : MonoBehaviour
             progressBar.StartProgress(smeltTimePerItem, () =>
             {
                 currentItemFinished = true;
-                Bounce();
+                TweenHelper.PlayBounce(transform);
                 building.DropItem(new ItemStack{item = currentRecipe.Output.item, amount = currentRecipe.Output.amount});
             });
             yield return new WaitUntil(() => currentItemFinished);
@@ -137,14 +137,6 @@ public class Furnace : MonoBehaviour
         isSmelting = false;
         currentRecipe = null;
         targetAmount = 0;
-    }
-
-    public void Bounce()
-    {
-        if (animator != null)
-        {
-             animator.SetTrigger("Bounce");
-        }
     }
 
     public void RemovingFurnace(Building building)

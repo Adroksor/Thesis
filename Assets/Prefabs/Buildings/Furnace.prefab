@@ -280,7 +280,6 @@ GameObject:
   - component: {fileID: 520525488455767831}
   - component: {fileID: 787814681244267765}
   - component: {fileID: 2248738307588850206}
-  - component: {fileID: 6756575648240625282}
   - component: {fileID: 1154303405282213998}
   - component: {fileID: 3973567304029597200}
   m_Layer: 0
@@ -374,7 +373,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   progressBar: {fileID: 6529379306615921206}
-  animator: {fileID: 6756575648240625282}
+  animator: {fileID: 0}
   smeltTimePerItem: 1
   furnaceInventory:
     inputSlots: []
@@ -404,31 +403,10 @@ MonoBehaviour:
     amount: 1
   itemPrefab: {fileID: 3974185785587960047, guid: a81c3a7a9bf2e3a4886ee2bae6bb66fe, type: 3}
   isGhost: 0
+  gridPosition: {x: 0, y: 0}
   internalInventory:
     inventorySize: 0
   stats: {fileID: 0}
---- !u!95 &6756575648240625282
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4888030565546613888}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: d2ec28aa1904e074c91530567d220f0d, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!61 &1154303405282213998
 BoxCollider2D:
   m_ObjectHideFlags: 0

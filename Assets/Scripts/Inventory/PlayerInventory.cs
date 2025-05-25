@@ -28,6 +28,7 @@ public class PlayerInventory : MonoBehaviour
             hotbarData.SetData(3, new ItemStack{item = ItemDatabaseInstance.instance.GetItemByname("Furnace"), amount = 1});
             hotbarData.SetData(4, new ItemStack{item = ItemDatabaseInstance.instance.GetItemByname("Berries"), amount = 10});
             hotbarData.SetData(5, new ItemStack{item = ItemDatabaseInstance.instance.GetItemByname("IronChest"), amount = 5});
+            hotbarData.SetData(6, new ItemStack{item = ItemDatabaseInstance.instance.GetItemByname("OakFloor"), amount = 50});
             hotbarData.SetData(7, new ItemStack{item = ItemDatabaseInstance.instance.GetItemByname("WoodWall"), amount = 10});
             hotbarData.SetData(8, new ItemStack{item = ItemDatabaseInstance.instance.GetItemByname("StoneWall"), amount = 10});
         }

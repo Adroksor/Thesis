@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -60,6 +61,7 @@ public class DroppedItem : MonoBehaviour
           despawnTimer -= Time.deltaTime;
           if (despawnTimer <= 0)
           {
+               GameManager.instance.droppedItems.Remove(gameObject);
                Destroy(gameObject);
           }
      }
@@ -81,6 +83,7 @@ public class DroppedItem : MonoBehaviour
           if (remaining <= 0)
           {
                SpawnPickupText(item.Name, amount);
+               GameManager.instance.droppedItems.Remove(gameObject);
                Destroy(gameObject);
           }
           else

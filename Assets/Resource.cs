@@ -22,7 +22,6 @@ public class Resource : MonoBehaviour
     
     public void RemovingResource(Building building)
     {
-        Debug.Log("Removing resource");
         GameManager.instance.resources.Remove(gameObject);
         Destroy(gameObject);
     }

@@ -6,9 +6,16 @@ using UnityEngine;
 public class BuildableItem : ItemData
 {
     public GameObject buildingPrefab;
+    public bool occupyArea = true;
     public override bool Use(ItemUser user, ItemStack stack)
     {
-        bool placed =  BuildingPlacer.instance.PlaceBuilding(buildingPrefab);
+        bool placed = false;
+        if (!occupyArea)
+        {
+            placed = BuildingPlacer.instance.PlaceTile(buildingPrefab);
+            return placed;
+        }
+        placed =  BuildingPlacer.instance.PlaceBuilding(buildingPrefab);
         return placed;
     }
 }

@@ -171,7 +171,7 @@ public class WorldGeneratorThesis : MonoBehaviour
                         GameObject resource = Instantiate(resourcePrefab, new Vector3(worldX, worldY, 0), Quaternion.identity);
                         resource.name = resourcePrefab.name;
                         Building resBuilding = resource.GetComponent<Building>();
-                        resBuilding.Place(new Vector2Int(worldX, worldY));
+                        resBuilding.PlaceAndOccupy(new Vector2Int(worldX, worldY));
                         resource.transform.parent = chunk.chunkOBJ.transform;
                         GameManager.instance.resources.Add(resource);
                     }

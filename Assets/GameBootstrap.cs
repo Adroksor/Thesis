@@ -7,7 +7,7 @@ public class GameBootstrap : MonoBehaviour
 {
     public static GameBootstrap Instance { get; private set; }
 
-    public LaunchMode   mode       = LaunchMode.None; // set by MainMenu
+    public LaunchMode   mode       = LaunchMode.None;
 
     void Awake()
     {
@@ -15,7 +15,6 @@ public class GameBootstrap : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(this);
 
-        // When a new scene loads, decide what to do
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 

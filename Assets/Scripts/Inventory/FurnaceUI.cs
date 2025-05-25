@@ -93,15 +93,11 @@ public class FurnaceUI : MonoBehaviour
         foreach (Transform recipeUI in recipeListUI.transform)
         {
             RecipeButton recipeButton = recipeUI.GetComponent<RecipeButton>();
-            if (recipeButton == null || string.IsNullOrEmpty(recipeButton.recipeName))
-            {
-                continue;
-            }
-
+            if (recipeButton == null || string.IsNullOrEmpty(recipeButton.recipeName)) continue;
+            
             RecipeData recipe = ItemDatabaseInstance.instance.GetFurnaceRecipeByname(recipeButton.recipeName);
             if (recipe == null) continue;
 
-            // Update inputs
             Transform inputs = recipeUI.Find("Inputs");
             if (inputs != null)
             {
@@ -116,7 +112,6 @@ public class FurnaceUI : MonoBehaviour
                 }
             }
 
-            // Update outputs
             Transform outputs = recipeUI.Find("Outputs");
             if (outputs != null && outputs.childCount > 0)
             {
@@ -128,7 +123,6 @@ public class FurnaceUI : MonoBehaviour
                 }
             }
 
-            // Update interactability based on required input
             List<ItemStack> requiredItems = recipe.Input.Select(input => new ItemStack
             {
                 item = input.item,
@@ -136,7 +130,6 @@ public class FurnaceUI : MonoBehaviour
             }).ToList();
 
             bool canSmelt = InventoryManager.instance.DoesPlayerHaveItems(requiredItems);
-
             recipeButton.button.interactable = canSmelt;
         }
         UpdateSmeltButtonInteractability();
@@ -175,7 +168,6 @@ public class FurnaceUI : MonoBehaviour
         RecipeData recipe = ItemDatabaseInstance.instance.GetFurnaceRecipeByname(recipeName);
         if (recipe != null)
         {
-            Debug.Log("Clicked recipe: " + recipe.Output.item.Name);
             selectRecipe.selectedRecipe = recipe;
 
             Transform iconTransform = transform.Find("AmountSelection/ItemIcon");

@@ -94,7 +94,24 @@ public class BuildingPlacer : MonoBehaviour
             buildingOBJ.name = buildingPrefab.name;
             Building building = buildingOBJ.GetComponent<Building>();
             building.isGhost = false;
-            building.Place(mouseGridPosition);
+            building.PlaceAndOccupy(mouseGridPosition);
+            return true;
+        }
+        Debug.Log("Cannot place building here!");
+        return false;
+    }
+    public bool PlaceTile(GameObject buildingPrefab)
+    {
+        Building buildingB = buildingPrefab.GetComponent<Building>();
+        
+        if (BuildingGrid.instance.CanPlace(mouseGridPosition, buildingB))
+        {
+            GameObject buildingOBJ =  Instantiate(buildingPrefab, buildingsList.transform);
+            buildingOBJ.name = buildingPrefab.name;
+            Building building = buildingOBJ.GetComponent<Building>();
+            building.isGhost = false;
+            building.PlaceAndDontOccupy(mouseGridPosition);
+            BuildingGrid.instance.FreeArea(mouseGridPosition, buildingB.size);
             return true;
         }
         Debug.Log("Cannot place building here!");
@@ -108,7 +125,7 @@ public class BuildingPlacer : MonoBehaviour
         buildingOBJ.name = buildingPrefab.name;
         Building building = buildingOBJ.GetComponent<Building>();
         building.isGhost = false;
-        building.Place(gridPosition);
+        building.PlaceAndOccupy(gridPosition);
         return buildingOBJ;
     }
 
@@ -147,7 +164,8 @@ public class BuildingPlacer : MonoBehaviour
         
         ghostBuilding = Instantiate(selectedBuilding);
         ghostBuilding.GetComponent<Building>().isGhost = true;
-        ghostBuilding.GetComponent<Collider2D>().enabled = false;
+        if(ghostBuilding.GetComponent<Collider2D>())
+            ghostBuilding.GetComponent<Collider2D>().enabled = false;
         ghostBuilding.name = "GhostBuilding";
         SpriteRenderer sprite = ghostBuilding.GetComponent<SpriteRenderer>();
         sprite.color = new Color32(255, 255, 255, 128);

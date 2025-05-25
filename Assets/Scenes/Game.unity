@@ -2512,7 +2512,7 @@ MonoBehaviour:
   droppedItems: []
   buildingPrefabs:
   - {fileID: 4888030565546613888, guid: 4791962ddb677c348ace567f983bfb80, type: 3}
-  - {fileID: 4888030565546613888, guid: d662aa422753ad14994eef3dffe61a57, type: 3}
+  - {fileID: 4888030565546613888, guid: aa77e91e75dc6784e9584ae8d517e009, type: 3}
   - {fileID: 4314607683826619954, guid: 34ce8b5a044c4bf4383d38131c567fb0, type: 3}
   - {fileID: 2302502741258006299, guid: d5aef93eff07dc2429165205c456694b, type: 3}
   - {fileID: 5093319215209900071, guid: da1dd2d8260ce774d9cefd141584fb4f, type: 3}
@@ -4072,10 +4072,6 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: be2ee7b5ae722f94abc5dd108b0fb3a8, type: 3}
-    - target: {fileID: 3086657862852420028, guid: 3801a71c11f60f74fbc83dec007637a1, type: 3}
-      propertyPath: furnaceUI
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 4272307928983622882, guid: 3801a71c11f60f74fbc83dec007637a1, type: 3}
       propertyPath: m_IsActive
       value: 0

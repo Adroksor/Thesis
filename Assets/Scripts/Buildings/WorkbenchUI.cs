@@ -99,7 +99,6 @@ public class WorkbenchUI : MonoBehaviour
             RecipeData recipe = ItemDatabaseInstance.instance.GetWorkbenchRecipeByname(recipeButton.recipeName);
             if (recipe == null) continue;
 
-            // Update inputs
             Transform inputs = recipeUI.Find("Inputs");
             if (inputs != null)
             {
@@ -114,7 +113,6 @@ public class WorkbenchUI : MonoBehaviour
                 }
             }
 
-            // Update outputs
             Transform outputs = recipeUI.Find("Outputs");
             if (outputs != null && outputs.childCount > 0)
             {
@@ -126,26 +124,27 @@ public class WorkbenchUI : MonoBehaviour
                 }
             }
             
-            // Update interactability based on required input
             List<ItemStack> requiredItems = recipe.Input.Select(input => new ItemStack
             {
                 item = input.item,
-                amount = input.amount
+                amount = input.amount * selectedAmount
             }).ToList();
 
-            bool canSmelt = InventoryManager.instance.DoesPlayerHaveItems(requiredItems);
-
-            recipeButton.button.interactable = canSmelt;
+            bool canCraft = InventoryManager.instance.DoesPlayerHaveItems(requiredItems);
+            if (canCraft)
+            {
+                Debug.Log(recipe.name);
+            }
+            recipeButton.button.interactable = canCraft;
         }
-        UpdateCraftButtonInteractability();
+        UpdateCraftButtonInteractability(selectedAmount);
     }
     
-    public void UpdateCraftButtonInteractability()
+    public void UpdateCraftButtonInteractability(int selectedAmount)
     {
         RecipeData recipe = selectRecipe.selectedRecipe;
-        int amount = selectRecipe.amountSelection.amount;
 
-        if (recipe == null || amount <= 0)
+        if (recipe == null)
         {
             craftButton.interactable = false;
             return;
@@ -158,7 +157,7 @@ public class WorkbenchUI : MonoBehaviour
             totalNeededItems.Add(new ItemStack
             {
                 item = input.item,
-                amount = input.amount * amount
+                amount = input.amount * selectedAmount
             });
         }
 
@@ -191,7 +190,8 @@ public class WorkbenchUI : MonoBehaviour
                 }
             }
         }
-        UpdateCraftButtonInteractability();
+
+        UpdateCraftButtonInteractability(selectRecipe.amountSelection.amount);
 
     }
 }

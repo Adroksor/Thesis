@@ -306,9 +306,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 3086657862852420028}
         m_TargetAssemblyTypeName: SelectRecipe, Assembly-CSharp
-        m_MethodName: ButtonStart
+        m_MethodName: StartSmelting
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -457,7 +457,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4b78424ff652b04697d5c315b058737, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  furnaceUI: {fileID: 0}
+  furnaceUI: {fileID: 500158399139161482}
   workbenchUI: {fileID: 0}
   selectedRecipe: {fileID: 0}
   amountSelection: {fileID: 261170923162216802}

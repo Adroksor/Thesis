@@ -43,10 +43,16 @@ public class Building : MonoBehaviour
     }
 
 
-    public void Place(Vector2Int position)
+    public void PlaceAndOccupy(Vector2Int position)
     {
         gridPosition = position;
         BuildingGrid.instance.OccupyArea(position, this);
+        transform.position = new Vector3(position.x, position.y, 0);
+    }
+    
+    public void PlaceAndDontOccupy(Vector2Int position)
+    {
+        gridPosition = position;
         transform.position = new Vector3(position.x, position.y, 0);
     }
 

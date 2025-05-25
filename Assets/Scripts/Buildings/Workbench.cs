@@ -79,7 +79,7 @@ public class Workbench : MonoBehaviour
             progressBar.StartProgress(craftTimePerItem, () =>
             {
                 currentItemFinished = true;
-                Bounce();
+                TweenHelper.PlayBounce(transform);
                 building.DropItem(new ItemStack{item = currentRecipe.Output.item, amount = currentRecipe.Output.amount});
             });
             yield return new WaitUntil(() => currentItemFinished);
@@ -140,13 +140,6 @@ public class Workbench : MonoBehaviour
         targetAmount = 0;
     }
 
-    public void Bounce()
-    {
-        if (animator != null)
-        {
-             animator.SetTrigger("Bounce");
-        }
-    }
 
     public void RemovingWorkbench(Building building)
     {

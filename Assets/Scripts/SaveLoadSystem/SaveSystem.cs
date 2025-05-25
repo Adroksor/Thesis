@@ -39,6 +39,16 @@ public class SaveSystem
         File.WriteAllText(SaveFileName(), JsonUtility.ToJson(_saveData, true));
     }
 
+    public static void Load()
+    {
+        Debug.Log("Load called");
+        
+        string saveContent = File.ReadAllText(SaveFileName());
+        _saveData = JsonUtility.FromJson<SaveData>(saveContent);
+        
+        HandleLoadData();
+    }
+
     private static void HandleSaveData()
     {
         // Player
@@ -135,18 +145,6 @@ public class SaveSystem
                 _saveData.droppedItems.Add(posData);
             }
         }
-
-        
-    }
-
-    public static void Load()
-    {
-        Debug.Log("Load called");
-        
-        string saveContent = File.ReadAllText(SaveFileName());
-        _saveData = JsonUtility.FromJson<SaveData>(saveContent);
-        
-        HandleLoadData();
     }
     
     private static void HandleLoadData()
@@ -157,8 +155,6 @@ public class SaveSystem
         GameManager.instance.resources.Clear();
         GameManager.instance.droppedItems.Clear();
 
-        
-        
         // Player
         GameManager.instance.player.TryGetComponent(out Player player);
         player.Load(_saveData.playerSaveData);
@@ -235,6 +231,21 @@ public class SaveSystem
             }
         }
         
+        // Workbenches
+        foreach (var workbenchData in _saveData.workbenches)
+        {
+            GameObject prefab = GameManager.instance.GetObjectByName(workbenchData.buildingName);
+            if(prefab == null)
+                continue;
+            GameObject obj = BuildingPlacer.instance.PlaceBuildingFromSave(prefab, Vector2Int.RoundToInt(workbenchData.position));
+            obj.name = workbenchData.buildingName;
+
+            if (obj.TryGetComponent(out Workbench building))
+            {
+                building.Load(workbenchData);
+            }
+        }
+        
         // Entities
         foreach (var entityData in _saveData.entities)
         {
@@ -261,7 +272,6 @@ public class SaveSystem
             if (obj.TryGetComponent(out DroppedItem item))
             {
                 item.Load(itemData);
-                GameManager.instance.droppedItems.Add(obj);
             }
         }
     }
@@ -275,6 +285,7 @@ public struct PlayerData
     public Vector2 position;
     public List<SlotSaveData> inventory;
     public List<SlotSaveData> hotbar;
+    public int selectedSlotIndex;
 }
 
 [System.Serializable]
